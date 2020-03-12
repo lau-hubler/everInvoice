@@ -15,7 +15,7 @@ class LoginTest extends TestCase
 
     public function test_unauthenticated_user_can_access_login_view()
     {
-        $response = $this->get('/login');
+        $response = $this->get(route('login'));
 
         $response->assertSuccessful();
         $response->assertViewIs('auth.login');
@@ -25,7 +25,7 @@ class LoginTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->get('/login');
+        $response = $this->actingAs($user)->get(route('login'));
 
         $response->assertRedirect('/home');
     }
@@ -35,7 +35,7 @@ class LoginTest extends TestCase
         $user = factory(User::class)->create([
             'password' => bcrypt($password = 'myPassword'),
         ]);
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => $user->email,
             'password' => $password,
         ]);
@@ -48,7 +48,7 @@ class LoginTest extends TestCase
         $user = factory(User::class)->create([
             'password' => bcrypt($password = 'myPassword'),
         ]);
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'incorrectPassword',
         ]);

@@ -14,7 +14,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        if (request()->wantsJson()) {
+            return $categories;
+        }
+
+        return view('category.index', compact('categories'));
     }
 
     /**
