@@ -1,10 +1,7 @@
 <template>
     <b-modal ref="create-modal" :title="title">
         <p>{{ message }}</p>
-        <b-form ref="create-form" :action="action" method="POST">
-            <input :value="CSRFToken" type="hidden" name="_token">
-            <component :is="component" v-bind="props" :error="error" :dfields="dataFields"/>
-        </b-form>
+        <component :is="component" ref="create-form" v-bind="props" :error="error"/>
         <template v-slot:modal-footer>
             <b-button @click="cancel()" variant="secondary">{{ cancelText }}</b-button>
             <b-button @click="submit()" variant="success">{{ okText }}</b-button>
@@ -44,23 +41,21 @@ export default {
         return {
             component: null,
             props: null,
-            CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
         }
     },
 
     methods: {
         cancel() {
-            this.hide();
+            this.hide()
         },
         submit() {
-            this.hide();
-            this.$refs['create-form'].submit();
+            EventBus.$emit('submit-form', { action: this.action})
         },
         show() {
             this.$refs['create-modal'].show()
         },
         hide() {
-            this.$refs['create-modal'].hide();
+            this.$refs['create-modal'].hide()
         },
         handleKeyup (e) {
             if (e.keyCode === 27) this.hide()

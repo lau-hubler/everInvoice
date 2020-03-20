@@ -10,7 +10,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Category[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class CategoryController extends Controller
             return $categories;
         }
 
-        return view('category.index', compact('categories'));
+        return response()->view('category.index', compact('categories'));
     }
 
     /**
@@ -31,7 +31,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->iva = $request->iva;
+        $category->save();
     }
 
     /**
@@ -54,7 +58,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category = Category::find($category);
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->iva = $request->iva;
+        $category->save();
     }
 
     /**
@@ -65,6 +73,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category = Category::find($category);
+        $category->delete();
     }
 }

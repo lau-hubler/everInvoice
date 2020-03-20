@@ -3,18 +3,18 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 //Costum components
-import PCreateButtom from "./components/buttons/PCreateButtom";
+import PCreateButton from "./components/buttons/PCreateButton";
 import PCategoryForm from "./components/forms/PCategoryForm";
-import PTextInputWithValidation from "./components/inputs/PTextInputWithValidation";
+import PTextInput from "./components/inputs/PTextInput";
 import PCategoriesTable from "./components/tables/PCategoriesTable";
 import PModal from "./components/PModal";
 import PModalRoot from "./components/PModalRoot";
 import PShowCategory from "./components/PShowCategory";
 import PCreateModal from "./components/PCreateModal";
 
-Vue.component("p-create-buttom", PCreateButtom);
+Vue.component("p-create-button", PCreateButton);
 Vue.component("p-category-form", PCategoryForm);
-Vue.component("p-text-input", PTextInputWithValidation);
+Vue.component("p-text-input", PTextInput);
 Vue.component("p-categories-table", PCategoriesTable);
 Vue.component("p-modal", PModal);
 Vue.component("p-modal-root", PModalRoot);
