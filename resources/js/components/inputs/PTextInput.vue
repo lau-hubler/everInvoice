@@ -10,12 +10,14 @@
     :label-for="$attrs.id"
     v-bind="$attrs"
     >
-        <b-form-input
-          v-model="innerValue"
-          v-bind="$attrs"
-          :state="errors[0] ? false : (validated ? true : null)"
-        >
-        </b-form-input>
+        <b-input-group v-bind="$attrs">
+            <b-form-input
+                v-model="innerValue"
+                v-bind="$attrs"
+                :state="errors[0] ? false : (validated ? true : null)"
+            >
+            </b-form-input>
+        </b-input-group>
         <b-form-invalid-feedback :state="errors[0] ? false : null">
           {{ errors[0] }}
         </b-form-invalid-feedback>

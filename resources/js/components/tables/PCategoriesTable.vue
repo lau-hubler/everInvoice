@@ -6,7 +6,7 @@
       :fields="fields"
       :per-page="perPage"
       :current-page="currentPage"
-      striped 
+      striped
       hover
       sort-icon-left
       no-border-collapse
@@ -16,6 +16,9 @@
     >
         <template v-slot:cell(iva)="data">
             {{ data.value | percentage }}
+        </template>
+        <template v-slot:cell(updated_at)="data">
+            {{ data.value | dateTime }}
         </template>
         <template v-slot:cell(actions)="row">
             <div class="btn-group btn-group-sm" role="group">
@@ -29,7 +32,7 @@
                     <font-awesome-icon icon="trash" />
                 </a>
             </div>
-        </template>        
+        </template>
     </b-table>
     <b-pagination
       v-model="currentPage"
@@ -120,12 +123,20 @@ export default {
                 title: 'Showing category',
                 props: { category: item }
             })
+        },
+
+        addCategory(category) {
+            this.categories.push(category)
         }
     },
 
     mounted() {
         axios.get('/categories').then(response =>
         this.categories = response.data)
+
+        EventBus.$on('new-category', (category) => {
+            this.addCategory(category)
+        })
     }
 }
 </script>

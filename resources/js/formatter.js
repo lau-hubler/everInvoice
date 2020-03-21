@@ -1,4 +1,5 @@
 import numeral from 'numeral'
+import moment from 'moment'
 
 const percentageFormatter = function(value) {
   if(!value){
@@ -6,7 +7,7 @@ const percentageFormatter = function(value) {
   }
 
   return numeral(value).format('0.0%')
-} 
+}
 
 const moneyFormatter = function(value) {
   if(!value){
@@ -14,6 +15,13 @@ const moneyFormatter = function(value) {
   }
 
   return numeral(value).format('($0,0.00 a)')
-} 
+}
 
-export { percentageFormatter, moneyFormatter }
+const dateTimeFormatter = function (value, lang) {
+    moment.locale("en")
+    if (value) {
+        return moment(String(value)).format('LLL')
+    }
+}
+
+export { percentageFormatter, moneyFormatter, dateTimeFormatter }

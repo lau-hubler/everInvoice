@@ -23,8 +23,10 @@ Vue.component("p-create-modal", PCreateModal);
 
 //Costum formatters
 import { percentageFormatter } from "./formatter"
+import { dateTimeFormatter} from "./formatter"
 
 Vue.filter('percentage', percentageFormatter)
+Vue.filter('dateTime', dateTimeFormatter)
 
 // Bootstrap-vue
 import BootstrapVue from 'bootstrap-vue';

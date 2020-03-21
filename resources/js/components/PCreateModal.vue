@@ -1,7 +1,7 @@
 <template>
     <b-modal ref="create-modal" :title="title">
         <p>{{ message }}</p>
-        <component :is="component" ref="create-form" v-bind="props" :error="error"/>
+        <component :is="component" ref="create-form" v-bind="props" :error="error" :route="action"/>
         <template v-slot:modal-footer>
             <b-button @click="cancel()" variant="secondary">{{ cancelText }}</b-button>
             <b-button @click="submit()" variant="success">{{ okText }}</b-button>
@@ -66,10 +66,10 @@ export default {
             this.component = component
             this.props = props
             this.show();
-        });
-        if (this.error) {
-            this.show();
-        }
+        })
+
+        EventBus.$on('close-modal', this.hide)
+
         document.addEventListener('keyup', this.handleKeyup)
     },
 

@@ -21,12 +21,13 @@
                 placeholder="Describe your category"
             />
             <p-text-input
-                rules="required|max_value:100"
+                rules="required|max_value:100|min_value:0"
                 type="text"
                 label="IVA:"
                 name="iva"
                 v-model="iva"
                 placeholder="19.0%"
+                append="%"
                 description="Type the iva for this category"
             />
             <b-button hidden ref="submit-btn" type="submit" />
@@ -40,33 +41,52 @@ import PTextInput from "../inputs/PTextInput";
 import EventBus from "../../eventBus";
 
 export default {
-  name: "PCategoryForm",
+    name: "PCategoryForm",
 
-  components: {
-    ValidationObserver,
-    PTextInput,
-  },
+    props: {
+        route: {
+            type: String
+        },
+    },
 
-  data: () => ({
-    email: "",
-    name: "",
-    description: "",
-    iva: "",
-    action: "",
-    CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
-  }),
+    components: {
+        ValidationObserver,
+        PTextInput,
+    },
 
-  created () {
-    EventBus.$on('submit-form', this.submitForm)
-  },
+    data: () => ({
+        name: "",
+        description: "",
+        iva: "",
+        CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
+    }),
+
+    created () {
+        EventBus.$on('submit-form', this.submitForm)
+    },
 
     methods: {
         onSubmit() {
+            const params = {
+                name: this.name,
+                description: this.description,
+                iva: this.convertedIva()
+            }
 
+            axios.post(this.route, params)
+                .then((response) => {
+                    const category = response.data
+                    EventBus.$emit('new-category', category)
+                    EventBus.$emit('close-modal')
+            })
         },
 
         submitForm() {
             this.$refs["submit-btn"].click()
+        },
+
+        convertedIva() {
+            return  this.iva / 100
         }
     }
 };

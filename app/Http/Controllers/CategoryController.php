@@ -36,6 +36,8 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->iva = $request->iva;
         $category->save();
+
+        return $category;
     }
 
     /**
