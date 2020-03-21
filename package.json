@@ -48,7 +48,6 @@
         "bootstrap-vue": "^2.6.1",
         "core-js": "^3.6.4",
         "font-awesome": "^4.7.0",
-        "fsevents": "^2.1.2",
         "numeral": "^2.0.6",
         "vee-validate": "^2.2.15",
         "vue-fontawesome": "0.0.2"
@@ -84,5 +83,8 @@
                 }
             ]
         ]
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.1.2"
     }
 }

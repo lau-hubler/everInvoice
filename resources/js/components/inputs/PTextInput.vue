@@ -7,9 +7,8 @@
   v-slot="{ errors, validated }"
   >
     <b-form-group
-    :description="description"
-    :label="label"
     :label-for="$attrs.id"
+    v-bind="$attrs"
     >
         <b-form-input
           v-model="innerValue"
@@ -31,28 +30,17 @@ export default {
   components: {
     ValidationProvider
   },
-   
-   inject: [ 'parentValidator' ],
 
   props: {
     vid: {
       type: String
     },
+
     rules: {
       type: [Object, String],
       default: ''
     },
-    label: {
-        type: String,
-        default: null
-    },
-    description: {
-        type: String,
-        default: null
-    },
-    error: {
-      default: null,
-    },
+
      value: {
         type: null
      }
@@ -61,35 +49,21 @@ export default {
    data: () => ({
       innerValue: ''
    }),
-   
-   watch: {
-      // Handles internal model changes.
-      innerValue (newVal) {
-         this.$emit('input', newVal);
-      },
-      // Handles external model changes.
-      value (newVal) {
-         this.innerValue = newVal;
-      }
-   },
-   
-   created () {
-      this.$validator = this.parentValidator
-      if (this.value) {
-         this.innerValue = this.value;
-      }
-   },
 
-  mounted() {
-    if (this.error) {
-        this.addError(this.error);
-    }
-  },
+    watch: {
+        innerValue (newVal) {
+            this.$emit('input', newVal);
+        },
 
-  methods: {
-    addError(error) {
-        this.$refs.validationProvider.setErrors([this.error]);
+        value (newVal) {
+            this.innerValue = newVal;
+        }
+    },
+
+    created () {
+        if (this.value) {
+            this.innerValue = this.value;
+        }
     }
-  },
 };
 </script>
