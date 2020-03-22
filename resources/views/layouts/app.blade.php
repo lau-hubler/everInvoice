@@ -80,4 +80,5 @@
         </main>
     </div>
 </body>
+<script src="/js/lang-{{ \App::getLocale() }}.js"></script>
 </html>

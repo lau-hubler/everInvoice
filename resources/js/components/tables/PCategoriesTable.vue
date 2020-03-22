@@ -85,7 +85,7 @@ export default {
                 },
                 {
                     key: 'name',
-                    label: this.name,
+                    label: "trans('category.name.label')",
                     sortable: true
                 },
                 {

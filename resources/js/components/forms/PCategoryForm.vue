@@ -7,28 +7,28 @@
             <p-text-input
                 rules="required|min:3"
                 type="text"
-                label="Name:"
+                :label="trans('category.name.label')"
                 name="name"
                 v-model="name"
-                placeholder="Enter your category name"
+                :placeholder="trans('category.name.placeholder')"
             />
             <p-text-input
                 rules="required|min:5"
                 type="text"
-                label="Description:"
+                :label="trans('category.description.label')"
                 name="description"
                 v-model="description"
-                placeholder="Describe your category"
+                :placeholder="trans('category.description.placeholder')"
             />
             <p-text-input
                 rules="required|max_value:100|min_value:0"
                 type="text"
-                label="IVA:"
+                :label="trans('category.iva.label')"
                 name="iva"
                 v-model="iva"
-                placeholder="19.0%"
+                :placeholder="trans('category.iva.placeholder')"
                 append="%"
-                description="Type the iva for this category"
+                :description="trans('category.iva.description')"
             />
             <b-button hidden ref="submit-btn" type="submit" />
       </b-form>

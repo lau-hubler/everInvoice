@@ -2,7 +2,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-//Costum components
+//Custom components
 import PCreateButton from "./components/buttons/PCreateButton";
 import PCategoryForm from "./components/forms/PCategoryForm";
 import PTextInput from "./components/inputs/PTextInput";
@@ -21,7 +21,7 @@ Vue.component("p-modal-root", PModalRoot);
 Vue.component("p-show-category", PShowCategory);
 Vue.component("p-create-modal", PCreateModal);
 
-//Costum formatters
+//Custom formatters
 import { percentageFormatter } from "./formatter"
 import { dateTimeFormatter} from "./formatter"
 
@@ -45,6 +45,24 @@ library.add(faEye, faEdit, faTrash)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+//Translation
+import _ from "lodash"
+window.Vue.prototype.trans = string => _.get(window.i18n, string)
+
+window.Vue.prototype.transChoice = (string, plural, args) => {
+    let value = _.get(window.i18n, string);
+
+    if (plural === 1) {
+        value = value.split('|')[0];
+    } else if (plural === 0 || plural > 1) {
+        value = value.split('|')[1];
+    }
+
+    _.eachRight(args, (paramVal, paramKey) => {
+        value = _.replace(value, `:${paramKey}`, paramVal);
+    });
+    return value;
+}
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
