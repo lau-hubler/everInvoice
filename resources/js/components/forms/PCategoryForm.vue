@@ -9,7 +9,7 @@
                 type="text"
                 :label="trans('category.name.label')"
                 name="name"
-                v-model="name"
+                v-model="category.name"
                 :placeholder="trans('category.name.placeholder')"
             />
             <p-text-input
@@ -17,7 +17,7 @@
                 type="text"
                 :label="trans('category.description.label')"
                 name="description"
-                v-model="description"
+                v-model="category.description"
                 :placeholder="trans('category.description.placeholder')"
             />
             <p-text-input
@@ -25,69 +25,36 @@
                 type="text"
                 :label="trans('category.iva.label')"
                 name="iva"
-                v-model="iva"
+                v-model="category.iva"
                 :placeholder="trans('category.iva.placeholder')"
                 append="%"
                 :description="trans('category.iva.description')"
             />
             <b-button hidden ref="submit-btn" type="submit" />
-      </b-form>
-  </ValidationObserver>
+        </b-form>
+    </ValidationObserver>
 </template>
 
 <script>
-import { ValidationObserver } from "vee-validate";
-import PTextInput from "../inputs/PTextInput";
-import EventBus from "../../eventBus";
+    import PTextInput from "../inputs/PTextInput";
+    import {ValidationObserver} from "vee-validate";
 
-export default {
-    name: "PCategoryForm",
+    export default {
+        name: "PCategoryForm",
 
-    props: {
-        route: {
-            type: String
-        },
-    },
+        components: { PTextInput, ValidationObserver },
 
-    components: {
-        ValidationObserver,
-        PTextInput,
-    },
+        props: { item: Object },
 
-    data: () => ({
-        name: "",
-        description: "",
-        iva: "",
-        CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
-    }),
+        data: () => ({
+            category: "",
+            CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
+        }),
 
-    created () {
-        EventBus.$on('submit-form', this.submitForm)
-    },
-
-    methods: {
-        onSubmit() {
-            const params = {
-                name: this.name,
-                description: this.description,
-                iva: this.convertedIva()
+        created () {
+            if (this.value) {
+                this.category = this.item;
             }
-
-            axios.post(this.route, params)
-                .then((response) => {
-                    const category = response.data
-                    EventBus.$emit('new-category', category)
-                    EventBus.$emit('close-modal')
-            })
-        },
-
-        submitForm() {
-            this.$refs["submit-btn"].click()
-        },
-
-        convertedIva() {
-            return  this.iva / 100
         }
     }
-};
 </script>

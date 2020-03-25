@@ -19,5 +19,6 @@ return [
         'placeholder' => '19%',
         'description' => 'Type the iva for this category',
     ],
+    'createdAt' => 'Created at',
     'updatedAt' => 'Updated at',
 ];

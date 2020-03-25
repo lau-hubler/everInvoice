@@ -8,7 +8,12 @@ return [
         'modalOkText' => 'Crear',
         'modalCancelText' => 'Cancelar',
     ],
-
+    'modal' => [
+        'cancelText' => 'Cancelar',
+        'editText' => 'Editar',
+        'updateText' => 'Salvar',
+        'deleteText' => 'Deletar'
+    ],
     'import' => 'Importar',
     'search' => 'Buscar',
 

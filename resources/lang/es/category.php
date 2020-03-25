@@ -19,5 +19,6 @@ return [
         'placeholder' => '19%',
         'description' => 'Escriba el IVA de esa categoría',
     ],
+    'createdAt' => 'Creado en',
     'updatedAt' => 'Actualizado en',
 ];

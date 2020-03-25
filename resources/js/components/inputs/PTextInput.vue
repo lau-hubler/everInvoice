@@ -7,6 +7,9 @@
   v-slot="{ errors, validated }"
   >
     <b-form-group
+    label-cols-sm="3"
+    label-align-sm="right"
+    label-class="font-weight-bold"
     :label-for="$attrs.id"
     v-bind="$attrs"
     >

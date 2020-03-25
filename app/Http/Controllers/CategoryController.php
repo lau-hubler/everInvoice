@@ -20,7 +20,7 @@ class CategoryController extends Controller
             return $categories;
         }
 
-        return response()->view('category.index', compact('categories'));
+        return response()->view('category', compact('categories'));
     }
 
     /**

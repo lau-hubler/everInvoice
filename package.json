@@ -50,6 +50,7 @@
         "font-awesome": "^4.7.0",
         "moment": "^2.24.0",
         "numeral": "^2.0.6",
+        "sweetalert": "^2.1.2",
         "vee-validate": "^2.2.15",
         "vue-fontawesome": "0.0.2",
         "vue-i18n": "^8.15.5"
