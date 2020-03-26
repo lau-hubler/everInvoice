@@ -1,10 +1,17 @@
 <template>
-    <p-category-form v-model="category"></p-category-form>
+    <ValidationObserver ref="observer" v-slot="{ validate }">
+        <b-form @submit.prevent="validate().then(onSubmit)">
+            <p-category-form v-model="item"></p-category-form>
+            <b-button hidden ref="submit-btn" type="submit" />
+        </b-form>
+    </ValidationObserver>
 </template>
 
 <script>
 import PCategoryForm from "../forms/PCategoryForm"
 import EventBus from "../../eventBus";
+import {ValidationObserver} from "vee-validate";
+
 
 export default {
     name: "PCreateCategory",
@@ -15,10 +22,10 @@ export default {
         },
     },
 
-    components: { PCategoryForm },
+    components: { PCategoryForm, ValidationObserver },
 
     data: () => ({
-        category: {
+        item: {
             name: "",
             description: "",
             iva: ""
@@ -32,8 +39,8 @@ export default {
     methods: {
         onSubmit() {
             const params = {
-                name: this.name,
-                description: this.description,
+                name: this.item.name,
+                description: this.item.description,
                 iva: this.convertedIva()
             }
 
@@ -50,7 +57,7 @@ export default {
         },
 
         convertedIva() {
-            return  this.iva / 100
+            return  this.item.iva / 100
         }
     }
 };

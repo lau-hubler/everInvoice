@@ -2,53 +2,54 @@
     <div>
         <b-button v-if="editMode" @click="save()" variant="success">
             <font-awesome-icon size="xs" icon="save" />
-            <span class="pl-1">{{ trans('app.modal.updateText') }}</span>
+            <span class="pl-1">{{ trans("app.modal.updateText") }}</span>
         </b-button>
 
         <b-button v-else @click="edit()" variant="primary">
             <font-awesome-icon size="xs" icon="edit" />
-            <span class="pl-1">{{ trans('app.modal.editText') }}</span>
+            <span class="pl-1">{{ trans("app.modal.editText") }}</span>
         </b-button>
 
         <b-button @click="deleteItem()" variant="danger" class="mx-1">
             <font-awesome-icon size="xs" icon="trash" />
-            <span class="pl-1">{{ trans('app.modal.deleteText') }}</span>
+            <span class="pl-1">{{ trans("app.modal.deleteText") }}</span>
         </b-button>
 
         <b-button @click="cancel()" variant="secondary">
             <font-awesome-icon size="xs" icon="times" />
-            <span class="pl-1">{{ trans('app.modal.cancelText') }}</span>
+            <span class="pl-1">{{ trans("app.modal.cancelText") }}</span>
         </b-button>
     </div>
 </template>
 
 <script>
-    import EventBus from "../eventBus";
+import EventBus from "../eventBus";
 
-    export default {
-        data () {
-            return {
-                editMode: false
-            }
+export default {
+    data() {
+        return {
+            editMode: false,
+        };
+    },
+    methods: {
+        cancel() {
+            EventBus.$emit("close-modal");
         },
-        methods: {
-            cancel() {
-                EventBus.$emit("close-modal")
-            },
-            deleteItem() {
-                alert("Delete")
-            },
-            edit() {
-                this.toggleEditMode()
-                EventBus.$emit("edit")
-            },
-            save() {
-                this.toggleEditMode()
-            },
+        deleteItem() {
+            EventBus.$emit("delete");
+        },
+        edit() {
+            this.toggleEditMode();
+            EventBus.$emit("edit");
+        },
+        save() {
+            this.toggleEditMode();
+            EventBus.$emit("save");
+        },
 
-            toggleEditMode() {
-                this.editMode = !this.editMode
-            }
+        toggleEditMode() {
+            this.editMode = !this.editMode;
         },
-    }
+    },
+};
 </script>

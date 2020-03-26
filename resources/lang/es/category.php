@@ -21,4 +21,5 @@ return [
     ],
     'createdAt' => 'Creado en',
     'updatedAt' => 'Actualizado en',
+    'showTitle' => 'Detalles de la categoría'
 ];

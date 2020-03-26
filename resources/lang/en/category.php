@@ -21,4 +21,5 @@ return [
     ],
     'createdAt' => 'Created at',
     'updatedAt' => 'Updated at',
+    'showTitle' => 'Showing details'
 ];

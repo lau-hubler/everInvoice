@@ -70,12 +70,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param \App\Category $category
+     * @return void
+     * @throws \Exception
      */
     public function destroy(Category $category)
     {
-        $category = Category::find($category);
         $category->delete();
     }
 }

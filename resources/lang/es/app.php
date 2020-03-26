@@ -8,6 +8,10 @@ return [
         'modalOkText' => 'Crear',
         'modalCancelText' => 'Cancelar',
     ],
+    'delete' => [
+        'modalTitle' => '¿Deletar',
+        'modalMessage' => 'Esa acción no es reversible. ¿Desea realmente deletar?',
+    ],
     'modal' => [
         'cancelText' => 'Cancelar',
         'editText' => 'Editar',

@@ -13,10 +13,6 @@ import swal from "sweetalert";
 
 export default {
     props: {
-        title: {
-            type: String,
-            default: "Showing Details"
-        },
         item: Object,
         action: {
             type: String
@@ -27,7 +23,8 @@ export default {
         return {
             component: null,
             props: null,
-            editMode: false
+            editMode: false,
+            title: null
         };
     },
 
@@ -54,7 +51,8 @@ export default {
                 text:
                     "You have unsaved changes. Are you sure you want to leave?",
                 icon: "warning",
-                buttons: ["Discard change", "Save it"]
+                buttons: ["Discard change", "Save it"],
+                closeOnClickOutside: false,
             }).then(willSave => {
                 if (willSave) {
                     swal({
@@ -69,8 +67,9 @@ export default {
     },
 
     mounted() {
-        EventBus.$on("show-item", ({ component, props = null }) => {
+        EventBus.$on("show-item", ({ component, title, props = null }) => {
             this.component = component;
+            this.title = title;
             this.props = props;
             this.show();
         });
