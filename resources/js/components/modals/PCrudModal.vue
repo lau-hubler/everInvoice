@@ -1,6 +1,6 @@
 <template>
     <b-modal ref="custom-modal" id="modal" :title="title" @hide="handleHide">
-        <component :is="component" v-bind="props" :route="action" />
+        <component :is="component" v-bind="props" :action="action" />
         <template v-slot:modal-footer>
             <p-modal-footer />
         </template>
@@ -13,18 +13,17 @@ import swal from "sweetalert";
 
 export default {
     props: {
-        item: Object,
         action: {
-            type: String
-        }
+            type: String,
+        },
     },
 
     data() {
         return {
             component: null,
+            title: null,
             props: null,
             editMode: false,
-            title: null
         };
     },
 
@@ -53,17 +52,18 @@ export default {
                 icon: "warning",
                 buttons: ["Discard change", "Save it"],
                 closeOnClickOutside: false,
-            }).then(willSave => {
+            }).then((willSave) => {
                 if (willSave) {
+                    EventBus.$emit("save")
                     swal({
                         text: "Your item has been saved!",
-                        timer: 3000
+                        timer: 3000,
                     });
                 }
                 this.editMode = false;
                 this.handleHide();
             });
-        }
+        },
     },
 
     mounted() {
@@ -74,8 +74,9 @@ export default {
             this.show();
         });
 
-        EventBus.$on("close-modal", this.handleHide);
         EventBus.$on("edit", this.toggleEditMode);
-    }
+        EventBus.$on("save", this.toggleEditMode);
+        EventBus.$on("close-modal", this.handleHide);
+    },
 };
 </script>

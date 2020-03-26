@@ -43,7 +43,6 @@ export default {
             EventBus.$emit("edit");
         },
         save() {
-            this.toggleEditMode();
             EventBus.$emit("save");
         },
 

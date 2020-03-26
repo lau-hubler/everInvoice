@@ -1,6 +1,6 @@
 <template>
     <ValidationObserver ref="observer">
-        <input :value="CSRFToken" type="hidden" name="_token">
+        <input :value="CSRFToken" type="hidden" name="_token" />
         <p-text-input
             rules="required|min:3"
             type="text"
@@ -31,38 +31,40 @@
 </template>
 
 <script>
-    import PTextInput from "../inputs/PTextInput";
-    import {ValidationObserver} from "vee-validate";
+import PTextInput from "../inputs/PTextInput";
+import { ValidationObserver } from "vee-validate";
 
-    export default {
-        name: "PCategoryForm",
+export default {
+    name: "PCategoryForm",
 
-        components: { PTextInput, ValidationObserver },
+    components: { PTextInput, ValidationObserver },
 
-        props: {
-            value: {
-                type: null
-            } },
+    props: {
+        value: {
+            type: null,
+        },
+    },
 
-        data: () => ({
-            category: "",
-            CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
-        }),
+    data: () => ({
+        category: "",
+        CSRFToken: document.head.querySelector("[name=csrf-token][content]")
+            .content,
+    }),
 
-        watch: {
-            innerValue (newVal) {
-                this.$emit('input', newVal);
-            },
-
-            value (newVal) {
-                this.innerValue = newVal;
-            }
+    watch: {
+        innerValue(newVal) {
+            this.$emit("input", newVal);
         },
 
-        created () {
-            if (this.value) {
-                this.category = this.value;
-            }
+        value(newVal) {
+            this.innerValue = newVal;
+        },
+    },
+
+    created() {
+        if (this.value) {
+            this.category = this.value;
         }
-    }
+    },
+};
 </script>

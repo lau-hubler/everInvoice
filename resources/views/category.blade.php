@@ -12,6 +12,7 @@
   </div>
   <div class="card-body">
     <p-categories-table
+            action="{{ route('categories.index') }}"
             description="{{ __('category.description.title') }}"
             name="{{ __('category.name.title') }}"
             updated_at="{{ __('category.updatedAt') }}"

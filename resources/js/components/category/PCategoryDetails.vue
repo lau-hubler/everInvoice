@@ -34,7 +34,23 @@
         name: "PCategoryDetails",
 
         props: {
-            category: Object
+            item: {
+                type: null,
+            },
+            action: {
+                type: null
+            }
         },
+
+        data: () => ({
+            category: null,
+        }),
+
+        created(){
+            axios
+                .get(`/categories/${this.item.id}`)
+                .then((response) => (this.category = response.data));
+        }
+
     };
 </script>

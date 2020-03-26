@@ -4,20 +4,25 @@ window.Vue = require("vue");
 
 //Custom components
 import PCreateButton from "./components/buttons/PCreateButton";
+import PDeleteButton from "./components/buttons/PDeleteButton";
 import PShowButton from "./components/buttons/PShowButton";
 Vue.component("p-create-button", PCreateButton);
+Vue.component("p-delete-button", PDeleteButton);
 Vue.component("p-show-button", PShowButton);
 
 import PCategoriesTable from "./components/category/PCategoriesTable";
-import PCategoryCrud from "./components/category/PCategoryCrud"
+import PCategoryCrud from "./components/category/PCategoryCrud";
 import PCategoryDetails from "./components/category/PCategoryDetails";
 import PCreateCategory from "./components/category/PCreateCategory";
+import PUpdateCategory from "./components/category/PUpdateCategory";
 Vue.component("p-create-category", PCreateCategory);
+Vue.component("p-update-category", PUpdateCategory);
 Vue.component("p-category-crud", PCategoryCrud);
 Vue.component("p-category-details", PCategoryDetails);
 Vue.component("p-categories-table", PCategoriesTable);
 
-import PCategoryForm from "./components/forms/PCategoryForm.vue" ;
+
+import PCategoryForm from "./components/forms/PCategoryForm.vue";
 Vue.component("p-category-form", PCategoryForm);
 
 import PTextInput from "./components/inputs/PTextInput";
@@ -52,7 +57,7 @@ import {
     faEdit,
     faTrash,
     faTimes,
-    faSave
+    faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -62,7 +67,7 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 //Translation
 import _ from "lodash";
-window.Vue.prototype.trans = string => _.get(window.i18n, string);
+window.Vue.prototype.trans = (string) => _.get(window.i18n, string);
 
 window.Vue.prototype.transChoice = (string, plural, args) => {
     let value = _.get(window.i18n, string);
@@ -85,5 +90,5 @@ window.Vue.prototype.transChoice = (string, plural, args) => {
  */
 
 const app = new Vue({
-    el: "#app"
+    el: "#app",
 });

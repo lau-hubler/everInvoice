@@ -8,7 +8,6 @@
 import EventBus from "../../eventBus";
 export default {
     props: {
-        action: String,
         title: String,
         item: Object,
         component: String,
@@ -23,7 +22,6 @@ export default {
                 component: this.component,
                 title: this.title,
                 props: {
-                    action: this.action + "/" + this.item.id,
                     item: this.item,
                 },
             });

@@ -36,9 +36,9 @@
                     >
                         <font-awesome-icon icon="edit" />
                     </a>
-                    <a href="#" class="btn btn-link text-danger">
+                    <p-delete-button :item="row.item" :action="action">
                         <font-awesome-icon icon="trash" />
-                    </a>
+                    </p-delete-button>
                 </div>
             </template>
         </b-table>
@@ -72,6 +72,7 @@ export default {
             type: String,
             default: "Updated at",
         },
+        action: String,
     },
 
     data() {
@@ -128,15 +129,22 @@ export default {
                 return category !== item;
             });
         },
+        updateCategory(category) {
+            this.categories[category.id] = category;
+        },
     },
 
     mounted() {
         axios
-            .get("/categories")
+            .get(this.action)
             .then((response) => (this.categories = response.data));
 
         EventBus.$on("new-category", (category) => {
             this.addCategory(category);
+        });
+
+        EventBus.$on("update-category", (category) => {
+            this.updateCategory(category);
         });
 
         EventBus.$on("delete-category", (category) => {
