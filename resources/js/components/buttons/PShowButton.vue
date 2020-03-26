@@ -14,15 +14,12 @@ export default {
     },
 
     methods: {
-        show() {
-            alert(this.item);
-        },
         showItem() {
             EventBus.$emit("show-item", {
                 component: this.component,
                 title: this.title,
                 props: {
-                    item: this.item,
+                    id: this.item.id,
                 },
             });
         },

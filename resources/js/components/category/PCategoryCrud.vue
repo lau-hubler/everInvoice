@@ -1,7 +1,7 @@
 <template>
     <div>
         <p-update-category v-if="editMode" :action="action" v-model="item"></p-update-category>
-        <p-category-details v-else :item="item" :action="action"></p-category-details>
+        <p-category-details v-else :id="id" :action="action"></p-category-details>
         <p-delete-button :action="action" :item="item">
             <button hidden ref="hidden-delete" />
         </p-delete-button>
@@ -21,19 +21,13 @@ export default {
 
     props: {
         action: String,
-        item: {
-            type: Object,
-            default: {
-                name: "",
-                description: "",
-                iva: "",
-            },
-        },
+        id: Number
     },
 
     data() {
         return {
             editMode: false,
+            item: () => {}
         };
     },
 
@@ -41,6 +35,8 @@ export default {
         EventBus.$on("edit", this.toggleEditMode);
         EventBus.$on("update-category", this.toggleEditMode);
         EventBus.$on("delete", this.onDelete);
+
+        axios.get(`/categories/${this.id}`).then((response) => this.item = response.data)
     },
 
     methods: {

@@ -124,13 +124,13 @@ export default {
         addCategory(category) {
             this.categories.push(category);
         },
-        deleteCategory(item) {
-            this.categories = this.categories.filter(function (category) {
-                return category !== item;
-            });
+        deleteCategory(category) {
+            const index = _.findIndex(this.categories, { 'id': category.id });
+            this.$delete(this.categories, index, category)
         },
         updateCategory(category) {
-            this.categories[category.id] = category;
+            const index = _.findIndex(this.categories, { 'id': category.id });
+            this.$set(this.categories, index, category)
         },
     },
 

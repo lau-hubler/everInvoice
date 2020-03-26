@@ -34,7 +34,7 @@
         name: "PCategoryDetails",
 
         props: {
-            item: {
+            id: {
                 type: null,
             },
             action: {
@@ -48,7 +48,7 @@
 
         created(){
             axios
-                .get(`/categories/${this.item.id}`)
+                .get(`/categories/${this.id}`)
                 .then((response) => (this.category = response.data));
         }
 
