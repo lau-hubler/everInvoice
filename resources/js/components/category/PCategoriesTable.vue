@@ -29,13 +29,13 @@
                     >
                         <font-awesome-icon icon="eye" />
                     </p-show-button>
-                    <a
-                        href="#"
-                        class="btn btn-link"
-                        @click="info(row.item, row.index, $event.target)"
+                    <p-edit-button
+                        :item="row.item"
+                        :title="trans('category.showTitle')"
+                        component="p-category-crud"
                     >
                         <font-awesome-icon icon="edit" />
-                    </a>
+                    </p-edit-button>
                     <p-delete-button :item="row.item" :action="action">
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>

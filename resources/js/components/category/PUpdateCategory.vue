@@ -43,7 +43,7 @@ export default {
                 description: this.item.description,
                 iva: this.convertedIva(this.item.iva),
             };
-            axios.put(`/categories/${this.value.id}`, params).then((response) => {
+            axios.put(this.route(this.value), params).then((response) => {
                 const category = response.data;
                 EventBus.$emit("update-category", category);
                 EventBus.$emit("close-modal");
@@ -57,6 +57,7 @@ export default {
         convertedIva(iva) {
             return iva / 100;
         },
+
         route(item) {
             return `${this.action}/${item.id}`;
         },

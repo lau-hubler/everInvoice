@@ -12,7 +12,7 @@
         name: "PDeleteButton",
         props: {
             action: String,
-            item: Object,
+            item: null,
         },
 
         methods: {

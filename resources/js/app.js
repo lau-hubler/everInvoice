@@ -5,9 +5,11 @@ window.Vue = require("vue");
 //Custom components
 import PCreateButton from "./components/buttons/PCreateButton";
 import PDeleteButton from "./components/buttons/PDeleteButton";
+import PEditButton from "./components/buttons/PEditButton";
 import PShowButton from "./components/buttons/PShowButton";
 Vue.component("p-create-button", PCreateButton);
 Vue.component("p-delete-button", PDeleteButton);
+Vue.component("p-edit-button", PEditButton);
 Vue.component("p-show-button", PShowButton);
 
 import PCategoriesTable from "./components/category/PCategoriesTable";

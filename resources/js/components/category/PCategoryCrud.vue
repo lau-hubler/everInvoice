@@ -1,7 +1,15 @@
 <template>
     <div>
-        <p-update-category v-if="editMode" :action="action" v-model="item"></p-update-category>
-        <p-category-details v-else :id="id" :action="action"></p-category-details>
+        <p-update-category
+            v-if="editMode"
+            :action="action"
+            v-model="item"
+        ></p-update-category>
+        <p-category-details
+            v-else
+            :id="id"
+            :action="action"
+        ></p-category-details>
         <p-delete-button :action="action" :item="item">
             <button hidden ref="hidden-delete" />
         </p-delete-button>
@@ -21,30 +29,35 @@ export default {
 
     props: {
         action: String,
-        id: Number
+        id: Number,
+        editMode: null
     },
 
     data() {
         return {
-            editMode: false,
-            item: () => {}
+            item: () => {},
         };
     },
 
     created() {
         EventBus.$on("edit", this.toggleEditMode);
-        EventBus.$on("update-category", this.toggleEditMode);
         EventBus.$on("delete", this.onDelete);
 
-        axios.get(`/categories/${this.id}`).then((response) => this.item = response.data)
+        axios
+            .get(this.route(this.id))
+            .then((response) => (this.item = response.data));
     },
 
     methods: {
         toggleEditMode() {
-            this.editMode = !this.editMode;
+            this.$emit("toggle-edit");
         },
         onDelete() {
             this.$refs["hidden-delete"].click();
+        },
+
+        route(id) {
+            return `${this.action}/${id}`;
         },
     },
 };
