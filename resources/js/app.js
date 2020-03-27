@@ -5,21 +5,17 @@ window.Vue = require("vue");
 //Custom components
 import PCreateButton from "./components/buttons/PCreateButton";
 import PDeleteButton from "./components/buttons/PDeleteButton";
-import PEditButton from "./components/buttons/PEditButton";
-import PShowButton from "./components/buttons/PShowButton";
+import PLinkButton from "./components/buttons/PLinkButton";
 Vue.component("p-create-button", PCreateButton);
 Vue.component("p-delete-button", PDeleteButton);
-Vue.component("p-edit-button", PEditButton);
-Vue.component("p-show-button", PShowButton);
+Vue.component("p-link-button", PLinkButton);
 
 import PCategoriesTable from "./components/category/PCategoriesTable";
-import PCategoryCrud from "./components/category/PCategoryCrud";
 import PCategoryDetails from "./components/category/PCategoryDetails";
 import PCreateCategory from "./components/category/PCreateCategory";
 import PUpdateCategory from "./components/category/PUpdateCategory";
 Vue.component("p-create-category", PCreateCategory);
 Vue.component("p-update-category", PUpdateCategory);
-Vue.component("p-category-crud", PCategoryCrud);
 Vue.component("p-category-details", PCategoryDetails);
 Vue.component("p-categories-table", PCategoriesTable);
 

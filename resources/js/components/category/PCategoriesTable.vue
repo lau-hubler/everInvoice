@@ -22,20 +22,25 @@
             </template>
             <template v-slot:cell(actions)="row">
                 <div class="btn-group btn-group-sm" role="group">
-                    <p-show-button
-                        :item="row.item"
+                    <p-link-button
+                        :id="row.item.id"
                         :title="trans('category.showTitle')"
-                        component="p-category-crud"
+                        object="category"
+                        component="p-category-details"
+                        event="show-item"
                     >
                         <font-awesome-icon icon="eye" />
-                    </p-show-button>
-                    <p-edit-button
-                        :item="row.item"
+                    </p-link-button>
+                    <p-link-button
+                        :id="row.item.id"
                         :title="trans('category.showTitle')"
-                        component="p-category-crud"
+                        component="p-update-category"
+                        object="category"
+                        event="edit-item"
+                        variant="text-primary"
                     >
                         <font-awesome-icon icon="edit" />
-                    </p-edit-button>
+                    </p-link-button>
                     <p-delete-button :item="row.item" :action="action">
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>

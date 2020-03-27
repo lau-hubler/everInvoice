@@ -1,8 +1,8 @@
 <template>
     <b-modal ref="custom-modal" id="modal" :title="title" @hide="handleHide">
-        <component :is="component" v-bind="props" :action="action" :editMode="editMode" @toggle-edit="toggleEditMode"/>
+        <component :is="component" v-bind="props" :action="action" />
         <template v-slot:modal-footer>
-            <p-modal-footer />
+            <p-modal-footer v-bind="props" @toggle-edit="toggleEditMode" />
         </template>
     </b-modal>
 </template>
@@ -22,8 +22,12 @@ export default {
         return {
             component: null,
             title: null,
-            props: null,
-            editMode: false,
+            props: {
+                id: null,
+                editMode: false,
+                item: null,
+                object: null,
+            },
         };
     },
 
@@ -42,7 +46,7 @@ export default {
             });
         },
         toggleEditMode() {
-            this.editMode = !this.editMode;
+            this.props.editMode = !this.props.editMode;
         },
         discardChanges() {
             swal({
@@ -54,7 +58,7 @@ export default {
                 closeOnClickOutside: false,
             }).then((willSave) => {
                 if (willSave) {
-                    EventBus.$emit("save")
+                    EventBus.$emit("save");
                     swal({
                         text: "Your item has been saved!",
                         timer: 3000,
@@ -64,22 +68,26 @@ export default {
                 this.handleHide();
             });
         },
-        getProps(component, title, props) {
+        getProps(component, title, object, id) {
             this.component = component;
             this.title = title;
-            this.props = props;
+            this.props.id = id;
+            this.props.object = object;
+            axios.get(`/categories/${id}`).then((response) => {
+                this.props.item = response.data;
+            });
             this.show();
-        }
+        },
     },
 
     mounted() {
-        EventBus.$on("show-item", ({ component, title, props = null }) => {
-            this.getProps(component, title, props)
+        EventBus.$on("show-item", ({ component, title, object, id = null }) => {
+            this.getProps(component, title, object, id);
         });
 
-        EventBus.$on("edit-item", ({ component, title, props = null }) => {
-            this.getProps(component, title, props)
-            this.toggleEditMode()
+        EventBus.$on("edit-item", ({ component, title, object, id = null }) => {
+            this.getProps(component, title, object, id);
+            this.toggleEditMode();
         });
 
         EventBus.$on("save", this.toggleEditMode);

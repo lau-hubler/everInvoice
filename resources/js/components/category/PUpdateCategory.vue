@@ -17,22 +17,22 @@ export default {
 
     props: {
         action: String,
-        value: {
-            type: null,
-        },
+        id: Number,
+    },
+
+    data() {
+        return {
+            item: null,
+        };
     },
 
     components: { PCategoryForm, ValidationObserver },
 
-    data: () => ({
-        item: null,
-    }),
-
     created() {
-        if (this.value) {
-            this.item = this.value;
-            this.item.iva = this.value.iva * 100;
-        }
+        axios.get(this.route(this.id)).then((response) => {
+            this.item = response.data;
+            this.item.iva *= 100
+        });
         EventBus.$on("save", this.submitForm);
     },
 
@@ -43,7 +43,7 @@ export default {
                 description: this.item.description,
                 iva: this.convertedIva(this.item.iva),
             };
-            axios.put(this.route(this.value), params).then((response) => {
+            axios.put(this.route(this.id), params).then((response) => {
                 const category = response.data;
                 EventBus.$emit("update-category", category);
                 EventBus.$emit("close-modal");
@@ -58,8 +58,8 @@ export default {
             return iva / 100;
         },
 
-        route(item) {
-            return `${this.action}/${item.id}`;
+        route(id) {
+            return `${this.action}/${id}`;
         },
     },
 };

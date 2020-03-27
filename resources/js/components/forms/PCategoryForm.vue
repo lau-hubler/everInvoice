@@ -52,12 +52,12 @@ export default {
     }),
 
     watch: {
-        innerValue(newVal) {
+        category(newVal) {
             this.$emit("input", newVal);
         },
 
         value(newVal) {
-            this.innerValue = newVal;
+            this.category = newVal;
         },
     },
 

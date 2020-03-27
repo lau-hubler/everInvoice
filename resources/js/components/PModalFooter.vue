@@ -26,11 +26,18 @@
 import EventBus from "../eventBus";
 
 export default {
-    data() {
-        return {
-            editMode: false,
-        };
+    props: {
+        id: Number,
+        editMode: Boolean,
+        object: String,
     },
+
+    computed: {
+        pUpdateObject: function () {
+            return 'p-update-'+ this.object
+        },
+    },
+
     methods: {
         cancel() {
             EventBus.$emit("close-modal");
@@ -39,15 +46,19 @@ export default {
             EventBus.$emit("delete");
         },
         edit() {
-            this.toggleEditMode();
-            EventBus.$emit("edit");
+            EventBus.$emit("edit-item", {
+                component: this.pUpdateObject,
+                title: "Editing",
+                object: this.object,
+                id: this.id
+            });
         },
         save() {
             EventBus.$emit("save");
         },
 
         toggleEditMode() {
-            this.editMode = !this.editMode;
+            this.editMode = this.$emit("toggle-edit");
         },
     },
 };
