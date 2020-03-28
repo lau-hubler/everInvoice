@@ -13,8 +13,8 @@ export default {
         event: String,
         variant: {
             type: String,
-            default: "text-secondary"
-        }
+            default: "text-secondary",
+        },
     },
 
     methods: {
@@ -22,7 +22,7 @@ export default {
             EventBus.$emit(this.event, {
                 component: this.component,
                 id: this.id,
-            })
+            });
         },
     },
 };

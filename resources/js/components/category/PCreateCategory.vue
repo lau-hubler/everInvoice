@@ -1,6 +1,5 @@
 <template>
     <ValidationObserver ref="observer" v-slot="{ validate }">
-
         <b-form @submit.prevent="validate().then(onSubmit)">
             <p-category-form v-model="item"></p-category-form>
             <b-button hidden ref="submit-btn" type="submit" />
@@ -17,11 +16,12 @@ import {ValidationObserver} from "vee-validate";
 export default {
     name: "PCreateCategory",
 
+    components: { PCategoryForm, ValidationObserver },
+
     props: {
         action: String,
+        createMessage: String
     },
-
-    components: { PCategoryForm, ValidationObserver },
 
     data: () => ({
         item: {

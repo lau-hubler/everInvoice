@@ -71,9 +71,6 @@ export default {
         save() {
             EventBus.$emit("save");
         },
-        toggleEditMode() {
-            this.editMode = this.$emit("toggle-edit");
-        },
         route(id) {
             return `${this.action}/${id}`;
         },

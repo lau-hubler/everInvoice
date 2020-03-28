@@ -24,7 +24,6 @@
                 <div class="btn-group btn-group-sm" role="group">
                     <p-link-button
                         :id="row.item.id"
-                        :title="trans('category.showTitle')"
                         object="category"
                         component="p-category-details"
                         event="show-item"
@@ -33,7 +32,6 @@
                     </p-link-button>
                     <p-link-button
                         :id="row.item.id"
-                        :title="trans('category.showTitle')"
                         component="p-update-category"
                         object="category"
                         event="edit-item"
@@ -130,12 +128,12 @@ export default {
             this.categories.push(category);
         },
         deleteCategory(category) {
-            const index = _.findIndex(this.categories, { 'id': category.id });
-            this.$delete(this.categories, index, category)
+            const index = _.findIndex(this.categories, { id: category.id });
+            this.$delete(this.categories, index, category);
         },
         updateCategory(category) {
-            const index = _.findIndex(this.categories, { 'id': category.id });
-            this.$set(this.categories, index, category)
+            const index = _.findIndex(this.categories, { id: category.id });
+            this.$set(this.categories, index, category);
         },
     },
 

@@ -14,6 +14,7 @@ import { ValidationObserver } from "vee-validate";
 
 export default {
     name: "PUpdateCategory",
+    components: { PCategoryForm, ValidationObserver },
 
     props: {
         action: String,
@@ -25,8 +26,6 @@ export default {
             item: null,
         };
     },
-
-    components: { PCategoryForm, ValidationObserver },
 
     created() {
         axios.get(this.route(this.id)).then((response) => {

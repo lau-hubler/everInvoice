@@ -1,5 +1,8 @@
 <template>
     <b-modal ref="custom-modal" id="modal" :title="title" @hide="handleHide">
+        <b-container v-if="props.createMode" class="pb-3">{{
+            createMessage
+        }}</b-container>
         <component :is="component" v-bind="props" :action="action" />
         <template v-slot:modal-footer>
             <p-modal-footer
@@ -20,6 +23,7 @@ export default {
     props: {
         action: String,
         createTitle: String,
+        createMessage: String,
         detailsTitle: String,
         updateTitle: String,
         object: String,
@@ -44,7 +48,7 @@ export default {
             this.$refs["custom-modal"].show();
         },
         handleHide(evt) {
-            if (this.editMode) {
+            if (this.props.editMode) {
                 this.discardChanges();
                 evt.preventDefault();
                 return;
@@ -62,18 +66,30 @@ export default {
                 text:
                     "You have unsaved changes. Are you sure you want to leave?",
                 icon: "warning",
-                buttons: ["Discard change", "Save it"],
-                closeOnClickOutside: false,
-            }).then((willSave) => {
-                if (willSave) {
-                    EventBus.$emit("save");
-                    swal({
-                        text: "Your item has been saved!",
-                        timer: 3000,
-                    });
+                buttons: {
+                    discard: {
+                        text: "Discard changes",
+                        value: "discard",
+                    },
+                    save: true,
+                },
+            }).then((value) => {
+                switch (value) {
+                    case "save":
+                        EventBus.$emit("save");
+                        swal({
+                            text: "Your item has been saved!",
+                            timer: 3000,
+                        });
+                        this.props.editMode = false;
+                        this.handleHide();
+                        break;
+
+                    case "discard":
+                        this.props.editMode = false;
+                        this.handleHide();
+                        break;
                 }
-                this.editMode = false;
-                this.handleHide();
             });
         },
         getProps(component, id) {
@@ -87,7 +103,7 @@ export default {
     },
 
     mounted() {
-        EventBus.$on("create-item", ({component}) => {
+        EventBus.$on("create-item", ({ component }) => {
             this.component = component;
             this.title = this.createTitle;
             this.props.createMode = true;
@@ -97,12 +113,15 @@ export default {
         EventBus.$on("show-item", ({ component, id }) => {
             this.getProps(component, id);
             this.title = this.detailsTitle;
+            this.props.editMode = false;
+            this.props.createMode = false;
         });
 
         EventBus.$on("edit-item", ({ component, id }) => {
             this.getProps(component, id);
             this.title = this.updateTitle;
-            this.toggleEditMode();
+            this.props.editMode = true;
+            this.props.createMode = false;
         });
 
         EventBus.$on("save", this.toggleEditMode);
