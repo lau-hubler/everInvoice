@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Response;
+
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Category[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
+     * @return Category[]|Collection|Response
      */
     public function index()
     {
@@ -26,26 +30,19 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @return array|Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->code = $request->code;
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->iva = $request->iva;
-        $category->save();
-
-        return $category;
+        return Category::create($request->validated());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return Category|Response
      */
     public function show(Category $category)
     {
@@ -55,17 +52,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @param Category $category
+     * @return Category|Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $category->code = $request->code;
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->iva = $request->iva;
-        $category->save();
+        $category->update($request->validated());
 
         return $category;
     }
@@ -73,9 +66,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Category $category
+     * @param Category $category
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Category $category)
     {

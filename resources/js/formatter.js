@@ -6,7 +6,7 @@ const percentageFormatter = function (value) {
         value = 0;
     }
 
-    return numeral(value).format("0.0%");
+    return numeral(value).format("0.0[0]%");
 };
 
 const moneyFormatter = function (value) {

@@ -53,6 +53,7 @@ export default {
         value: {
             type: null,
         },
+        id: null
     },
 
     data: () => ({
@@ -76,31 +77,36 @@ export default {
         if (this.value) {
             this.category = this.value;
         }
-        axios.get("/categories").then((response) => { this.categories = response.data})
+        axios.get("/categories").then((response) => {
+            this.categories = response.data;
+        });
     },
     mounted() {
-        const isUnique = value =>
-            new Promise(resolve => {
+        const isUnique = (value) =>
+            new Promise((resolve) => {
                 setTimeout(() => {
-                    if (_.findIndex(this.categories, { code: value }) === -1) {
+                     let original = _.find(this.categories, { id: this.id})
+                    if (
+                        _.findIndex(this.categories, { code: value }) === -1 || original.code === value
+                    ) {
                         return resolve({
-                            valid: true
+                            valid: true,
                         });
                     }
 
                     return resolve({
                         valid: false,
                         data: {
-                            message: `${value} already exists.`
-                        }
+                            message: `${value} already exists.`,
+                        },
                     });
                 }, 200);
             });
 
         Validator.extend("unique", {
             validate: isUnique,
-            getMessage: (field, params, data) => data.message
+            getMessage: (field, params, data) => data.message,
         });
-    }
+    },
 };
 </script>

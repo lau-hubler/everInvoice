@@ -1,7 +1,7 @@
 <template>
     <ValidationObserver ref="observer" v-slot="{ validate }">
         <b-form @submit.prevent="validate().then(onSubmit)">
-            <p-category-form v-model="item"></p-category-form>
+            <p-category-form v-model="item" :id="id"></p-category-form>
             <b-button hidden ref="submit-btn" type="submit" />
         </b-form>
     </ValidationObserver>
@@ -24,6 +24,7 @@ export default {
     data() {
         return {
             item: null,
+            original: null
         };
     },
 
@@ -31,23 +32,26 @@ export default {
         axios.get(this.route(this.id)).then((response) => {
             this.item = response.data;
             this.item.iva *= 100
+            this.original = {...this.item}
         });
         EventBus.$on("save", this.submitForm);
     },
 
     methods: {
         onSubmit() {
-            const params = {
-                code: this.item.code,
-                name: this.item.name,
-                description: this.item.description,
-                iva: this.convertedIva(this.item.iva),
-            };
-            axios.put(this.route(this.id), params).then((response) => {
-                const category = response.data;
-                EventBus.$emit("update-category", category);
-                EventBus.$emit("close-modal");
-            });
+            if(!_.isEqual(this.original, this.item)) {
+                const params = {
+                    code: this.item.code,
+                    name: this.item.name,
+                    description: this.item.description,
+                    iva: this.convertedIva(this.item.iva),
+                };
+                axios.put(this.route(this.id), params).then((response) => {
+                    const category = response.data;
+                    EventBus.$emit("update-category", category);
+                });
+            }
+            EventBus.$emit("close-modal");
         },
 
         submitForm() {

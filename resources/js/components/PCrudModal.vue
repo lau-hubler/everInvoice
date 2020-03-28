@@ -33,6 +33,7 @@ export default {
         return {
             component: null,
             title: null,
+            changes: true,
             props: {
                 action: null,
                 id: null,
