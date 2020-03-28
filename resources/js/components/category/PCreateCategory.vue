@@ -1,5 +1,6 @@
 <template>
     <ValidationObserver ref="observer" v-slot="{ validate }">
+
         <b-form @submit.prevent="validate().then(onSubmit)">
             <p-category-form v-model="item"></p-category-form>
             <b-button hidden ref="submit-btn" type="submit" />
@@ -17,9 +18,7 @@ export default {
     name: "PCreateCategory",
 
     props: {
-        route: {
-            type: String
-        },
+        action: String,
     },
 
     components: { PCategoryForm, ValidationObserver },
@@ -33,7 +32,7 @@ export default {
     }),
 
     created () {
-        EventBus.$on('submit-form', this.submitForm)
+        EventBus.$on('create', this.submitForm)
     },
 
     methods: {
@@ -44,7 +43,7 @@ export default {
                 iva: this.convertedIva()
             }
 
-            axios.post(this.route, params)
+            axios.post(this.action, params)
                 .then((response) => {
                     const category = response.data
                     EventBus.$emit('new-category', category)

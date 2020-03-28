@@ -26,10 +26,8 @@ Vue.component("p-category-form", PCategoryForm);
 import PTextInput from "./components/inputs/PTextInput";
 Vue.component("p-text-input", PTextInput);
 
-import PCreateModal from "./components/modals/PCreateModal";
-import PCrudModal from "./components/modals/PCrudModal";
+import PCrudModal from "./components/PCrudModal";
 import PModalFooter from "./components/PModalFooter";
-Vue.component("p-create-modal", PCreateModal);
 Vue.component("p-crud-modal", PCrudModal);
 Vue.component("p-modal-footer", PModalFooter);
 

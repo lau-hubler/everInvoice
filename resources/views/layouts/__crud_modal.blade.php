@@ -8,7 +8,10 @@
 ></p-create-modal>
 
 <p-crud-modal
-    title = "{{ $modalTitle ?? trans_choice('app.create.modalTitle', $gender, ['item' => $item]) }}"
+    create-title="{{ $modalTitle ?? trans_choice('app.create.modalTitle', $gender, ['item' => $item]) }}"
+    update-title="Update Title"
+    details-title="Detail Title"
+    object="category"
     action="{{ $action }}"
 ></p-crud-modal>
 @endpush

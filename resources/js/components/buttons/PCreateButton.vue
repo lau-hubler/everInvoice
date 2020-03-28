@@ -1,5 +1,5 @@
 <template>
-    <b-button variant="primary" @click="createItem(action)">
+    <b-button variant="primary" class="font-weight-bold" @click="createItem()">
         <slot />
     </b-button>
 </template>
@@ -9,17 +9,13 @@ import EventBus from "../../eventBus";
 
 export default {
     props: {
-        action: {
-            type: String,
-        },
         component: String,
     },
 
     methods: {
-        createItem(action) {
+        createItem() {
             EventBus.$emit("create-item", {
                 component: this.component,
-                props: { action },
             });
         },
     },

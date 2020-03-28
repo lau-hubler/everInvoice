@@ -8,11 +8,9 @@
 import EventBus from "../../eventBus";
 export default {
     props: {
-        title: String,
         id: Number,
         component: String,
         event: String,
-        object: String,
         variant: {
             type: String,
             default: "text-secondary"
@@ -23,8 +21,6 @@ export default {
         editItem() {
             EventBus.$emit(this.event, {
                 component: this.component,
-                title: this.title,
-                object: this.object,
                 id: this.id,
             })
         },

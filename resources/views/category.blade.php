@@ -6,7 +6,7 @@
     <h3>{{ __('category.title') }}</h3>
     <b-button-toolbar aria-label="Toolbar for categories">
       <b-button-group class="mx-1">
-        <p-create-button component="p-create-category">+ {{ __('app.create.button') }}</p-create-button>
+        <p-create-button component="p-create-category">{{ __('app.create.button') }}</p-create-button>
       </b-button-group>
     </b-button-toolbar>
   </div>
