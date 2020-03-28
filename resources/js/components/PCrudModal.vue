@@ -78,12 +78,6 @@ export default {
                 switch (value) {
                     case "save":
                         EventBus.$emit("save");
-                        swal({
-                            text: "Your item has been saved!",
-                            timer: 3000,
-                        });
-                        this.props.editMode = false;
-                        this.handleHide();
                         break;
 
                     case "discard":
@@ -101,6 +95,14 @@ export default {
             });
             this.show();
         },
+        confirmSaved(){
+            swal({
+                text: "Your item has been saved!",
+                timer: 3000,
+            });
+            this.props.editMode = false;
+            this.handleHide();
+        }
     },
 
     mounted() {
@@ -125,7 +127,7 @@ export default {
             this.props.createMode = false;
         });
 
-        EventBus.$on("save", this.toggleEditMode);
+        EventBus.$on("saved", this.confirmSaved)
         EventBus.$on("close-modal", this.handleHide);
     },
 };

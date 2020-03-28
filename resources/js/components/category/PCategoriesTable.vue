@@ -148,10 +148,12 @@ export default {
 
         EventBus.$on("new-category", (category) => {
             this.addCategory(category);
+            EventBus.$emit("saved")
         });
 
         EventBus.$on("update-category", (category) => {
             this.updateCategory(category);
+            EventBus.$emit("saved")
         });
 
         EventBus.$on("delete-category", (category) => {
