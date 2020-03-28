@@ -49,7 +49,7 @@ export default {
             this.$refs["custom-modal"].show();
         },
         handleHide(evt) {
-            if (this.props.editMode) {
+            if (this.props.editMode || this.props.createMode) {
                 this.discardChanges();
                 evt.preventDefault();
                 return;
@@ -78,10 +78,12 @@ export default {
                 switch (value) {
                     case "save":
                         EventBus.$emit("save");
+                        EventBus.$emit("create")
                         break;
 
                     case "discard":
                         this.props.editMode = false;
+                        this.props.createMode = false;
                         this.handleHide();
                         break;
                 }
@@ -95,14 +97,15 @@ export default {
             });
             this.show();
         },
-        confirmSaved(){
+        confirmSaved() {
             swal({
                 text: "Your item has been saved!",
                 timer: 3000,
             });
             this.props.editMode = false;
+            this.props.createMode = false;
             this.handleHide();
-        }
+        },
     },
 
     mounted() {
@@ -127,7 +130,7 @@ export default {
             this.props.createMode = false;
         });
 
-        EventBus.$on("saved", this.confirmSaved)
+        EventBus.$on("saved", this.confirmSaved);
         EventBus.$on("close-modal", this.handleHide);
     },
 };

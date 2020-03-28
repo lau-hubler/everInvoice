@@ -85,7 +85,10 @@ export default {
         const isUnique = (value) =>
             new Promise((resolve) => {
                 setTimeout(() => {
-                     let original = _.find(this.categories, { id: this.id})
+                    let original = {code:null}
+                    if(this.id){
+                        original =_.find(this.categories, { id: this.id})
+                    }
                     if (
                         _.findIndex(this.categories, { code: value }) === -1 || original.code === value
                     ) {

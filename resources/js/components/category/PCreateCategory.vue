@@ -8,10 +8,9 @@
 </template>
 
 <script>
-import PCategoryForm from "../forms/PCategoryForm"
+import PCategoryForm from "../forms/PCategoryForm";
 import EventBus from "../../eventBus";
-import {ValidationObserver} from "vee-validate";
-
+import { ValidationObserver } from "vee-validate";
 
 export default {
     name: "PCreateCategory",
@@ -20,7 +19,7 @@ export default {
 
     props: {
         action: String,
-        createMessage: String
+        createMessage: String,
     },
 
     data: () => ({
@@ -28,12 +27,12 @@ export default {
             code: "",
             name: "",
             description: "",
-            iva: ""
-        }
+            iva: "",
+        },
     }),
 
-    created () {
-        EventBus.$on('create', this.submitForm)
+    created() {
+        EventBus.$on("create", this.submitForm);
     },
 
     methods: {
@@ -42,24 +41,22 @@ export default {
                 code: this.item.code,
                 name: this.item.name,
                 description: this.item.description,
-                iva: this.convertedIva()
-            }
+                iva: this.convertedIva(),
+            };
 
-            axios.post(this.action, params)
-                .then((response) => {
-                    const category = response.data
-                    EventBus.$emit('new-category', category)
-                    EventBus.$emit('close-modal')
-            })
+            axios.post(this.action, params).then((response) => {
+                const category = response.data;
+                EventBus.$emit("new-category", category);
+            });
         },
 
         submitForm() {
-            this.$refs["submit-btn"].click()
+            this.$refs["submit-btn"].click();
         },
 
         convertedIva() {
-            return  this.item.iva / 100
-        }
-    }
+            return this.item.iva / 100;
+        },
+    },
 };
 </script>
