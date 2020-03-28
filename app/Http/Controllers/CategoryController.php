@@ -32,6 +32,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = new Category();
+        $category->code = $request->code;
         $category->name = $request->name;
         $category->description = $request->description;
         $category->iva = $request->iva;
@@ -60,6 +61,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $category->code = $request->code;
         $category->name = $request->name;
         $category->description = $request->description;
         $category->iva = $request->iva;

@@ -38,6 +38,7 @@ export default {
     methods: {
         onSubmit() {
             const params = {
+                code: this.item.code,
                 name: this.item.name,
                 description: this.item.description,
                 iva: this.convertedIva(this.item.iva),

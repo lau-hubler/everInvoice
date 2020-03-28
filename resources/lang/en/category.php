@@ -3,6 +3,11 @@
 return [
     'title' => 'Categories',
     'item' => 'category',
+    'code' => [
+        'title' => 'Code',
+        'label' => 'Code:',
+        'placeholder' => 'XXX000'
+    ],
     'name' => [
         'title' => 'Name',
         'label' => 'Name:',

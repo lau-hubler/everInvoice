@@ -2,37 +2,39 @@
     <div>
         <b-container>
             <b-row class="p-1">
-                <b-col class="text-right font-weight-bold" cols="4">ID:</b-col>
-                <b-col>{{ item.id }}</b-col>
+                <b-col class="text-right font-weight-bold" cols="4">
+                    {{ trans("category.code.label") }}
+                </b-col>
+                <b-col>{{ item.code }}</b-col>
             </b-row>
             <b-row class="p-1">
                 <b-col class="text-right font-weight-bold" cols="4">
-                    {{ trans("category.name.label") }}</b-col
-                >
+                    {{ trans("category.name.label") }}
+                </b-col>
                 <b-col>{{ item.name }}</b-col>
             </b-row>
             <b-row class="p-1">
                 <b-col class="text-right font-weight-bold" cols="4">
-                    {{ trans("category.description.label") }}</b-col
-                >
+                    {{ trans("category.description.label") }}
+                </b-col>
                 <b-col>{{ item.description }}</b-col>
             </b-row>
             <b-row class="p-1">
                 <b-col class="text-right font-weight-bold" cols="4">
-                    {{ trans("category.iva.label") }}</b-col
-                >
+                    {{ trans("category.iva.label") }}
+                </b-col>
                 <b-col>{{ item.iva | percentage }}</b-col>
             </b-row>
             <b-row class="p-1">
-                <b-col class="text-right font-weight-bold" cols="4"
-                    >{{ trans("category.createdAt") }}:</b-col
-                >
+                <b-col class="text-right font-weight-bold" cols="4">
+                    {{ trans("category.createdAt") }}:
+                </b-col>
                 <b-col>{{ item.created_at | dateTime }}</b-col>
             </b-row>
             <b-row class="p-1">
-                <b-col class="text-right font-weight-bold" cols="4"
-                    >{{ trans("category.updatedAt") }}:</b-col
-                >
+                <b-col class="text-right font-weight-bold" cols="4">
+                    {{ trans("category.updatedAt") }}:
+                </b-col>
                 <b-col>{{ item.updated_at | dateTime }}</b-col>
             </b-row>
         </b-container>

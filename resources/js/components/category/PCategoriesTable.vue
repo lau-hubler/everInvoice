@@ -63,6 +63,10 @@ export default {
     name: "PCategoriesTable",
 
     props: {
+        code: {
+            type: String,
+            default: "Code",
+        },
         name: {
             type: String,
             default: "Name",
@@ -86,8 +90,8 @@ export default {
             emptyTable: "There are no categories to show",
             fields: [
                 {
-                    key: "id",
-                    label: "ID",
+                    key: "code",
+                    label: this.code,
                     sortable: true,
                 },
                 {

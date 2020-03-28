@@ -18,6 +18,7 @@
                     v-model="innerValue"
                     v-bind="$attrs"
                     :state="errors[0] ? false : validated ? true : null"
+                    :formatter="formatter"
                 >
                 </b-form-input>
             </b-input-group>
@@ -30,6 +31,7 @@
 
 <script>
 import { ValidationProvider } from "vee-validate";
+import numeral from "numeral";
 
 export default {
     components: {
@@ -47,6 +49,9 @@ export default {
         value: {
             type: null,
         },
+        format: {
+            type: String,
+        },
     },
 
     data: () => ({
@@ -60,6 +65,21 @@ export default {
 
         value(newVal) {
             this.innerValue = newVal;
+        },
+    },
+
+    methods: {
+        formatter(value) {
+            switch (this.format) {
+                case "uppercase":
+                    value = value.toUpperCase();
+                    break;
+                case "percentage":
+                    value = numeral(value).format('0.0[0]');;
+                    break;
+            }
+
+            return value;
         },
     },
 

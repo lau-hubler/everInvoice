@@ -2,6 +2,15 @@
     <ValidationObserver ref="observer">
         <input :value="CSRFToken" type="hidden" name="_token" />
         <p-text-input
+            rules="required|alpha_num|length:6|unique"
+            type="text"
+            :label="trans('category.code.label')"
+            name="code"
+            v-model="category.code"
+            :placeholder="trans('category.code.placeholder')"
+            format="uppercase"
+        />
+        <p-text-input
             rules="required|min:3"
             type="text"
             :label="trans('category.name.label')"
@@ -18,13 +27,14 @@
             :placeholder="trans('category.description.placeholder')"
         />
         <p-text-input
-            rules="required|max_value:100|min_value:0"
+            rules="required|between:0,100"
             type="text"
             :label="trans('category.iva.label')"
             name="iva"
             v-model="category.iva"
             :placeholder="trans('category.iva.placeholder')"
             append="%"
+            format="percentage"
             :description="trans('category.iva.description')"
         />
     </ValidationObserver>
@@ -32,7 +42,7 @@
 
 <script>
 import PTextInput from "../inputs/PTextInput";
-import { ValidationObserver } from "vee-validate";
+import { ValidationObserver, Validator } from "vee-validate";
 
 export default {
     name: "PCategoryForm",
@@ -47,6 +57,7 @@ export default {
 
     data: () => ({
         category: "",
+        categories: null,
         CSRFToken: document.head.querySelector("[name=csrf-token][content]")
             .content,
     }),
@@ -65,6 +76,31 @@ export default {
         if (this.value) {
             this.category = this.value;
         }
+        axios.get("/categories").then((response) => { this.categories = response.data})
     },
+    mounted() {
+        const isUnique = value =>
+            new Promise(resolve => {
+                setTimeout(() => {
+                    if (_.findIndex(this.categories, { code: value }) === -1) {
+                        return resolve({
+                            valid: true
+                        });
+                    }
+
+                    return resolve({
+                        valid: false,
+                        data: {
+                            message: `${value} already exists.`
+                        }
+                    });
+                }, 200);
+            });
+
+        Validator.extend("unique", {
+            validate: isUnique,
+            getMessage: (field, params, data) => data.message
+        });
+    }
 };
 </script>
