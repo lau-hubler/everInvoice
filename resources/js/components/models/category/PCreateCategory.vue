@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import PCategoryForm from "../forms/PCategoryForm";
-import EventBus from "../../eventBus";
+import PCategoryForm from "../../forms/PCategoryForm";
+import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
 
 export default {

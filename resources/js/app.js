@@ -10,10 +10,10 @@ Vue.component("p-create-button", PCreateButton);
 Vue.component("p-delete-button", PDeleteButton);
 Vue.component("p-link-button", PLinkButton);
 
-import PCategoriesTable from "./components/category/PCategoriesTable";
-import PCategoryDetails from "./components/category/PCategoryDetails";
-import PCreateCategory from "./components/category/PCreateCategory";
-import PUpdateCategory from "./components/category/PUpdateCategory";
+import PCategoriesTable from "./components/models/category/PCategoriesTable";
+import PCategoryDetails from "./components/models/category/PCategoryDetails";
+import PCreateCategory from "./components/models/category/PCreateCategory";
+import PUpdateCategory from "./components/models/category/PUpdateCategory";
 Vue.component("p-create-category", PCreateCategory);
 Vue.component("p-update-category", PUpdateCategory);
 Vue.component("p-category-details", PCategoryDetails);

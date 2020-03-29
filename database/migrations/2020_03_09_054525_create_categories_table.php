@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name',80);
             $table->string('description');
-            $table->float('iva');
+            $table->float('iva',6,4);
             $table->timestamps();
         });
     }
