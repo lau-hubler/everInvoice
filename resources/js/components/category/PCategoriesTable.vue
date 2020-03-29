@@ -79,6 +79,10 @@ export default {
             type: String,
             default: "Updated at",
         },
+        emptyMessage: {
+            type: String,
+            default: "There are no categories to show",
+        },
         action: String,
     },
 
@@ -87,7 +91,7 @@ export default {
             categories: [],
             perPage: 10,
             currentPage: 1,
-            emptyTable: "There are no categories to show",
+            emptyTable: this.emptyMessage,
             fields: [
                 {
                     key: "code",
@@ -148,12 +152,10 @@ export default {
 
         EventBus.$on("new-category", (category) => {
             this.addCategory(category);
-            EventBus.$emit("saved");
         });
 
         EventBus.$on("update-category", (category) => {
             this.updateCategory(category);
-            EventBus.$emit("saved");
         });
 
         EventBus.$on("delete-category", (category) => {

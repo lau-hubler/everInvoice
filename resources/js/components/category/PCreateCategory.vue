@@ -47,6 +47,7 @@ export default {
             axios.post(this.action, params).then((response) => {
                 const category = response.data;
                 EventBus.$emit("new-category", category);
+                EventBus.$emit("saved");
             });
         },
 

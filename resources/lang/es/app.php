@@ -1,22 +1,26 @@
 <?php
 
 return [
-    'create' => [
-        'button' => '+ Crear',
-        'modalTitle' => '{0} Crea un nuevo :item|{1} Crea una nueva :item',
-        'modalMessage' => '{0}Llene los campos para crear un nuevo :item|{1}Llene los campos para crear una nueva :item',
-        'modalOkText' => 'Crear',
-        'modalCancelText' => 'Cancelar',
+    'buttons' => [
+        'new' => '+ Crear',
+        'cancel' => 'Cancelar',
+        'edit' => 'Editar',
+        'update' => 'Salvar',
+        'delete' => 'Deletar',
+        'create' => 'Crear',
+        'discard' => 'Descartar cambios',
+        'saveChanges' => 'Salvar',
     ],
-    'delete' => [
-        'modalTitle' => '¿Deletar',
-        'modalMessage' => 'Esa acción no es reversible. ¿Desea realmente deletar?',
+    'titles' => [
+        'create' => '{0} Crea un nuevo :item|{1} Crea una nueva :item',
+        'update' => '{0} Actualizando el :item|{1} Actualizando la :item',
+        'showDetails' => '{0} Detalles del :item|{1} Detalles de la :item',
+        'discard' => '¿Descartar cambios?',
     ],
-    'modal' => [
-        'cancelText' => 'Cancelar',
-        'editText' => 'Editar',
-        'updateText' => 'Salvar',
-        'deleteText' => 'Deletar'
+    'messages' => [
+        'create' => '{0}Llene los campos para crear un nuevo :item|{1}Llene los campos para crear una nueva :item',
+        'discard' => '¿Estás seguro que quieres de descartar los cambios?',
+        'saved' => '{0}¡Tu :item fue salvo!|{1}¡Tu :item fue salva!',
     ],
     'import' => 'Importar',
     'search' => 'Buscar',

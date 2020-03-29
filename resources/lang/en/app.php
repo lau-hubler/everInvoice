@@ -1,20 +1,27 @@
 <?php
 
 return [
-    'create' => [
-        'button' => '+ Create',
-        'modalTitle' => 'Create a new :item',
-        'modalMessage' => 'Fill in to create a new :item',
-        'modalOkText' => 'Create',
-        'modalCancelText' => 'Cancel',
+    'buttons' => [
+        'new' => '+ Create',
+        'cancel' => 'Cancel',
+        'edit' => 'Edit',
+        'update' => 'Save',
+        'delete' => 'Delete',
+        'create' => 'Create',
+        'discard' => 'Discard changes',
+        'saveChanges' => 'Save',
     ],
-    'modal' => [
-        'cancelText' => 'Cancel',
-        'editText' => 'Edit',
-        'updateText' => 'Save',
-        'deleteText' => 'Delete'
+    'titles' => [
+        'create' => 'Create a new :item',
+        'update' => 'Updating this :item',
+        'showDetails' => 'Showing details of :item',
+        'discard' => 'Discard changes?',
     ],
-
+    'messages' => [
+        'create' => 'Fill in to create a new :item',
+        'discard' => 'Are you sure you want to discard changes',
+        'saved' => 'Your :item has been saved!',
+    ],
     'import' => 'Import',
     'search' => 'Search',
 

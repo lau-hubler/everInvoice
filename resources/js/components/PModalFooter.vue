@@ -2,31 +2,31 @@
     <div>
         <b-button v-if="createMode" @click="create()" variant="success">
             <font-awesome-icon size="xs" icon="save" />
-            <span class="pl-1">{{ trans('app.create.modalOkText') }}</span>
+            <span class="pl-1">{{ trans('app.buttons.create') }}</span>
         </b-button>
 
         <span v-if="!createMode">
             <b-button v-if="editMode" @click="save()" variant="success">
                 <font-awesome-icon size="xs" icon="save" />
-                <span class="pl-1">{{ trans("app.modal.updateText") }}</span>
+                <span class="pl-1">{{ trans("app.buttons.update") }}</span>
             </b-button>
 
             <b-button v-else @click="edit()" variant="primary">
                 <font-awesome-icon size="xs" icon="edit" />
-                <span class="pl-1">{{ trans("app.modal.editText") }}</span>
+                <span class="pl-1">{{ trans("app.buttons.edit") }}</span>
             </b-button>
 
             <p-delete-button :item="item" :action="route(id)">
                 <b-button variant="danger">
                     <font-awesome-icon size="xs" icon="trash" />
-                    <span class="pl-1">{{ trans("app.modal.deleteText") }}</span>
+                    <span class="pl-1">{{ trans("app.buttons.delete") }}</span>
                 </b-button>
             </p-delete-button>
         </span>
 
         <b-button @click="cancel()" variant="secondary">
             <font-awesome-icon size="xs" icon="times" />
-            <span class="pl-1">{{ trans("app.modal.cancelText") }}</span>
+            <span class="pl-1">{{ trans("app.buttons.cancel") }}</span>
         </b-button>
     </div>
 </template>
@@ -63,7 +63,6 @@ export default {
         edit() {
             EventBus.$emit("edit-item", {
                 component: this.pUpdateObject,
-                title: "Editing",
                 object: this.object,
                 id: this.id,
             });

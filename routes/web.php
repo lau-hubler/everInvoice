@@ -7,9 +7,10 @@ Route::get('js/lang-{locale}.js', function ($locale) {
     if (!array_key_exists($locale, config('app.locales'))) {
         $locale = config('app.fallback_locale');
     }
-    if(env('APP_ENV','none') == 'local'){
+    if(env('APP_ENV','none') === 'local') {
         Cache::forget("lang-{$locale}.js");
     }
+
     $strings = Cache::rememberForever("lang-{$locale}.js", function () use ($locale) {
         $dir = resource_path('lang/' . $locale);
         $strings = [];

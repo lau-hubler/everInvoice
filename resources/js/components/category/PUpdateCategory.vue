@@ -24,22 +24,22 @@ export default {
     data() {
         return {
             item: null,
-            original: null
+            original: null,
         };
     },
 
     created() {
         axios.get(this.route(this.id)).then((response) => {
             this.item = response.data;
-            this.item.iva *= 100
-            this.original = {...this.item}
+            this.item.iva *= 100;
+            this.original = { ...this.item };
         });
         EventBus.$on("save", this.submitForm);
     },
 
     methods: {
         onSubmit() {
-            if(!_.isEqual(this.original, this.item)) {
+            if (!_.isEqual(this.original, this.item)) {
                 const params = {
                     code: this.item.code,
                     name: this.item.name,
@@ -51,7 +51,7 @@ export default {
                     EventBus.$emit("update-category", category);
                 });
             }
-            EventBus.$emit("close-modal");
+            EventBus.$emit("saved");
         },
 
         submitForm() {

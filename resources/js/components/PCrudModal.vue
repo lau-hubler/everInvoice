@@ -1,15 +1,14 @@
 <template>
     <b-modal ref="custom-modal" id="modal" :title="title" @hide="handleHide">
-        <b-container v-if="props.createMode" class="pb-3">{{
-            createMessage
-        }}</b-container>
+        <b-container v-if="props.createMode" class="pb-3">
+            {{ createMessage }}
+        </b-container>
         <component :is="component" v-bind="props" :action="action" />
         <template v-slot:modal-footer>
             <p-modal-footer
                 v-bind="props"
                 :action="action"
                 :object="object"
-                @toggle-edit="toggleEditMode"
             />
         </template>
     </b-modal>
@@ -26,6 +25,11 @@ export default {
         createMessage: String,
         detailsTitle: String,
         updateTitle: String,
+        discardTitle: String,
+        discardMessage: String,
+        discardButton: String,
+        saveChangesButton: String,
+        savedMessage: String,
         object: String,
     },
 
@@ -45,6 +49,14 @@ export default {
     },
 
     methods: {
+        getProps(component, id) {
+            this.component = component;
+            this.props.id = id;
+            axios.get(`/categories/${id}`).then((response) => {
+                this.props.item = response.data;
+            });
+            this.show();
+        },
         show() {
             this.$refs["custom-modal"].show();
         },
@@ -58,53 +70,46 @@ export default {
                 this.$bvModal.hide("modal");
             });
         },
-        toggleEditMode() {
-            this.props.editMode = !this.props.editMode;
-        },
         discardChanges() {
             swal({
-                title: "Discard changes?",
-                text:
-                    "You have unsaved changes. Are you sure you want to leave?",
+                title: this.discardTitle,
+                text: this.discardMessage,
                 icon: "warning",
                 buttons: {
                     discard: {
-                        text: "Discard changes",
+                        text: this.discardButton,
                         value: "discard",
                     },
-                    save: true,
+                    save: {
+                        text: this.saveChangesButton,
+                        value: "save",
+                    },
                 },
             }).then((value) => {
                 switch (value) {
                     case "save":
                         EventBus.$emit("save");
-                        EventBus.$emit("create")
+                        EventBus.$emit("create");
                         break;
 
                     case "discard":
-                        this.props.editMode = false;
-                        this.props.createMode = false;
+                        this.setShowMode();
                         this.handleHide();
                         break;
                 }
             });
         },
-        getProps(component, id) {
-            this.component = component;
-            this.props.id = id;
-            axios.get(`/categories/${id}`).then((response) => {
-                this.props.item = response.data;
-            });
-            this.show();
-        },
         confirmSaved() {
             swal({
-                text: "Your item has been saved!",
+                text: this.savedMessage,
                 timer: 3000,
             });
+            this.setShowMode();
+            this.handleHide();
+        },
+        setShowMode() {
             this.props.editMode = false;
             this.props.createMode = false;
-            this.handleHide();
         },
     },
 
@@ -119,15 +124,14 @@ export default {
         EventBus.$on("show-item", ({ component, id }) => {
             this.getProps(component, id);
             this.title = this.detailsTitle;
-            this.props.editMode = false;
-            this.props.createMode = false;
+            this.setShowMode();
         });
 
         EventBus.$on("edit-item", ({ component, id }) => {
             this.getProps(component, id);
             this.title = this.updateTitle;
+            this.setShowMode();
             this.props.editMode = true;
-            this.props.createMode = false;
         });
 
         EventBus.$on("saved", this.confirmSaved);

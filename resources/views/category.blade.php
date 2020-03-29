@@ -6,7 +6,7 @@
     <h3>{{ __('category.title') }}</h3>
     <b-button-toolbar aria-label="Toolbar for categories">
       <b-button-group class="mx-1">
-        <p-create-button component="p-create-category">{{ __('app.create.button') }}</p-create-button>
+        <p-create-button component="p-create-category">{{ __('app.buttons.new') }}</p-create-button>
       </b-button-group>
     </b-button-toolbar>
   </div>
@@ -17,6 +17,7 @@
             description="{{ __('category.description.title') }}"
             name="{{ __('category.name.title') }}"
             updated_at="{{ __('category.updatedAt') }}"
+            empty-message="{{ __('category.emptyMessage') }}"
     ></p-categories-table>
   </div>
   @include('layouts.__crud_modal', [

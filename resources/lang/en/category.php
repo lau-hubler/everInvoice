@@ -26,5 +26,6 @@ return [
     ],
     'createdAt' => 'Created at',
     'updatedAt' => 'Updated at',
-    'showTitle' => 'Showing details'
+    'showTitle' => 'Showing details',
+    'emptyMessage' => 'There are no categories to show',
 ];
