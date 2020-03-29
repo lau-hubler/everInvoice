@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Localization
+// Localization and translation for vue
 Route::get('js/lang-{locale}.js', function ($locale) {
     if (!array_key_exists($locale, config('app.locales'))) {
         $locale = config('app.fallback_locale');
@@ -53,6 +53,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function() {
     Route::apiResource('/categories', 'CategoryController');
+    Route::apiResource('/products', 'ProductController');
 });
 
 
