@@ -2,6 +2,7 @@
 <p-crud-modal
     action="{{ $action }}"
     object="{{ $object }}"
+    has-default="{{ $hasDefault ?? null}}"
 
     discard-button="{{trans('app.buttons.discard')}}"
     save-changes-button="{{trans('app.buttons.saveChanges')}}"

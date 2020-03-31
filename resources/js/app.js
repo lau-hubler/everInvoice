@@ -32,9 +32,11 @@ Vue.component("p-categories-table", PCategoriesTable);
 import PCreateProduct from "./components/models/product/PCreateProduct";
 import PProductDetails from "./components/models/product/PProductDetails";
 import PProductsTable from "./components/models/product/PProductsTable";
+import PUpdateProduct from "./components/models/product/PUpdateProduct";
 Vue.component("p-create-product", PCreateProduct);
 Vue.component("p-product-details", PProductDetails);
 Vue.component("p-products-table", PProductsTable);
+Vue.component("p-update-product", PUpdateProduct);
 
 import PCrudModal from "./components/PCrudModal";
 import PModalFooter from "./components/PModalFooter";

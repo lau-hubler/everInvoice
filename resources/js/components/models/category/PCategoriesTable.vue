@@ -39,7 +39,7 @@
                     >
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
-                    <p-delete-button :item="row.item" :action="action" type="category">
+                    <p-delete-button :item="row.item" :action="action" type="category" has-default>
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>
                 </div>

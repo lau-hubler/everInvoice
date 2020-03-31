@@ -25,6 +25,7 @@
     'object' => 'category',
     'gender' => 1,
     'action' => route( 'categories.store' ),
+    'hasDefault' => true,
   ])
 </div>
 @endsection

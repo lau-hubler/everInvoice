@@ -3,7 +3,7 @@
         <b-container v-if="props.createMode" class="pb-3">
             {{ createMessage }}
         </b-container>
-        <component :is="component" v-bind="props" :action="action" />
+        <component :is="component" v-bind="props" :action="action" :hasDefault="hasDefault" />
         <template v-slot:modal-footer>
             <p-modal-footer
                 v-bind="props"
@@ -31,6 +31,7 @@ export default {
         saveChangesButton: String,
         savedMessage: String,
         object: String,
+        hasDefault: String,
     },
 
     data() {

@@ -67,6 +67,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        if ($category != Category::find(1)) {
+            Category::find($category->id)->delete();
+        }
     }
 }

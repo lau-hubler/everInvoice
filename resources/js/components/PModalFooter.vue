@@ -16,7 +16,7 @@
                 <span class="pl-1">{{ trans("app.buttons.edit") }}</span>
             </b-button>
 
-            <p-delete-button :item="item" :action="action" :type="object">
+            <p-delete-button :item="item" :action="action" :type="object" :has-default="hasDefault">
                 <b-button variant="danger">
                     <font-awesome-icon size="xs" icon="trash" />
                     <span class="pl-1">{{ trans("app.buttons.delete") }}</span>
@@ -41,7 +41,8 @@ export default {
         editMode: Boolean,
         createMode: Boolean,
         object: String,
-        action: String
+        action: String,
+        hasDefault: String,
     },
 
     computed: {
