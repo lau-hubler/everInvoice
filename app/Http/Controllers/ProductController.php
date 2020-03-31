@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Product;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response|Product[]
+     * @return Collection|Response|Product[]
      */
     public function index()
     {
@@ -28,17 +33,12 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $product = new Product();
-        $product->code = $request->code;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->save();
+        $product = Product::create($request->validated());
 
         return Product::with('category')->find($product->id);
     }
@@ -46,7 +46,8 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Http\Response
+     * @param Product $product
+     * @return Builder|Response
      */
     public function show(Product $product)
     {
@@ -56,16 +57,13 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @param Product $product
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        $product->code = $request->code;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->save();
+        $product->update($request->validated());
 
         return Product::with('category')->find($product->id);
     }
@@ -73,7 +71,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return void
+     * @throws Exception
      */
     public function destroy(Product $product)
     {
