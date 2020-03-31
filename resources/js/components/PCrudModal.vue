@@ -52,7 +52,7 @@ export default {
         getProps(component, id) {
             this.component = component;
             this.props.id = id;
-            axios.get(`/categories/${id}`).then((response) => {
+            axios.get(this.setRoute(id)).then((response) => {
                 this.props.item = response.data;
             });
             this.show();
@@ -111,6 +111,9 @@ export default {
             this.props.editMode = false;
             this.props.createMode = false;
         },
+        setRoute(id) {
+            return `${this.action}/${id}`;
+        }
     },
 
     mounted() {

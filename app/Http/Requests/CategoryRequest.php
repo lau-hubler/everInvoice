@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,12 +31,11 @@ class CategoryRequest extends FormRequest
                 'required',
                 'alpha_num',
                 'size:6',
-                Rule::unique('categories')->ignore($this->category)
-                ],
+                Rule::unique('categories')->ignore($this->category),
+            ],
             'name' => 'required|min:3',
             'description' => 'required|min:5',
-            'iva' => 'required'
-
+            'iva' => 'required',
         ];
     }
 }

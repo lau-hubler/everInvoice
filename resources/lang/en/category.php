@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'title' => 'Categories',
     'item' => 'category',
     'code' => [
         'title' => 'Code',
         'label' => 'Code:',
-        'placeholder' => 'XXX000'
+        'placeholder' => 'XXX000',
     ],
     'name' => [
         'title' => 'Name',
@@ -24,8 +26,5 @@ return [
         'placeholder' => '19%',
         'description' => 'Type the iva for this category',
     ],
-    'createdAt' => 'Created at',
-    'updatedAt' => 'Updated at',
-    'showTitle' => 'Showing details',
     'emptyMessage' => 'There are no categories to show',
 ];

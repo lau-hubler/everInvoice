@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'title' => 'Categorias',
     'item' => 'categoría',
     'code' => [
         'title' => 'Código',
         'label' => 'Código:',
-        'placeholder' => 'XXX000'
+        'placeholder' => 'XXX000',
     ],
     'name' => [
         'title' => 'Nombre',
@@ -24,8 +26,5 @@ return [
         'placeholder' => '19%',
         'description' => 'Escriba el IVA de esa categoría',
     ],
-    'createdAt' => 'Creado en',
-    'updatedAt' => 'Actualizado en',
-    'showTitle' => 'Detalles de la categoría',
     'emptyMessage' => 'No hay categorías registradas!',
 ];

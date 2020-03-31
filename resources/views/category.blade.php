@@ -16,14 +16,14 @@
             code="{{__('category.code.title')}}"
             description="{{ __('category.description.title') }}"
             name="{{ __('category.name.title') }}"
-            updated_at="{{ __('category.updatedAt') }}"
+            updated_at="{{ __('app.updatedAt') }}"
             empty-message="{{ __('category.emptyMessage') }}"
     ></p-categories-table>
   </div>
   @include('layouts.__crud_modal', [
     'item' => trans('category.item'),
     'gender' => 1,
-    'action' => '/categories',
+    'action' => route( 'categories.store' ),
   ])
 </div>
 @endsection

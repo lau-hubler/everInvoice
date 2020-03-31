@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'buttons' => [
         'new' => '+ Create',
@@ -22,7 +24,8 @@ return [
         'discard' => 'Are you sure you want to discard changes',
         'saved' => 'Your :item has been saved!',
     ],
+    'createdAt' => 'Created at',
+    'updatedAt' => 'Updated at',
     'import' => 'Import',
     'search' => 'Search',
-
 ];

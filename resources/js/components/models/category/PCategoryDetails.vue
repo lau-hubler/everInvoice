@@ -27,13 +27,13 @@
             </b-row>
             <b-row class="p-1">
                 <b-col class="text-right font-weight-bold" cols="4">
-                    {{ trans("category.createdAt") }}:
+                    {{ trans("app.createdAt") }}:
                 </b-col>
                 <b-col>{{ item.created_at | dateTime }}</b-col>
             </b-row>
             <b-row class="p-1">
                 <b-col class="text-right font-weight-bold" cols="4">
-                    {{ trans("category.updatedAt") }}:
+                    {{ trans("app.updatedAt") }}:
                 </b-col>
                 <b-col>{{ item.updated_at | dateTime }}</b-col>
             </b-row>

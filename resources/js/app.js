@@ -10,6 +10,12 @@ Vue.component("p-create-button", PCreateButton);
 Vue.component("p-delete-button", PDeleteButton);
 Vue.component("p-link-button", PLinkButton);
 
+import PCategoryForm from "./components/forms/PCategoryForm.vue";
+Vue.component("p-category-form", PCategoryForm);
+
+import PTextInput from "./components/inputs/PTextInput";
+Vue.component("p-text-input", PTextInput);
+
 import PCategoriesTable from "./components/models/category/PCategoriesTable";
 import PCategoryDetails from "./components/models/category/PCategoryDetails";
 import PCreateCategory from "./components/models/category/PCreateCategory";
@@ -19,12 +25,10 @@ Vue.component("p-update-category", PUpdateCategory);
 Vue.component("p-category-details", PCategoryDetails);
 Vue.component("p-categories-table", PCategoriesTable);
 
-
-import PCategoryForm from "./components/forms/PCategoryForm.vue";
-Vue.component("p-category-form", PCategoryForm);
-
-import PTextInput from "./components/inputs/PTextInput";
-Vue.component("p-text-input", PTextInput);
+import PProductDetails from "./components/models/product/PProductDetails";
+import PProductsTable from "./components/models/product/PProductsTable";
+Vue.component("p-product-details", PProductDetails);
+Vue.component("p-products-table", PProductsTable);
 
 import PCrudModal from "./components/PCrudModal";
 import PModalFooter from "./components/PModalFooter";
@@ -33,9 +37,11 @@ Vue.component("p-modal-footer", PModalFooter);
 
 //Custom formatters
 import { percentageFormatter } from "./formatter";
+import { moneyFormatter } from "./formatter";
 import { dateTimeFormatter } from "./formatter";
 
 Vue.filter("percentage", percentageFormatter);
+Vue.filter("money", moneyFormatter);
 Vue.filter("dateTime", dateTimeFormatter);
 
 // Bootstrap-vue

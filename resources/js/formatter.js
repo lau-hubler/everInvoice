@@ -14,7 +14,7 @@ const moneyFormatter = function (value) {
         return (value = 0);
     }
 
-    return numeral(value).format("($0,0.00 a)");
+    return numeral(value).format("($ 0,0.00 a)");
 };
 
 const dateTimeFormatter = function (value, lang) {
