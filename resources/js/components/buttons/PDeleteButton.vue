@@ -7,6 +7,7 @@
 <script>
     import swal from "sweetalert";
     import EventBus from "../../eventBus";
+    import _ from "lodash";
 
     export default {
         name: "PDeleteButton",
@@ -29,16 +30,19 @@
                 axios.delete(this.route(item));
                 EventBus.$emit(`delete-${this.type}`, item);
                 swal({
-                    text: `${item.name} has been deleted!`,
+                    text: `${item.name} ${_.get(window.i18n, 'app.messages.deleted')}`,
                     timer: 2000,
                 });
             },
             confirmDelete(item) {
                 swal({
-                    title: `Delete ${item.name}?`,
-                    text: "This can be undone. Are you sure you want to delete it?",
+                    title: _.get(window.i18n, 'app.titles.delete'),
+                    text: _.get(window.i18n, 'app.messages.delete'),
                     icon: "warning",
-                    buttons: ["Cancel", "Delete it"],
+                    buttons: [
+                        _.get(window.i18n, 'app.buttons.cancel'),
+                        _.get(window.i18n, 'app.buttons.delete')
+                    ],
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
@@ -49,10 +53,10 @@
             },
             cannotDelete(item){
                 swal({
-                    title: `${item.name} a default ${this.type}`,
+                    title: `${item.name} ${_.get(window.i18n, 'app.titles.cannotDelete')}`,
                     icon: "error",
                     dangerMode: true,
-                    text: `Sorry! You cannot delete a default ${this.type}`,
+                    text: _.get(window.i18n, 'app.messages.cannotDelete'),
                     timer: 3000,
                 });
             },
