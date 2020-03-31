@@ -1,0 +1,61 @@
+<template>
+    <ValidationObserver ref="observer" v-slot="{ validate }">
+        <b-form @submit.prevent="validate().then(onSubmit)">
+            <p-product-form v-model="item"></p-product-form>
+            <b-button hidden ref="submit-btn" type="submit" />
+        </b-form>
+    </ValidationObserver>
+</template>
+
+<script>
+import PProductForm from "../../forms/PProductForm";
+import EventBus from "../../../eventBus";
+import { ValidationObserver } from "vee-validate";
+
+export default {
+    name: "PCreateProduct",
+
+    components: { PProductForm, ValidationObserver },
+
+    props: {
+        action: String,
+        createMessage: String,
+    },
+
+    data: () => ({
+        item: {
+            code: "",
+            name: "",
+            description: "",
+            price: "",
+            category_id: "",
+        },
+    }),
+
+    created() {
+        EventBus.$on("create", this.submitForm);
+    },
+
+    methods: {
+        onSubmit() {
+            const params = {
+                code: this.item.code,
+                name: this.item.name,
+                description: this.item.description,
+                price: this.item.price,
+                category_id: this.item.category_id,
+            };
+
+            axios.post(this.action, params).then((response) => {
+                const product = response.data;
+                EventBus.$emit("new-product", product);
+                EventBus.$emit("saved");
+            });
+        },
+
+        submitForm() {
+            this.$refs["submit-btn"].click();
+        },
+    },
+};
+</script>

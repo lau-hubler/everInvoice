@@ -16,7 +16,7 @@
                 <span class="pl-1">{{ trans("app.buttons.edit") }}</span>
             </b-button>
 
-            <p-delete-button :item="item" :action="route(id)">
+            <p-delete-button :item="item" :action="action" :type="object">
                 <b-button variant="danger">
                     <font-awesome-icon size="xs" icon="trash" />
                     <span class="pl-1">{{ trans("app.buttons.delete") }}</span>
@@ -69,9 +69,6 @@ export default {
         },
         save() {
             EventBus.$emit("save");
-        },
-        route(id) {
-            return `${this.action}/${id}`;
         },
     },
 };

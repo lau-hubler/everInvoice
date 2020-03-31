@@ -23,13 +23,13 @@ return [
     'price' => [
         'title' => 'Precio',
         'label' => 'Precio:',
-        'placeholder' => '$00,00',
-        'description' => 'Complete con el valor del producto',
+        'placeholder' => '0,000.00',
     ],
     'category' => [
         'title' => 'Categoria (IVA)',
         'label' => 'Categoria:',
-        'placeholder' => 'Seleccione la categoria de tu producto'
+        'placeholder' => 'Seleccione la categoria de tu producto',
+        'description' => "El iva del producto es dado por la categoria seleccionada",
     ],
     'emptyMessage' => 'No hay productos registradas!',
 ];

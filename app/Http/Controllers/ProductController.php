@@ -28,10 +28,19 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        $product = new Product();
+        $product->code = $request->code;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->category_id = $request->category_id;
+        $product->save();
+
+        return Product::with('category')->find($product->id);
     }
 
     /**
@@ -60,5 +69,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $product->delete();
     }
 }

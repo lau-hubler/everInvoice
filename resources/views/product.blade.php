@@ -24,6 +24,7 @@
     </div>
     @include('layouts.__crud_modal', [
         'item' => trans('product.item'),
+        'object' => 'product',
         'gender' => 0,
         'action' => route( 'products.store' ),
     ])

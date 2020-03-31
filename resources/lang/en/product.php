@@ -23,13 +23,13 @@ return [
     'price' => [
         'title' => 'Price',
         'label' => 'Price:',
-        'placeholder' => '$00.00',
-        'description' => "Type your product's price",
+        'placeholder' => '0,000.00',
     ],
     'category' => [
         'title' => 'Category (IVA)',
         'label' => 'Category:',
-        'placeholder' => "Select your product's category"
+        'placeholder' => "Select your product's category",
+        'description' => "The product's iva is given by the category selected",
     ],
     'emptyMessage' => 'There are no products to show',
 ];

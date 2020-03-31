@@ -11,9 +11,13 @@ Vue.component("p-delete-button", PDeleteButton);
 Vue.component("p-link-button", PLinkButton);
 
 import PCategoryForm from "./components/forms/PCategoryForm.vue";
+import PProductForm from "./components/forms/PProductForm";
 Vue.component("p-category-form", PCategoryForm);
+Vue.component("p-product-form", PProductForm);
 
+import PSelectInput from "./components/inputs/PSelectInput";
 import PTextInput from "./components/inputs/PTextInput";
+Vue.component("p-select-input", PSelectInput);
 Vue.component("p-text-input", PTextInput);
 
 import PCategoriesTable from "./components/models/category/PCategoriesTable";
@@ -25,8 +29,10 @@ Vue.component("p-update-category", PUpdateCategory);
 Vue.component("p-category-details", PCategoryDetails);
 Vue.component("p-categories-table", PCategoriesTable);
 
+import PCreateProduct from "./components/models/product/PCreateProduct";
 import PProductDetails from "./components/models/product/PProductDetails";
 import PProductsTable from "./components/models/product/PProductsTable";
+Vue.component("p-create-product", PCreateProduct);
 Vue.component("p-product-details", PProductDetails);
 Vue.component("p-products-table", PProductsTable);
 

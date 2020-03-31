@@ -42,7 +42,7 @@
                     >
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
-                    <p-delete-button :item="row.item" :action="action">
+                    <p-delete-button :item="row.item" :action="action" type="product">
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>
                 </div>
@@ -147,7 +147,7 @@ export default {
     },
 
     methods: {
-        addProduct(category) {
+        addProduct(product) {
             this.products.push(product);
         },
         deleteProduct(product) {

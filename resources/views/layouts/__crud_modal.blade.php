@@ -1,7 +1,7 @@
 @push('modals')
 <p-crud-modal
     action="{{ $action }}"
-    object="category"
+    object="{{ $object }}"
 
     discard-button="{{trans('app.buttons.discard')}}"
     save-changes-button="{{trans('app.buttons.saveChanges')}}"

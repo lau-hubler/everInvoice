@@ -11,6 +11,7 @@
     export default {
         name: "PDeleteButton",
         props: {
+            type: String,
             action: String,
             item: null,
         },
@@ -32,7 +33,7 @@
             },
             deleteCategory(item) {
                 axios.delete(this.route(item));
-                EventBus.$emit("delete-category", item);
+                EventBus.$emit(`delete-${this.type}`, item);
                 swal({
                     text: `${item.name} has been deleted!`,
                     timer: 2000,
