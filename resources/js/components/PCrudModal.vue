@@ -1,6 +1,6 @@
 <template>
-    <b-modal ref="custom-modal" id="modal" :title="title" @hide="handleHide">
-        <b-container v-if="props.createMode" class="pb-3">
+    <b-modal ref="custom-modal" id="modal" :title="title" :size="size" @hide="handleHide">
+        <b-container v-if="props.createMode && createMessage" class="pb-2">
             {{ createMessage }}
         </b-container>
         <component :is="component" v-bind="props" :action="action" :hasDefault="hasDefault" />
@@ -32,6 +32,7 @@ export default {
         savedMessage: String,
         object: String,
         hasDefault: String,
+        size: String,
     },
 
     data() {

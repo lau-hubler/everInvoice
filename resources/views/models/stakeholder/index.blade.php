@@ -23,8 +23,10 @@
   @include('layouts.__crud_modal', [
     'item' => trans('stakeholder.item'),
     'object' => 'models.stakeholder.index',
-    'gender' => 1,
+    'gender' => 0,
     'action' => route( 'stakeholders.store' ),
+    'modalSize' => 'lg',
+    'createMessage' => ' ',
   ])
 </div>
 @endsection
