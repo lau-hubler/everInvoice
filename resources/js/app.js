@@ -38,6 +38,9 @@ Vue.component("p-product-details", PProductDetails);
 Vue.component("p-products-table", PProductsTable);
 Vue.component("p-update-product", PUpdateProduct);
 
+import PStakeholdersTable from "./components/models/stakeholder/PStakeholdersTable";
+Vue.component("p-stakeholders-table", PStakeholdersTable);
+
 import PCrudModal from "./components/PCrudModal";
 import PModalFooter from "./components/PModalFooter";
 Vue.component("p-crud-modal", PCrudModal);

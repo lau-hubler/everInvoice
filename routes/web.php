@@ -58,4 +58,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function () {
     Route::apiResource('/categories', 'CategoryController');
     Route::apiResource('/products', 'ProductController');
+    Route::apiResource('/stakeholders', 'StakeholderController');
 });

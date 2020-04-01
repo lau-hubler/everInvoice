@@ -27,7 +27,7 @@ class ProductController extends Controller
             return $products;
         }
 
-        return response()->view('product', compact('products'));
+        return response()->view('models.product', compact('products'));
     }
 
     /**

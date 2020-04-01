@@ -25,7 +25,7 @@ class CategoryController extends Controller
             return $categories;
         }
 
-        return response()->view('category', compact('categories'));
+        return response()->view('models.category', compact('categories'));
     }
 
     /**
