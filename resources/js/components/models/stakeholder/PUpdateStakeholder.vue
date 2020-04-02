@@ -13,7 +13,7 @@ import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
 
 export default {
-    name: "PUpdatePerson",
+    name: "PUpdateStakeholder",
     components: { ValidationObserver },
 
     props: {
@@ -40,6 +40,7 @@ export default {
         onSubmit() {
             if (!_.isEqual(this.original, this.item)) {
                 const params = {
+                    id: this.id,
                     name: this.item.name,
                     surname: this.item.surname,
                     company: this.item.company,

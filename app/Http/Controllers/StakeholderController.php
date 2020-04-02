@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StakeholderRequest;
 use App\Stakeholder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class StakeholderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Stakeholder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
+     * @return Stakeholder[]|Collection|Response
      */
     public function index()
     {
@@ -26,21 +31,12 @@ class StakeholderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     * @param StakeholderRequest $request
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function store(Request $request)
+    public function store(StakeholderRequest $request)
     {
-        $stakeholder = new Stakeholder();
-        $stakeholder->name = $request->name;
-        $stakeholder->surname = $request->surname;
-        $stakeholder->company = $request->company;
-        $stakeholder->is_company = $request->is_company;
-        $stakeholder->document_type_id = $request->document_type_id;
-        $stakeholder->document = $request->document;
-        $stakeholder->email = $request->email;
-        $stakeholder->mobile = $request->mobile;
-        $stakeholder->save();
+        $stakeholder = Stakeholder::create($request->validated());
 
         return Stakeholder::with('documentType')->find($stakeholder->id);
     }
@@ -48,8 +44,8 @@ class StakeholderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Stakeholder  $stakeholder
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     * @param Stakeholder $stakeholder
+     * @return Builder|Builder[]|Collection|Model|Response
      */
     public function show(Stakeholder $stakeholder)
     {
@@ -59,21 +55,13 @@ class StakeholderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Stakeholder  $stakeholder
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\Response
+     * @param Request $request
+     * @param Stakeholder $stakeholder
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function update(Request $request, Stakeholder $stakeholder)
+    public function update(StakeholderRequest $request, Stakeholder $stakeholder)
     {
-        $stakeholder->name = $request->name;
-        $stakeholder->surname = $request->surname;
-        $stakeholder->company = $request->company;
-        $stakeholder->is_company = $request->is_company;
-        $stakeholder->document_type_id = $request->document_type_id;
-        $stakeholder->document = $request->document;
-        $stakeholder->email = $request->email;
-        $stakeholder->mobile = $request->mobile;
-        $stakeholder->save();
+        $stakeholder->update($request->validated());
 
         return Stakeholder::with('documentType')->find($stakeholder->id);
     }
@@ -81,8 +69,8 @@ class StakeholderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Stakeholder  $stakeholder
-     * @return \Illuminate\Http\Response
+     * @param Stakeholder $stakeholder
+     * @return Response
      */
     public function destroy(Stakeholder $stakeholder)
     {
