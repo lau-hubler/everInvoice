@@ -4,23 +4,23 @@
         <p-text-input
             rules="required|min:3"
             type="text"
-            :label="trans('stakeholder.name.label')"
+            :label="trans('stakeholder.name.labelCompany')"
             label-cols-sm="3"
             name="name"
             v-model="company.name"
-            :placeholder="trans('stakeholder.name.placeholder')"
+            :placeholder="trans('stakeholder.name.Company')"
         />
         <p-text-input
             rules="required_if:tabIndex,1|min:3"
             type="text"
             :label="trans('stakeholder.company.label')"
             label-cols-sm="3"
-            name="surname"
+            name="company"
             v-model="company.company"
             :placeholder="trans('stakeholder.company.placeholder')"
         />
         <b-form-row>
-            <b-col cols="3" class="font-weight-bold text-right">
+            <b-col cols="3" class="font-weight-bold text-right pt-2">
                 {{ trans('stakeholder.document.label')}}
             </b-col>
             <b-col cols="2">

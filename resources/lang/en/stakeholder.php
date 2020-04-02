@@ -5,8 +5,11 @@ declare(strict_types=1);
 return [
     'title' => 'Stakeholders',
     'item' => 'stakeholder',
-    'person' => 'Person',
-    'company' => 'Company',
+    'person' => [
+        'title' => 'Person',
+        'message' => 'Fill in to register a new person',
+    ],
+
     'document' => [
         'title' => 'Document',
         'label' => 'Document:',
@@ -14,12 +17,20 @@ return [
     ],
     'name' => [
         'title' => 'Name',
-        'label' => 'Name:',
-        'placeholder' => 'Your first name',
+        'labelPerson' => 'First Name:',
+        'placeholderPerson' => 'Please fill in with your first name',
+        'labelCompany' => 'Trading name:',
+        'placeholderCompany' => 'Name by which it is known',
     ],
     'surname' => [
-        'label' => 'Surname:',
+        'label' => 'Last Name:',
         'placeholder' => 'Your surname',
+    ],
+    'company' => [
+        'title' => 'Company',
+        'label' => 'Company name:',
+        'placeholder' => 'Name by which it is registered',
+        'message' => 'Fill in to register a new company',
     ],
     'email' => [
         'title' => 'E-mail',

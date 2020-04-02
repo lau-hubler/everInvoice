@@ -5,8 +5,11 @@ declare(strict_types=1);
 return [
     'title' => 'Compradores y vendedores',
     'item' => 'stakeholder',
-    'person' => 'Persona Natural',
-    'company' => 'Empresa',
+    'person' => [
+        'title' => 'Persona Natural',
+        'message' => 'Llene los campos para crear una nueva persona natural',
+    ],
+
     'document' => [
         'title' => 'Documento',
         'label' => 'Documento:',
@@ -14,12 +17,20 @@ return [
     ],
     'name' => [
         'title' => 'Nombre',
-        'label' => 'Nombre:',
-        'placeholder' => 'Tus nombres',
+        'labelPerson' => 'Nombre:',
+        'placeholderPerson' => 'Tus nombres',
+        'labelCompany' => 'Nombre Comercial:',
+        'placeholderCompany' => 'Nombre por cual la empresa es conocida'
     ],
     'surname' => [
         'label' => 'Apellidos:',
         'placeholder' => 'Tus apellidos',
+    ],
+    'company' => [
+        'title' => 'Empresa',
+        'label' => 'Razón Social:',
+        'placeholder' => 'Nombre lo cual la empresa está registrada',
+        'message' => 'Llene los campos para crear una nueva empresa',
     ],
     'email' => [
         'title' => 'Correo eletrónico',

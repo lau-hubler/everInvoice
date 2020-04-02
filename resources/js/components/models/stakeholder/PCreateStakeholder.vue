@@ -2,12 +2,12 @@
     <ValidationObserver ref="observer" v-slot="{ validate }">
         <b-form @submit.prevent="validate().then(onSubmit)">
             <b-tabs v-model="tabIndex">
-                <b-tab :title="trans('stakeholder.person')" active>
-                    <p class="m-3">Llene los campos para crear una nueva persona física</p>
+                <b-tab :title="trans('stakeholder.person.title')" active>
+                    <p class="m-3">{{ trans('stakeholder.person.message') }}</p>
                     <p-person-form v-model="item" :tabIndex="tabIndex"></p-person-form>
                 </b-tab>
-                <b-tab :title="trans('stakeholder.company')">
-                    <p class="m-3">Llene los campos para crear una nueva empresa</p>
+                <b-tab :title="trans('stakeholder.company.title')">
+                    <p class="m-3">{{ trans('stakeholder.company.message') }}</p>
                     <p-company-form v-model="item" :tabIndex="tabIndex"></p-company-form>
                 </b-tab>
                 <b-button hidden ref="submit-btn" type="submit" />

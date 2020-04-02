@@ -4,11 +4,11 @@
         <p-text-input
             rules="required|min:3"
             type="text"
-            :label="trans('stakeholder.name.label')"
+            :label="trans('stakeholder.name.labelPerson')"
             label-cols-sm="3"
             name="name"
             v-model="person.name"
-            :placeholder="trans('stakeholder.name.placeholder')"
+            :placeholder="trans('stakeholder.name.placeholderPerson')"
         />
         <p-text-input
             rules="required_if:tabIndex,0|min:3"
@@ -20,7 +20,7 @@
             :placeholder="trans('stakeholder.surname.placeholder')"
         />
         <b-form-row>
-            <b-col cols="3" class="font-weight-bold text-right">
+            <b-col cols="3" class="font-weight-bold text-right pt-2">
                 {{ trans('stakeholder.document.label')}}
             </b-col>
             <b-col cols="2">
