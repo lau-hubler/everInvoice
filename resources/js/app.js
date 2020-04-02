@@ -43,9 +43,11 @@ Vue.component("p-products-table", PProductsTable);
 Vue.component("p-update-product", PUpdateProduct);
 
 import PCreateStakeholder from "./components/models/stakeholder/PCreateStakeholder";
+import PStakeholderDetails from "./components/models/stakeholder/PStakeholderDetails";
 import PStakeholdersTable from "./components/models/stakeholder/PStakeholdersTable";
 import PUpdateStakeholder from "./components/models/stakeholder/PUpdateStakeholder";
 Vue.component("p-create-stakeholder", PCreateStakeholder);
+Vue.component("p-stakeholder-details", PStakeholderDetails);
 Vue.component("p-stakeholders-table", PStakeholdersTable);
 Vue.component("p-update-stakeholder", PUpdateStakeholder);
 

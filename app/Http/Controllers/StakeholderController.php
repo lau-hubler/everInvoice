@@ -20,7 +20,7 @@ class StakeholderController extends Controller
             return $stakeholders;
         }
 
-        return response()->view('models.stakeholder.index', compact('stakeholders'));
+        return response()->view('models.stakeholder', compact('stakeholders'));
     }
 
     /**

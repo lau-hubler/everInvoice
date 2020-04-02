@@ -10,6 +10,7 @@ return [
         'update' => 'Salvar',
         'delete' => 'Deletar',
         'create' => 'Crear',
+        'back' => 'Volver',
         'discard' => 'Descartar cambios',
         'saveChanges' => 'Salvar',
     ],
