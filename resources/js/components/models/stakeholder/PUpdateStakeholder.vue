@@ -1,7 +1,11 @@
 <template>
     <ValidationObserver ref="observer" v-slot="{ validate }">
         <b-form @submit.prevent="validate().then(onSubmit)">
-            <p-company-form v-if="item.is_company" v-model="item" :id="id"></p-company-form>
+            <p-company-form
+                v-if="item.is_company"
+                v-model="item"
+                :id="id"
+            ></p-company-form>
             <p-person-form v-else v-model="item" :id="id"></p-person-form>
             <b-button hidden ref="submit-btn" type="submit" />
         </b-form>
@@ -11,6 +15,7 @@
 <script>
 import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
+import api from "../../../api";
 
 export default {
     name: "PUpdateStakeholder",
@@ -50,12 +55,15 @@ export default {
                     email: this.item.email,
                     mobile: this.item.mobile,
                 };
-                axios.put(this.route(this.id), params).then((response) => {
-                    const stakeholder = response.data;
-                    EventBus.$emit("update-stakeholder", stakeholder);
-                });
+                api.updateItem("stakeholder", this.id, params).then(
+                    (stakeholder) => {
+                        EventBus.$emit("update-stakeholder", stakeholder);
+                        EventBus.$emit("saved");
+                    }
+                );
+            } else {
+                EventBus.$emit("saved");
             }
-            EventBus.$emit("saved");
         },
 
         submitForm() {
@@ -67,11 +75,11 @@ export default {
         },
 
         isCompany() {
-            if(this.tabIndex) {
-                this.item.is_company = 1
+            if (this.tabIndex) {
+                this.item.is_company = 1;
             }
-            return this.item.is_company
-        }
+            return this.item.is_company;
+        },
     },
 };
 </script>

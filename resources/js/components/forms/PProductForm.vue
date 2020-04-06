@@ -45,6 +45,7 @@
             :options="prepareOptions()"
             :label="trans('product.category.label')"
             label-cols-sm="3"
+            label-align-sm="right"
             name="category_id"
             v-model="product.category_id"
             :placeholder="trans('product.category.placeholder')"
@@ -57,6 +58,7 @@
 import PTextInput from "../inputs/PTextInput";
 import { ValidationObserver, Validator } from "vee-validate";
 import numeral from "numeral";
+import api from "../../api";
 
 export default {
     name: "PProductForm",
@@ -67,13 +69,14 @@ export default {
         value: {
             type: null,
         },
-        id: null
+        id: null,
     },
 
     data: () => ({
         product: "",
         products: null,
-        CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
+        CSRFToken: document.head.querySelector("[name=csrf-token][content]")
+            .content,
         categories: {},
     }),
 
@@ -89,36 +92,37 @@ export default {
 
     methods: {
         prepareOptions() {
-            return this.categories.map(function(category) {
+            return this.categories.map(function (category) {
                 return {
                     value: category.id,
-                    text: `${category.code} - ${category.name} - ${numeral(category.iva).format('0.0[0]%')}`
-                }
+                    text: `${category.code} - ${category.name} - ${numeral(
+                        category.iva
+                    ).format("0.0[0]%")}`,
+                };
             });
-        }
+        },
     },
 
     created() {
         if (this.value) {
             this.product = this.value;
         }
-        axios.get("/products").then((response) => {
-            this.products = response.data;
-        });
-        axios.get("/categories").then((response) => {
-            this.categories = response.data;
-        })
+        api.getClass("product").then((products) => (this.products = products));
+        api.getClass("category").then(
+            (categories) => (this.categories = categories)
+        );
     },
     mounted() {
         const isUnique = (value) =>
             new Promise((resolve) => {
                 setTimeout(() => {
-                    let original = {code:null}
-                    if(this.id){
-                        original =_.find(this.products, { id: this.id})
+                    let original = { code: null };
+                    if (this.id) {
+                        original = _.find(this.products, { id: this.id });
                     }
                     if (
-                        _.findIndex(this.products, { code: value }) === -1 || original.code === value
+                        _.findIndex(this.products, { code: value }) === -1 ||
+                        original.code === value
                     ) {
                         return resolve({
                             valid: true,

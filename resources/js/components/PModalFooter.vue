@@ -2,7 +2,7 @@
     <div>
         <b-button v-if="createMode" @click="create()" variant="success">
             <font-awesome-icon size="xs" icon="save" />
-            <span class="pl-1">{{ trans('app.buttons.create') }}</span>
+            <span class="pl-1">{{ trans("app.buttons.create") }}</span>
         </b-button>
 
         <span v-if="!createMode">
@@ -16,7 +16,12 @@
                 <span class="pl-1">{{ trans("app.buttons.edit") }}</span>
             </b-button>
 
-            <p-delete-button :item="item" :action="action" :type="object" :has-default="hasDefault">
+            <p-delete-button
+                :item="item"
+                :action="action"
+                :type="object"
+                :has-default="hasDefault"
+            >
                 <b-button variant="danger">
                     <font-awesome-icon size="xs" icon="trash" />
                     <span class="pl-1">{{ trans("app.buttons.delete") }}</span>
@@ -56,7 +61,7 @@ export default {
             EventBus.$emit("close-modal");
         },
         create() {
-            EventBus.$emit("create")
+            EventBus.$emit("create");
         },
         deleteItem() {
             EventBus.$emit("delete");

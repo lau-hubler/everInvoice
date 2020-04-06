@@ -11,10 +11,10 @@ const percentageFormatter = function (value) {
 
 const moneyFormatter = function (value) {
     if (!value) {
-        return (value = 0);
+        return "$ 0.00";
     }
 
-    return numeral(value).format("($ 0,0.00 a)");
+    return numeral(value).format("($ 0,0.00)");
 };
 
 const dateTimeFormatter = function (value, lang) {
@@ -24,4 +24,11 @@ const dateTimeFormatter = function (value, lang) {
     }
 };
 
-export { percentageFormatter, moneyFormatter, dateTimeFormatter };
+const dateFormatter = function (value, lang) {
+    moment.locale("en");
+    if (value) {
+        return moment(String(value)).format("L");
+    }
+};
+
+export { percentageFormatter, moneyFormatter, dateTimeFormatter, dateFormatter };

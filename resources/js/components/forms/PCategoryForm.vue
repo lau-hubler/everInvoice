@@ -47,6 +47,7 @@
 <script>
 import PTextInput from "../inputs/PTextInput";
 import { ValidationObserver, Validator } from "vee-validate";
+import api from "../../api";
 
 export default {
     name: "PCategoryForm",
@@ -57,7 +58,7 @@ export default {
         value: {
             type: null,
         },
-        id: null
+        id: null,
     },
 
     data: () => ({
@@ -81,20 +82,21 @@ export default {
         if (this.value) {
             this.category = this.value;
         }
-        axios.get("/categories").then((response) => {
-            this.categories = response.data;
-        });
+        api.getClass("category").then(
+            (categories) => (this.categories = categories)
+        );
     },
     mounted() {
         const isUnique = (value) =>
             new Promise((resolve) => {
                 setTimeout(() => {
-                    let original = {code:null}
-                    if(this.id){
-                        original =_.find(this.categories, { id: this.id})
+                    let original = { code: null };
+                    if (this.id) {
+                        original = _.find(this.categories, { id: this.id });
                     }
                     if (
-                        _.findIndex(this.categories, { code: value }) === -1 || original.code === value
+                        _.findIndex(this.categories, { code: value }) === -1 ||
+                        original.code === value
                     ) {
                         return resolve({
                             valid: true,

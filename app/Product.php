@@ -17,4 +17,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class)->withDefault();
     }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class)->using(Order::class);
+    }
 }

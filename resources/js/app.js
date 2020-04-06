@@ -12,15 +12,21 @@ Vue.component("p-link-button", PLinkButton);
 
 import PCategoryForm from "./components/forms/PCategoryForm.vue";
 import PCompanyForm from "./components/forms/PCompanyForm";
+import PInvoiceForm from "./components/forms/PInvoiceForm";
+import POrderForm from "./components/forms/POrderForm";
 import PPersonForm from "./components/forms/PPersonForm";
 import PProductForm from "./components/forms/PProductForm";
 Vue.component("p-category-form", PCategoryForm);
 Vue.component("p-company-form", PCompanyForm);
+Vue.component("p-invoice-form", PInvoiceForm);
+Vue.component("p-order-form", POrderForm);
 Vue.component("p-person-form", PPersonForm);
 Vue.component("p-product-form", PProductForm);
 
+import PDateInput from "./components/inputs/PDateInput";
 import PSelectInput from "./components/inputs/PSelectInput";
 import PTextInput from "./components/inputs/PTextInput";
+Vue.component("p-date-input", PDateInput);
 Vue.component("p-select-input", PSelectInput);
 Vue.component("p-text-input", PTextInput);
 
@@ -32,6 +38,28 @@ Vue.component("p-create-category", PCreateCategory);
 Vue.component("p-update-category", PUpdateCategory);
 Vue.component("p-category-details", PCategoryDetails);
 Vue.component("p-categories-table", PCategoriesTable);
+
+import PCreateInvoice from "./components/models/invoice/PCreateInvoice";
+import PInvoiceDetails from "./components/models/invoice/PInvoiceDetails";
+import PInvoiceHeader from "./components/models/invoice/PInvoiceHeader";
+import PInvoicesTable from "./components/models/invoice/PInvoicesTable";
+import PStakeholderForInvoice from "./components/models/invoice/PStakeholderForInvoice";
+import PUpdateInvoice from "./components/models/invoice/PUpdateInvoice";
+Vue.component("p-create-invoice", PCreateInvoice);
+Vue.component("p-invoice-details", PInvoiceDetails);
+Vue.component("p-invoice-header", PInvoiceHeader);
+Vue.component("p-invoices-table", PInvoicesTable);
+Vue.component("p-stakeholder-for-invoice", PStakeholderForInvoice);
+Vue.component("p-update-invoice", PUpdateInvoice);
+
+import POrderCreateRow from "./components/models/order/POrderCreateRow";
+import POrderDetails from "./components/models/order/POrderDetails";
+import POrderRow from "./components/models/order/POrderRow";
+import POrdersTable from "./components/models/order/POrdersTable";
+Vue.component("p-order-create-row", POrderCreateRow);
+Vue.component("p-order-details", POrderDetails);
+Vue.component("p-order-row", POrderRow);
+Vue.component("p-orders-table", POrdersTable);
 
 import PCreateProduct from "./components/models/product/PCreateProduct";
 import PProductDetails from "./components/models/product/PProductDetails";
@@ -57,13 +85,14 @@ Vue.component("p-crud-modal", PCrudModal);
 Vue.component("p-modal-footer", PModalFooter);
 
 //Custom formatters
-import { percentageFormatter } from "./formatter";
+import { dateFormatter, percentageFormatter } from "./formatter";
 import { moneyFormatter } from "./formatter";
 import { dateTimeFormatter } from "./formatter";
 
 Vue.filter("percentage", percentageFormatter);
 Vue.filter("money", moneyFormatter);
 Vue.filter("dateTime", dateTimeFormatter);
+Vue.filter("date", dateFormatter);
 
 // Bootstrap-vue
 import BootstrapVue from "bootstrap-vue";
@@ -81,10 +110,22 @@ import {
     faTrash,
     faTimes,
     faSave,
+    faSort,
+    faSortUp,
+    faSortDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faEye, faEdit, faTrash, faTimes, faSave);
+library.add(
+    faEye,
+    faEdit,
+    faTrash,
+    faTimes,
+    faSave,
+    faSort,
+    faSortUp,
+    faSortDown
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

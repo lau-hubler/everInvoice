@@ -21,7 +21,7 @@
                 {{ data.value | dateTime }}
             </template>
             <template v-slot:cell(category)="data">
-                {{ data.value.name }} ({{ data.value.iva | percentage}})
+                {{ data.value.name }} ({{ data.value.iva | percentage }})
             </template>
             <template v-slot:cell(actions)="row">
                 <div class="btn-group btn-group-sm" role="group">
@@ -42,7 +42,11 @@
                     >
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
-                    <p-delete-button :item="row.item" :action="action" type="product">
+                    <p-delete-button
+                        :item="row.item"
+                        :action="action"
+                        type="product"
+                    >
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>
                 </div>
@@ -61,6 +65,7 @@
 
 <script>
 import EventBus from "../../../eventBus";
+import api from "../../../api";
 export default {
     name: "PProductsTable.vue",
 
@@ -83,7 +88,7 @@ export default {
         },
         category: {
             type: String,
-            default: "Category"
+            default: "Category",
         },
         updated_at: {
             type: String,
@@ -93,7 +98,6 @@ export default {
             type: String,
             default: "There are no products to show",
         },
-        action: String,
     },
 
     data() {
@@ -161,9 +165,7 @@ export default {
     },
 
     mounted() {
-        axios
-            .get(this.action)
-            .then((response) => (this.products = response.data));
+        api.getClass("product").then((products) => (this.products = products));
 
         EventBus.$on("new-product", (product) => {
             this.addProduct(product);
@@ -177,9 +179,7 @@ export default {
             this.deleteProduct(product);
         });
     },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

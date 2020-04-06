@@ -2,7 +2,11 @@
     <div>
         <b-container>
             <b-row class="p-1">
-                <b-col v-if="item.is_company" class="text-right font-weight-bold" cols="4">
+                <b-col
+                    v-if="item.is_company"
+                    class="text-right font-weight-bold"
+                    cols="4"
+                >
                     {{ trans("stakeholder.name.labelCompany") }}
                 </b-col>
                 <b-col v-else class="text-right font-weight-bold" cols="4">
@@ -10,8 +14,8 @@
                 </b-col>
                 <b-col>{{ item.name }}</b-col>
             </b-row>
-            <b-row v-if="item.is_company"  class="p-1">
-                <b-col  class="text-right font-weight-bold" cols="4">
+            <b-row v-if="item.is_company" class="p-1">
+                <b-col class="text-right font-weight-bold" cols="4">
                     {{ trans("stakeholder.company.label") }}
                 </b-col>
                 <b-col>{{ item.company }}</b-col>
@@ -26,7 +30,9 @@
                 <b-col class="text-right font-weight-bold" cols="4">
                     {{ trans("stakeholder.document.label") }}
                 </b-col>
-                <b-col>{{ item.document_type.acronym }} {{ item.document}}</b-col>
+                <b-col
+                    >{{ item.document_type.acronym }} {{ item.document }}</b-col
+                >
             </b-row>
             <b-row class="p-1">
                 <b-col class="text-right font-weight-bold" cols="4">

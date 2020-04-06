@@ -3,12 +3,20 @@
         <b-form @submit.prevent="validate().then(onSubmit)">
             <b-tabs v-model="tabIndex">
                 <b-tab :title="trans('stakeholder.person.title')" active>
-                    <p class="m-3">{{ trans('stakeholder.person.message') }}</p>
-                    <p-person-form v-model="item" :tabIndex="tabIndex"></p-person-form>
+                    <p class="m-3">{{ trans("stakeholder.person.message") }}</p>
+                    <p-person-form
+                        v-model="item"
+                        :tabIndex="tabIndex"
+                    ></p-person-form>
                 </b-tab>
                 <b-tab :title="trans('stakeholder.company.title')">
-                    <p class="m-3">{{ trans('stakeholder.company.message') }}</p>
-                    <p-company-form v-model="item" :tabIndex="tabIndex"></p-company-form>
+                    <p class="m-3">
+                        {{ trans("stakeholder.company.message") }}
+                    </p>
+                    <p-company-form
+                        v-model="item"
+                        :tabIndex="tabIndex"
+                    ></p-company-form>
                 </b-tab>
                 <b-button hidden ref="submit-btn" type="submit" />
             </b-tabs>
@@ -20,16 +28,12 @@
 import PStakeholderForm from "../../forms/PPersonForm";
 import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
+import api from "../../../api";
 
 export default {
     name: "PCreateStakeholder",
 
     components: { PStakeholderForm, ValidationObserver },
-
-    props: {
-        action: String,
-        createMessage: String,
-    },
 
     data: () => ({
         item: {
@@ -62,8 +66,7 @@ export default {
                 mobile: this.item.mobile,
             };
 
-            axios.post(this.action, params).then((response) => {
-                const stakeholder = response.data;
+            api.createItem("stakeholder", params).then((stakeholder) => {
                 EventBus.$emit("new-stakeholder", stakeholder);
                 EventBus.$emit("saved");
             });
@@ -74,11 +77,11 @@ export default {
         },
 
         isCompany() {
-            if(this.tabIndex) {
-                this.item.is_company = 1
+            if (this.tabIndex) {
+                this.item.is_company = 1;
             }
-            return this.item.is_company
-        }
+            return this.item.is_company;
+        },
     },
 };
 </script>

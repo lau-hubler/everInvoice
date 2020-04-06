@@ -33,7 +33,7 @@ class IndexCategoryTest extends TestCase
         $response = $this->actingAs($user)->get(route('categories.index'));
 
         $response->assertSuccessful();
-        $response->assertViewIs('category');
+        $response->assertViewIs('models.category');
     }
 
     public function testTheIndexOfCategoriesHasCategories()

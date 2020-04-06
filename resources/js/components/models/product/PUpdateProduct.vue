@@ -11,6 +11,7 @@
 import PProductForm from "../../forms/PProductForm";
 import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
+import api from "../../../api";
 
 export default {
     name: "PUpdateProduct",
@@ -46,12 +47,13 @@ export default {
                     price: this.item.price,
                     category_id: this.item.category_id,
                 };
-                axios.put(this.route(this.id), params).then((response) => {
-                    const product = response.data;
+                api.updateItem("product", this.id, params).then((product) => {
                     EventBus.$emit("update-product", product);
+                    EventBus.$emit("saved");
                 });
+            } else {
+                EventBus.$emit("saved");
             }
-            EventBus.$emit("saved");
         },
 
         submitForm() {

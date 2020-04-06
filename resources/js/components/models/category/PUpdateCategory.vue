@@ -11,6 +11,7 @@
 import PCategoryForm from "../../forms/PCategoryForm";
 import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
+import api from "../../../api";
 
 export default {
     name: "PUpdateCategory",
@@ -46,12 +47,13 @@ export default {
                     description: this.item.description,
                     iva: this.convertedIva(this.item.iva),
                 };
-                axios.put(this.route(this.id), params).then((response) => {
-                    const category = response.data;
+                api.updateItem("category", this.id, params).then((category) => {
                     EventBus.$emit("update-category", category);
+                    EventBus.$emit("saved");
                 });
+            } else {
+                EventBus.$emit("saved");
             }
-            EventBus.$emit("saved");
         },
 
         submitForm() {

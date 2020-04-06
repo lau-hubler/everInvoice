@@ -39,7 +39,11 @@
                     >
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
-                    <p-delete-button :item="row.item" :action="action" type="category" has-default>
+                    <p-delete-button
+                        :item="row.item"
+                        type="category"
+                        has-default
+                    >
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>
                 </div>
@@ -58,6 +62,7 @@
 
 <script>
 import EventBus from "../../../eventBus";
+import api from "../../../api";
 
 export default {
     name: "PCategoriesTable",
@@ -83,7 +88,6 @@ export default {
             type: String,
             default: "There are no categories to show",
         },
-        action: String,
     },
 
     data() {
@@ -146,9 +150,9 @@ export default {
     },
 
     mounted() {
-        axios
-            .get(this.action)
-            .then((response) => (this.categories = response.data));
+        api.getClass('category').then(
+            (categories) => (this.categories = categories)
+        );
 
         EventBus.$on("new-category", (category) => {
             this.addCategory(category);

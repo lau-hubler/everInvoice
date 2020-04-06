@@ -7,8 +7,6 @@
         v-slot="{ errors, validated }"
     >
         <b-form-group
-            inline
-            label-align-sm="right"
             label-class="font-weight-bold"
             :label-for="$attrs.id"
             v-bind="$attrs"
@@ -20,7 +18,9 @@
                 :state="errors[0] ? false : validated ? true : null"
             >
                 <template v-slot:first>
-                    <b-form-select-option :value="null" disabled>-- {{ placeholder }} --</b-form-select-option>
+                    <b-form-select-option :value="null" disabled>
+                        -- {{ placeholder }} --
+                    </b-form-select-option>
                 </template>
             </b-form-select>
 
@@ -33,7 +33,6 @@
 
 <script>
 import { ValidationProvider } from "vee-validate";
-import numeral from "numeral";
 
 export default {
     components: {

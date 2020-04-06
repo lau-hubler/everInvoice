@@ -21,15 +21,18 @@
         />
         <b-form-row>
             <b-col cols="3" class="font-weight-bold text-right pt-2">
-                {{ trans('stakeholder.document.label')}}
+                {{ trans("stakeholder.document.label") }}
             </b-col>
             <b-col cols="2">
                 <p-select-input
                     rules="required"
+                    label-align-sm="right"
                     :options="prepareOptions()"
                     name="document_type_id"
                     v-model="person.document_type_id"
-                    :placeholder="trans('stakeholder.document_type.placeholder')"
+                    :placeholder="
+                        trans('stakeholder.document_type.placeholder')
+                    "
                 />
             </b-col>
             <b-col>
@@ -65,7 +68,7 @@
 <script>
 import PTextInput from "../inputs/PTextInput";
 import { ValidationObserver, Validator } from "vee-validate";
-import numeral from "numeral";
+import api from "../../api";
 
 export default {
     name: "PPersonForm",
@@ -81,7 +84,8 @@ export default {
     data: () => ({
         person: "",
         stakeholders: null,
-        CSRFToken: document.head.querySelector("[name=csrf-token][content]").content,
+        CSRFToken: document.head.querySelector("[name=csrf-token][content]")
+            .content,
         documentTypes: {},
     }),
 
@@ -97,41 +101,52 @@ export default {
 
     methods: {
         prepareOptions() {
-            return this.documentTypes.map(function(document_type) {
+            return this.documentTypes.map(function (document_type) {
                 return {
                     value: document_type.id,
-                    text: `${document_type.acronym} - ${document_type.name}`
-                }
+                    text: `${document_type.acronym} - ${document_type.name}`,
+                };
             });
         },
         sameDocument(original, value) {
-            return original.document_type_id === this.person.document_type_id && original.document === value
+            return (
+                original.document_type_id === this.person.document_type_id &&
+                original.document === value
+            );
         },
         isNotInDatabase(value) {
-            return _.findIndex(this.stakeholders, { document: value, document_type_id: this.person.document_type_id }) === -1
-        }
+            return (
+                _.findIndex(this.stakeholders, {
+                    document: value,
+                    document_type_id: this.person.document_type_id,
+                }) === -1
+            );
+        },
     },
 
     created() {
         if (this.value) {
             this.person = this.value;
         }
-        axios.get("/stakeholders").then((response) => {
-            this.stakeholders = response.data;
-        });
-        axios.get("/documentTypes").then((response) => {
-            this.documentTypes = response.data;
-        })
+        api.getClass("stakeholder").then(
+            (stakeholders) => (this.stakeholders = stakeholders)
+        );
+        api.getClass("documentType").then(
+            (documentTypes) => (this.documentTypes = documentTypes)
+        );
     },
     mounted() {
         const isUnique = (value) =>
             new Promise((resolve) => {
                 setTimeout(() => {
-                    let original = {document:null, document_type_id:null};
-                    if(this.id){
-                        original =_.find(this.stakeholders, { id: this.id})
+                    let original = { document: null, document_type_id: null };
+                    if (this.id) {
+                        original = _.find(this.stakeholders, { id: this.id });
                     }
-                    if (this.isNotInDatabase(value) || this.sameDocument(original, value)) {
+                    if (
+                        this.isNotInDatabase(value) ||
+                        this.sameDocument(original, value)
+                    ) {
                         return resolve({
                             valid: true,
                         });

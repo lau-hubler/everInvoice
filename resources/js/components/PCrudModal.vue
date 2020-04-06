@@ -1,15 +1,22 @@
 <template>
-    <b-modal ref="custom-modal" id="modal" :title="title" :size="size" @hide="handleHide">
+    <b-modal
+        ref="custom-modal"
+        id="modal"
+        :title="title"
+        :size="size"
+        @hide="handleHide"
+    >
         <b-container v-if="props.createMode && createMessage" class="pb-2">
             {{ createMessage }}
         </b-container>
-        <component :is="component" v-bind="props" :action="action" :hasDefault="hasDefault" />
+        <component
+            :is="component"
+            v-bind="props"
+            :action="action"
+            :hasDefault="hasDefault"
+        />
         <template v-slot:modal-footer>
-            <p-modal-footer
-                v-bind="props"
-                :action="action"
-                :object="object"
-            />
+            <p-modal-footer v-bind="props" :action="action" :object="object" />
         </template>
     </b-modal>
 </template>
@@ -115,7 +122,7 @@ export default {
         },
         setRoute(id) {
             return `${this.action}/${id}`;
-        }
+        },
     },
 
     mounted() {

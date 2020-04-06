@@ -11,16 +11,12 @@
 import PCategoryForm from "../../forms/PCategoryForm";
 import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
+import api from "../../../api";
 
 export default {
     name: "PCreateCategory",
 
     components: { PCategoryForm, ValidationObserver },
-
-    props: {
-        action: String,
-        createMessage: String,
-    },
 
     data: () => ({
         item: {
@@ -43,9 +39,7 @@ export default {
                 description: this.item.description,
                 iva: this.convertedIva(),
             };
-
-            axios.post(this.action, params).then((response) => {
-                const category = response.data;
+            api.createItem('category', params).then(category => {
                 EventBus.$emit("new-category", category);
                 EventBus.$emit("saved");
             });

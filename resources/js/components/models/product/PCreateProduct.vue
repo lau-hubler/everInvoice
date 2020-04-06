@@ -11,16 +11,12 @@
 import PProductForm from "../../forms/PProductForm";
 import EventBus from "../../../eventBus";
 import { ValidationObserver } from "vee-validate";
+import api from "../../../api";
 
 export default {
     name: "PCreateProduct",
 
     components: { PProductForm, ValidationObserver },
-
-    props: {
-        action: String,
-        createMessage: String,
-    },
 
     data: () => ({
         item: {
@@ -46,8 +42,7 @@ export default {
                 category_id: this.item.category_id,
             };
 
-            axios.post(this.action, params).then((response) => {
-                const product = response.data;
+            api.createItem("product", params).then((product) => {
                 EventBus.$emit("new-product", product);
                 EventBus.$emit("saved");
             });

@@ -74,10 +74,10 @@ export default {
                     value = value.toUpperCase();
                     break;
                 case "percentage":
-                    value = numeral(value).format('0.0[0]');
+                    value = numeral(value).format("0.0[0]");
                     break;
                 case "money":
-                    value = numeral(value).format('00.00');
+                    value = numeral(value).format("00.00");
                     break;
             }
 

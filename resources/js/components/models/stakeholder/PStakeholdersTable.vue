@@ -15,7 +15,7 @@
             class="stakeholder-table"
         >
             <template v-slot:cell(document)="data">
-                {{ data.item.document_type.acronym }} {{ data.value}}
+                {{ data.item.document_type.acronym }} {{ data.value }}
             </template>
             <template v-slot:cell(name)="data">
                 {{ getName(data.item) }}
@@ -39,7 +39,11 @@
                     >
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
-                    <p-delete-button :item="row.item" :action="action" type="stakeholder">
+                    <p-delete-button
+                        :item="row.item"
+                        :action="action"
+                        type="stakeholder"
+                    >
                         <font-awesome-icon icon="trash" />
                     </p-delete-button>
                 </div>
@@ -58,6 +62,7 @@
 
 <script>
 import EventBus from "../../../eventBus";
+import api from "../../../api";
 
 export default {
     name: "PStakeholdersTable",
@@ -83,7 +88,6 @@ export default {
             type: String,
             default: "There are no stakeholders to show",
         },
-        action: String,
     },
 
     data() {
@@ -132,25 +136,29 @@ export default {
             this.stakeholders.push(stakeholder);
         },
         deleteStakeholder(stakeholder) {
-            const index = _.findIndex(this.stakeholders, { id: stakeholder.id });
+            const index = _.findIndex(this.stakeholders, {
+                id: stakeholder.id,
+            });
             this.$delete(this.stakeholders, index, stakeholder);
         },
         updateStakeholder(stakeholder) {
-            const index = _.findIndex(this.stakeholders, { id: stakeholder.id });
+            const index = _.findIndex(this.stakeholders, {
+                id: stakeholder.id,
+            });
             this.$set(this.stakeholders, index, stakeholder);
         },
         getName(stakeholder) {
-            if(stakeholder.is_company){
-                return stakeholder.name
+            if (stakeholder.is_company) {
+                return stakeholder.name;
             }
-            return `${stakeholder.name} ${stakeholder.surname}`
-        }
+            return `${stakeholder.name} ${stakeholder.surname}`;
+        },
     },
 
     mounted() {
-        axios
-            .get(this.action)
-            .then((response) => (this.stakeholders = response.data));
+        api.getClass("stakeholder").then(
+            (stakeholders) => (this.stakeholders = stakeholders)
+        );
 
         EventBus.$on("new-stakeholder", (stakeholder) => {
             this.addStakeholder(stakeholder);

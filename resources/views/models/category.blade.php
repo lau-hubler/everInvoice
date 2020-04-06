@@ -22,7 +22,7 @@
   </div>
   @include('layouts.__crud_modal', [
     'item' => trans('category.item'),
-    'object' => 'models.category',
+    'object' => 'category',
     'gender' => 1,
     'action' => route( 'categories.store' ),
     'hasDefault' => true,

@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-end">
         <h3>{{ __('product.title') }}</h3>
-        <b-button-toolbar aria-label="Toolbar for categories">
+        <b-button-toolbar aria-label="Toolbar for products">
             <b-button-group class="mx-1">
                 <p-create-button component="p-create-product">{{ __('app.buttons.new') }}</p-create-button>
             </b-button-group>
@@ -24,7 +24,7 @@
     </div>
     @include('layouts.__crud_modal', [
         'item' => trans('product.item'),
-        'object' => 'models.product',
+        'object' => 'product',
         'gender' => 0,
         'action' => route( 'products.store' ),
     ])
