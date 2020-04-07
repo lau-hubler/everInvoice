@@ -267,7 +267,7 @@ export default {
             this.deleteInvoice(invoice);
         });
 
-        EventBus.$on("search", (filters) => (this.filters = filters));
+        EventBus.$on("search-invoice", (filters) => (this.filters = filters));
     },
 };
 </script>

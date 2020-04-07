@@ -4,32 +4,37 @@
         v-model="filter"
         tag-pills
         tag-variant="primary"
-        size="lg"
+        :size="size"
+        separator=" "
+        remove-on-delete
+        no-add-on-enter
         placeholder="Search..."
         @input="sendFilter"
     />
 </template>
 
 <script>
-    import EventBus from "../../eventBus";
+import EventBus from "../../eventBus";
 
-    export default {
-        name: "PSearchInput.vue",
+export default {
+    name: "PSearchInput.vue",
 
-        data() {
-            return {
-                filter: [],
-            }
+    props: {
+        size: { default: "lg" },
+        item: null
+    },
+    data() {
+        return {
+            filter: [],
+        };
+    },
+
+    methods: {
+        sendFilter() {
+            EventBus.$emit(`search-${this.item}`, this.filter);
         },
-
-        methods: {
-            sendFilter(){
-                EventBus.$emit('search', this.filter )
-            }
-        }
-    }
+    },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

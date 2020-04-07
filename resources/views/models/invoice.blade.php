@@ -6,7 +6,7 @@
         <h3>{{ __('invoice.title') }}</h3>
         <b-button-toolbar aria-label="Toolbar for invoices">
             <b-button-group class="mx-1">
-                <p-search-input ></p-search-input>
+                <p-search-input item="invoice" ></p-search-input>
             </b-button-group>
             <b-button-group class="mx-1">
                 <p-create-button component="p-create-invoice">{{ __('app.buttons.new') }}</p-create-button>
