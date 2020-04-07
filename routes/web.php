@@ -56,12 +56,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function () {
-    Route::apiResource('categories', 'CategoryController');
-    Route::apiResource('products', 'ProductController');
-    Route::apiResource('stakeholders', 'StakeholderController');
-    Route::apiResource('invoices', 'InvoiceController');
-
-    Route::apiResource('orders', 'OrderController');
-    Route::apiResource('statuses', 'StatusController');
-    Route::apiResource('documentTypes', 'DocumentTypeController');
+    Route::apiResource('categories', 'CategoryController')->only('index');
+    Route::apiResource('products', 'ProductController')->only('index');
+    Route::apiResource('stakeholders', 'StakeholderController')->only('index');
+    Route::apiResource('invoices', 'InvoiceController')->only('index');
 });

@@ -24,7 +24,7 @@
     'item' => trans('stakeholder.item'),
     'object' => 'stakeholder',
     'gender' => 0,
-    'action' => route( 'stakeholders.store' ),
+    'action' => route( 'api.stakeholders.store' ),
     'modalSize' => 'lg',
     'createMessage' => ' ',
   ])

@@ -21,59 +21,6 @@ class StakeholderController extends Controller
     {
         $stakeholders = Stakeholder::with('documentType')->get();
 
-        if (request()->wantsJson()) {
-            return $stakeholders;
-        }
-
         return response()->view('models.stakeholder', compact('stakeholders'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param StakeholderRequest $request
-     * @return Builder|Builder[]|Collection|Model|Response
-     */
-    public function store(StakeholderRequest $request)
-    {
-        $stakeholder = Stakeholder::create($request->validated());
-
-        return Stakeholder::with('documentType')->find($stakeholder->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Stakeholder $stakeholder
-     * @return Builder|Builder[]|Collection|Model|Response
-     */
-    public function show(Stakeholder $stakeholder)
-    {
-        return Stakeholder::with('documentType')->find($stakeholder->id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Stakeholder $stakeholder
-     * @return Builder|Builder[]|Collection|Model|Response
-     */
-    public function update(StakeholderRequest $request, Stakeholder $stakeholder)
-    {
-        $stakeholder->update($request->validated());
-
-        return Stakeholder::with('documentType')->find($stakeholder->id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Stakeholder $stakeholder
-     * @return Response
-     */
-    public function destroy(Stakeholder $stakeholder)
-    {
-        $stakeholder->delete();
     }
 }

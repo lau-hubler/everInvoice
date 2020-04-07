@@ -44,4 +44,14 @@ class Invoice extends Model
         );
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($model) {
+            $model->orders()->each(function($order) {
+                $order->delete();
+            });
+        });
+    }
+
 }

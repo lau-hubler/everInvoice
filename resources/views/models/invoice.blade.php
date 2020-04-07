@@ -22,7 +22,7 @@
         'item' => trans('invoice.item'),
         'object' => 'invoice',
         'gender' => 1,
-        'action' => route( 'invoices.store' ),
+        'action' => route( 'api.invoices.store' ),
         'modalSize' => 'xl',
     ])
 </div>

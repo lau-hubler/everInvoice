@@ -27,7 +27,7 @@ class OrderRequest extends FormRequest
             'product_id' => "required|unique:orders,product_id,$this->id,id,invoice_id,$this->invoice_id",
             'quantity' => 'required|numeric|min:0',
             'unit_price' => 'required|numeric|min:0',
-            'product_iva' => 'required|numeric|between,0,1'
+            'product_iva' => 'required|numeric|between:0,1'
         ];
     }
 }

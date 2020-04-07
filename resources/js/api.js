@@ -1,12 +1,12 @@
 const getUrl = (url) => {
     const urls = {
-        invoice: "/invoices",
-        stakeholder: "/stakeholders",
-        product: "/products",
-        category: "/categories",
-        documentType: "/documentTypes",
-        status: "/statuses",
-        order: "/orders",
+        invoice: "/api/invoices",
+        stakeholder: "/api/stakeholders",
+        product: "/api/products",
+        category: "/api/categories",
+        documentType: "/api/documentTypes",
+        status: "/api/statuses",
+        order: "/api/orders",
     };
     return urls[url];
 };

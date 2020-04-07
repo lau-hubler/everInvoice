@@ -26,7 +26,7 @@
         'item' => trans('product.item'),
         'object' => 'product',
         'gender' => 0,
-        'action' => route( 'products.store' ),
+        'action' => route( 'api.products.store' ),
     ])
 </div>
 @endsection

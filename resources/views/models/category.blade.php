@@ -24,7 +24,7 @@
     'item' => trans('category.item'),
     'object' => 'category',
     'gender' => 1,
-    'action' => route( 'categories.store' ),
+    'action' => route( 'api.categories.store' ),
     'hasDefault' => true,
   ])
 </div>
