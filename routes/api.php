@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::name('api.')->group(function () {
+    Route::apiResource('invoices', 'Api\InvoiceController');
+    Route::apiResource('orders', 'Api\OrderController');
+    Route::apiResource('stakeholders', 'Api\StakeholderController');
+    Route::apiResource('products', 'Api\ProductController');
+    Route::apiResource('categories', 'Api\CategoryController');
+    Route::apiResource('statuses', 'Api\StatusController');
+    Route::apiResource('documentTypes', 'Api\DocumentTypeController');
+});
+

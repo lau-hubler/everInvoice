@@ -21,6 +21,7 @@
 </head>
 <body>
     <div id="app">
+        @stack('modals')
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -73,8 +74,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container col-lg-9 col-md-12">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
+<script src="/js/lang-{{ \App::getLocale() }}.js"></script>
 </html>

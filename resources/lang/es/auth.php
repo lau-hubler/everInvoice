@@ -1,7 +1,8 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Authentication Language Lines
@@ -22,6 +23,5 @@ return [
     'forgotPassword' => '¿Olvidaste la contraseña?',
     'confirmPassword' => 'Confirmar contraseña',
     'register' => 'Regístrate',
-    'logout' => 'Cerrar sección'
-
+    'logout' => 'Cerrar sección',
 ];
