@@ -24,9 +24,11 @@ Vue.component("p-person-form", PPersonForm);
 Vue.component("p-product-form", PProductForm);
 
 import PDateInput from "./components/inputs/PDateInput";
+import PSearchInput from "./components/inputs/PSearchInput";
 import PSelectInput from "./components/inputs/PSelectInput";
 import PTextInput from "./components/inputs/PTextInput";
 Vue.component("p-date-input", PDateInput);
+Vue.component("p-search-input", PSearchInput);
 Vue.component("p-select-input", PSelectInput);
 Vue.component("p-text-input", PTextInput);
 

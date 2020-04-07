@@ -2,7 +2,7 @@
     <div class="overflow-auto">
         <b-table
             id="invoices-table"
-            :items="invoices"
+            :items="filteredInvoices"
             :fields="fields"
             :per-page="perPage"
             :current-page="currentPage"
@@ -80,6 +80,7 @@ export default {
 
     data() {
         return {
+            filters: [],
             invoices: [],
             perPage: 10,
             currentPage: 1,
@@ -123,6 +124,28 @@ export default {
         rows() {
             return this.invoices.length;
         },
+
+        filteredInvoices() {
+            let filtered = [];
+            let invoices = this.invoices;
+
+            if (this.filterEmpty()) {
+                return invoices;
+            }
+            filtered = this.filterORTags(filtered, invoices);
+            filtered = this.filterANDTags(filtered);
+            return filtered;
+        },
+        ANDTags() {
+            return this.filters
+                .filter((searchTag) => searchTag.includes("+"))
+                .map((searchTag) => searchTag.slice(1));
+        },
+        ORTags() {
+            return this.filters.filter(
+                (searchTag) => _.findIndex(this.ANDTags, searchTag) === -1
+            );
+        },
     },
 
     methods: {
@@ -147,9 +170,89 @@ export default {
             }
             return `${stakeholder.name} ${stakeholder.surname}`;
         },
+
+        filterEmpty() {
+            return (
+                this.filters &&
+                this.filters.constructor === Array &&
+                this.filters.length === 0
+            );
+        },
+        filterORTags(filtered, invoices) {
+            let eachFilter = (invoice, filter) =>
+                this.eachFilter(invoice, filter);
+
+            this.ORTags.forEach(function (filter) {
+                invoices
+                    .filter((invoice) => eachFilter(invoice, filter))
+                    .map((invoice) => {
+                        if (filtered.includes(invoice) === false)
+                            filtered.push(invoice);
+                    });
+            });
+            return filtered;
+        },
+        filterANDTags(invoices) {
+            let filtered = invoices;
+            let eachFilter = (invoice, filter) =>
+                this.eachFilter(invoice, filter);
+
+            this.ANDTags.forEach(function (filter) {
+                filtered = filtered.filter((invoice) =>
+                    eachFilter(invoice, filter)
+                );
+            });
+            return filtered;
+        },
+        eachFilter(invoice, filter) {
+            return (
+                this.filterDueDate(invoice, filter) ||
+                this.filterClient(invoice, filter) ||
+                this.filterVendor(invoice, filter) ||
+                this.filterId(invoice, filter) ||
+                this.filterStatus(invoice, filter)
+            );
+        },
+        filterId(invoice, filter) {
+            return invoice.id == filter;
+        },
+        filterClient(invoice, filter) {
+            return this.getName(invoice.client)
+                .toLowerCase()
+                .includes(filter.toLowerCase());
+        },
+        filterVendor(invoice, filter) {
+            return this.getName(invoice.vendor)
+                .toLowerCase()
+                .includes(filter.toLowerCase());
+        },
+        filterDueDate(invoice, filter) {
+            if (this.isBetweenDates(filter)) {
+                return this.filterBetweenDates(invoice.due_date,filter);
+            }
+            return invoice.due_date === this.formatDateToSearch(filter);
+        },
+        filterBetweenDates(date, filter) {
+            let dates = filter.split("-");
+            let startDate = new Date(this.formatDateToSearch(dates[0]));
+            let endDate = new Date(this.formatDateToSearch(dates[1]));
+            date = new Date(date);
+
+            return date >= startDate && date <= endDate;
+        },
+        formatDateToSearch(date) {
+            const dateInArray = date.split("/");
+            return `${dateInArray[2]}-${dateInArray[0]}-${dateInArray[1]}`;
+        },
+        filterStatus(invoice, filter) {
+            return invoice.status.name === filter;
+        },
+        isBetweenDates(date) {
+            return date.includes("-");
+        },
     },
 
-    mounted() {
+    created() {
         api.getClass("invoice").then((invoices) => (this.invoices = invoices));
 
         EventBus.$on("new-invoice", (invoice) => {
@@ -163,6 +266,8 @@ export default {
         EventBus.$on("delete-invoice", (invoice) => {
             this.deleteInvoice(invoice);
         });
+
+        EventBus.$on("search", (filters) => (this.filters = filters));
     },
 };
 </script>
