@@ -150,7 +150,7 @@ export default {
     },
 
     mounted() {
-        api.getClass('category').then(
+        api.getClass("category").then(
             (categories) => (this.categories = categories)
         );
 

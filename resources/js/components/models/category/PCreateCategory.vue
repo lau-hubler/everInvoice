@@ -39,7 +39,7 @@ export default {
                 description: this.item.description,
                 iva: this.convertedIva(),
             };
-            api.createItem('category', params).then(category => {
+            api.createItem("category", params).then((category) => {
                 EventBus.$emit("new-category", category);
                 EventBus.$emit("saved");
             });

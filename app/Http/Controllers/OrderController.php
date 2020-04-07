@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Order;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Builder[]|Collection|Response
      */
     public function index()
     {
@@ -20,17 +26,12 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param OrderRequest $request
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        $order = new Order();
-        $order->product_id = $request->product_id;
-        $order->quantity = $request->quantity;
-        $order->product_iva = $request->product_iva;
-        $order->unit_price = $request->unit_price;
-        $order->save();
+        $order = Order::create($request->validated());
 
         return Order::with('product.category')->find($order->id);
     }
@@ -38,8 +39,8 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return Builder|Builder[]|Collection|Model|Response
      */
     public function show(Order $order)
     {
@@ -50,17 +51,13 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param OrderRequest $request
+     * @param Order $order
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function update(Request $request, Order $order)
+    public function update(OrderRequest $request, Order $order)
     {
-        $order->product_id = $request->product_id;
-        $order->quantity = $request->quantity;
-        $order->product_iva = $request->product_iva;
-        $order->unit_price = $request->unit_price;
-        $order->save();
+        $order->update($request->validated());
 
         return Order::with('product.category')->find($order->id);
     }
@@ -68,10 +65,11 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return void
+     * @throws Exception
      */
-    public function destroy(Order $order)
+    public function destroy(Order $order): void
     {
         $order->delete();
     }

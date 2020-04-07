@@ -11,7 +11,7 @@
                 <span v-else class="text-right font-weight-bold">
                     {{ trans("stakeholder.name.labelPerson") }}
                 </span>
-                <b-col>{{ item.name }} {{item.surname}}</b-col>
+                <b-col>{{ item.name }} {{ item.surname }}</b-col>
             </b-row>
             <b-row v-if="item.is_company" class="p-1">
                 <span class="text-right font-weight-bold">

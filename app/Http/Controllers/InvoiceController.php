@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
-use App\Stakeholder;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 
 class InvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Http\Response
+     * @return Builder[]|Collection|Response
      */
     public function index()
     {
@@ -27,20 +31,12 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param InvoiceRequest $request
+     * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function store(Request $request)
+    public function store(InvoiceRequest $request)
     {
-        $invoice = new Invoice();
-
-        $invoice->invoice_date = $request->invoice_date;
-        $invoice->delivery_date = $request->delivery_date;
-        $invoice->due_date = $request->due_date;
-        $invoice->status_id = $request->status_id;
-        $invoice->client_id = $request->client_id;
-        $invoice->vendor_id = $request->vendor_id;
-        $invoice->save();
+        $invoice = Invoice::create($request->validated());
 
         return Invoice::with(['vendor.documentType', 'client.documentType', 'status'])->find($invoice->id);
 
@@ -49,8 +45,8 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return Builder|Builder[]|Collection|Model|Response
      */
     public function show(Invoice $invoice)
     {
@@ -61,19 +57,13 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * @param InvoiceRequest $request
+     * @param Invoice $invoice
+     * @return Builder|Builder[]|Collection|Model|null
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(InvoiceRequest $request, Invoice $invoice)
     {
-        $invoice->invoice_date = $request->invoice_date;
-        $invoice->delivery_date = $request->delivery_date;
-        $invoice->due_date = $request->due_date;
-        $invoice->status_id = $request->status_id;
-        $invoice->client_id = $request->client_id;
-        $invoice->vendor_id = $request->vendor_id;
-        $invoice->save();
+        $invoice->update($request->validated());
 
         return Invoice::with(['vendor.documentType', 'client.documentType', 'status'])->find($invoice->id);
     }
@@ -81,10 +71,11 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return void
+     * @throws Exception
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Invoice $invoice): void
     {
         $invoice->delete();
     }

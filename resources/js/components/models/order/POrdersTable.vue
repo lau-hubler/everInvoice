@@ -14,10 +14,10 @@
                 <b-th></b-th>
             </b-thead>
             <b-tbody>
-                <p-order-create-row />
-                <template v-for="order in currentOrders()">
+                <template v-for="order in orders">
                     <p-order-row :order="order" />
                 </template>
+                <p-order-create-row :invoiceId="invoiceId" />
             </b-tbody>
         </b-table-simple>
     </div>
@@ -31,7 +31,7 @@ import EventBus from "../../../eventBus";
 export default {
     name: "p-orders-table",
     components: { POrderRow, POrderCreateRow },
-    props: { items: null },
+    props: { items: null, invoiceId: null },
 
     data() {
         return {
@@ -68,15 +68,20 @@ export default {
         subTotal() {
             return this.totalToPay() - this.totalIva();
         },
-        currentOrders() {
-            if (!this.orders) {
-                this.orders = [ ...this.items ];
-            }
-            return this.orders;
+        addOrder(order) {
+            this.orders.push(order);
+        },
+        deleteOrder(order) {
+            const index = _.findIndex(this.orders, { id: order.id });
+            this.orders.splice(index, 1);
         },
     },
     created() {
-        EventBus.$on('create-order', (order) => this.orders.unshift(order))
-    }
+        if (this.items) {
+            this.orders = [...this.items];
+        }
+        EventBus.$on("create-order", (order) => this.addOrder(order));
+        EventBus.$on("delete-order", (order) => this.deleteOrder(order));
+    },
 };
 </script>

@@ -69,7 +69,6 @@ export default {
         if (this.order) {
             this.modifiedOrder = { ...this.order };
         }
-        EventBus.$on('delete-order',)
     },
 };
 </script>

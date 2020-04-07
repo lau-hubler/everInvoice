@@ -1,10 +1,10 @@
 <template>
     <component is="p-order-form" v-model="modifiedOrder">
-        <a class="btn btn-link text-success">
-            <span class="font-weight-bold h4" @click="save">+</span>
+        <a v-b-hover class="btn btn-link text-success">
+            <span class="font-weight-bold h4" @click="save()">+</span>
         </a>
-        <a class="btn btn-link text-secondary">
-            <font-awesome-icon icon="times" @click="reset" />
+        <a v-b-hover class="btn btn-link text-secondary">
+            <font-awesome-icon icon="times" @click="reset()" />
         </a>
     </component>
 </template>
@@ -15,9 +15,11 @@ import POrderForm from "../../forms/POrderForm";
 import EventBus from "../../../eventBus";
 
 export default {
-    name: "POrderRow",
+    name: "POrderCreateRow",
 
     components: { POrderForm },
+
+    props: { invoiceId: null },
 
     data() {
         return {
@@ -30,15 +32,27 @@ export default {
         };
     },
 
+    prepareOptions() {
+        return this.products.map(function (product) {
+            return {
+                value: product.id,
+                text: `${product.code} - ${product.name}`,
+            };
+        });
+    },
+
     methods: {
         save() {
-            api.createItem("order", this.modifiedOrder).then((order) =>
+            const params = {
+                invoice_id: this.invoiceId,
+                ...this.modifiedOrder,
+            };
+            api.createItem("order", params).then((order) =>
                 EventBus.$emit("create-order", order)
             );
-            this.reset();
         },
         reset() {
-            this.modifiedOrder = {};
+            EventBus.$emit("reset-order");
         },
     },
 };

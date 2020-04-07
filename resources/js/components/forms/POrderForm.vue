@@ -1,5 +1,5 @@
 <template>
-    <b-tr>
+    <ValidationObserver is="b-tr" ref="observer">
         <b-td class="text-center align-middle">
             <div class="pt-3 mx-auto" style="max-width: 60px;">
                 <p-text-input
@@ -63,14 +63,18 @@
         </b-td>
 
         <b-td class="text-center align-middle"><slot /></b-td>
-    </b-tr>
+    </ValidationObserver>
 </template>
 
 <script>
 import api from "../../api";
+import EventBus from "../../eventBus";
+import {ValidationObserver} from "vee-validate";
 
 export default {
     name: "POrderForm",
+
+    components: { ValidationObserver },
 
     props: { value: null },
 
@@ -84,7 +88,7 @@ export default {
     watch: {
         productId: function (newVal) {
             const product = _.find(this.products, { id: newVal });
-            if (product){
+            if (product) {
                 this.modifiedOrder.unit_price = product.price;
                 this.modifiedOrder.product_iva = product.category.iva;
             }
@@ -131,6 +135,22 @@ export default {
                 };
             });
         },
+        resetForm() {
+            this.modifiedOrder = {
+                invoice_id: null,
+                product_id: null,
+                quantity: null,
+                unit_price: null,
+                product_iva: null,
+            };
+
+            this.$nextTick(() => {
+                this.errors.clear();
+                this.$nextTick(() => {
+                    this.$validator.reset();
+                });
+            });
+        },
     },
 
     created() {
@@ -138,6 +158,7 @@ export default {
             this.modifiedOrder = this.value;
         }
         api.getClass("product").then((products) => (this.products = products));
+        EventBus.$on("reset-order", this.resetForm);
     },
 };
 </script>

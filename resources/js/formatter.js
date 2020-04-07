@@ -31,4 +31,9 @@ const dateFormatter = function (value, lang) {
     }
 };
 
-export { percentageFormatter, moneyFormatter, dateTimeFormatter, dateFormatter };
+export {
+    percentageFormatter,
+    moneyFormatter,
+    dateTimeFormatter,
+    dateFormatter,
+};

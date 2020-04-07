@@ -55,7 +55,7 @@
                             v-model="invoice.client_id"
                             :placeholder="trans('invoice.client.placeholder')"
                         />
-                        <p-stakeholder-for-invoice :item="invoice"/>
+                        <p-stakeholder-for-invoice :item="invoice" />
                     </b-card-text>
                 </b-card>
                 <b-card>
@@ -108,13 +108,12 @@ export default {
     computed: {
         client: {
             get() {
-                return _.find(this.stakeholders, {id: this.invoice_id })
+                return _.find(this.stakeholders, { id: this.invoice_id });
             },
             set(newVal) {
-                this.invoice.client_id = newVal
-            }
+                this.invoice.client_id = newVal;
+            },
         },
-
     },
 
     watch: {

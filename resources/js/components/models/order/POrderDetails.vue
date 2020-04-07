@@ -4,8 +4,8 @@
             {{ value.quantity }}
         </b-td>
 
-        <b-td class="align-middle" style="min-width: 300px">
-            {{value.product.code}} - {{ value.product.name }}
+        <b-td class="align-middle" style="min-width: 300px;">
+            {{ value.product.code }} - {{ value.product.name }}
         </b-td>
 
         <b-td class="text-center align-middle" style="max-width: 100px;">

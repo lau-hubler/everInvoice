@@ -51,9 +51,7 @@
                 </span>
             </b-row>
             <b-row>
-                <span>
-                    <strong>IVA: </strong> {{ totalIva() | money }}
-                </span>
+                <span> <strong>IVA: </strong> {{ totalIva() | money }} </span>
             </b-row>
             <b-row></b-row>
         </b-col>
@@ -74,12 +72,18 @@ export default {
         ivaOrder(order) {
             return this.totalPrice(order) * order.product_iva;
         },
-        totalIva(){
-            return  this.item.orders.reduce((sum, order) => sum + this.ivaOrder(order), 0)
+        totalIva() {
+            return this.item.orders.reduce(
+                (sum, order) => sum + this.ivaOrder(order),
+                0
+            );
         },
         totalToPay() {
-            return this.item.orders.reduce((sum, order) => sum + this.totalPrice(order), 0)
+            return this.item.orders.reduce(
+                (sum, order) => sum + this.totalPrice(order),
+                0
+            );
         },
-    }
+    },
 };
 </script>

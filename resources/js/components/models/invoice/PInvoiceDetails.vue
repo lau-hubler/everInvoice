@@ -28,17 +28,17 @@
                 </b-card>
             </b-card-group>
         </b-row>
-        <p-orders-table :items="item.orders"/>
+        <p-orders-table :items="item.orders" :invoiceId="item.id" />
     </b-container>
 </template>
 
 <script>
-    import PInvoiceHeader from "./PInvoiceHeader";
-    import POrdersTable from "../order/POrdersTable";
+import PInvoiceHeader from "./PInvoiceHeader";
+import POrdersTable from "../order/POrdersTable";
 
-    export default {
+export default {
     name: "PInvoiceDetails",
-    components: {POrdersTable, PInvoiceHeader },
+    components: { POrdersTable, PInvoiceHeader },
     props: {
         item: null,
     },
