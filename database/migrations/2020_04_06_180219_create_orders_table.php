@@ -18,8 +18,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('product_id');
             $table->float('quantity');
-            $table->float('unit_price', 20,2);
-            $table->float('product_iva', 6,4);
+            $table->float('unit_price', 20, 2);
+            $table->float('product_iva', 6, 4);
             $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->foreign('product_id')->references('id')->on('products');
             $table->unique(['invoice_id', 'product_id']);

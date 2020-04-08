@@ -73,10 +73,17 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            <div class="container col-lg-9 col-md-12">
-                @yield('content')
-            </div>
+        <main class="py-4 container-fluid">
+            <b-row class="col-md-12 mx-5">
+                <b-col cols="2">
+                    @include('layouts.__sideBar')
+                </b-col>
+                <b-col class="container mr-5">
+                        <div class="mr-5">
+                            @yield('content')
+                        </div>
+                </b-col>
+            </b-row>
         </main>
     </div>
 </body>

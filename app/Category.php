@@ -19,10 +19,11 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        self::deleting(function($category) {
-            $category->products()->each(function($product) {
+        self::deleting(function ($category) {
+            $category->products()->each(function ($product) {
                 $product->update(['category_id' => 1]);
             });
         });

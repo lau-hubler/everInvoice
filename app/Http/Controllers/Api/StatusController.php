@@ -30,5 +30,4 @@ class StatusController extends Controller
     {
         return $status;
     }
-
 }

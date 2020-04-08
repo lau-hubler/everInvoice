@@ -59,7 +59,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product, UpdateProductAction $action): Model
     {
-        return $action->execute($product,$request);
+        return $action->execute($product, $request);
     }
 
     /**

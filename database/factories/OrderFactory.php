@@ -20,7 +20,7 @@ $factory->define(Order::class, function (Faker $faker) {
     return [
         'invoice_id' => $invoiceIdFactory,
         'product_id' => $productIdFactory,
-        'quantity' =>  $faker->numberBetween(1,20),
+        'quantity' =>  $faker->numberBetween(1, 20),
         'unit_price' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 50),
         'product_iva' => $faker->randomFloat($nbMaxDecimals = 4, $min = 0, $max = 0.5000),
     ];

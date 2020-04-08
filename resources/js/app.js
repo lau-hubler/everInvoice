@@ -24,10 +24,12 @@ Vue.component("p-person-form", PPersonForm);
 Vue.component("p-product-form", PProductForm);
 
 import PDateInput from "./components/inputs/PDateInput";
+import PFileInput from "./components/inputs/PFileInput";
 import PSearchInput from "./components/inputs/PSearchInput";
 import PSelectInput from "./components/inputs/PSelectInput";
 import PTextInput from "./components/inputs/PTextInput";
 Vue.component("p-date-input", PDateInput);
+Vue.component("p-file-input", PFileInput);
 Vue.component("p-search-input", PSearchInput);
 Vue.component("p-select-input", PSelectInput);
 Vue.component("p-text-input", PTextInput);
@@ -81,8 +83,10 @@ Vue.component("p-stakeholder-details", PStakeholderDetails);
 Vue.component("p-stakeholders-table", PStakeholdersTable);
 Vue.component("p-update-stakeholder", PUpdateStakeholder);
 
+import PAlert from "./components/PAlert";
 import PCrudModal from "./components/PCrudModal";
 import PModalFooter from "./components/PModalFooter";
+Vue.component("p-alert", PAlert);
 Vue.component("p-crud-modal", PCrudModal);
 Vue.component("p-modal-footer", PModalFooter);
 
@@ -112,9 +116,7 @@ import {
     faTrash,
     faTimes,
     faSave,
-    faSort,
-    faSortUp,
-    faSortDown,
+    faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -124,9 +126,7 @@ library.add(
     faTrash,
     faTimes,
     faSave,
-    faSort,
-    faSortUp,
-    faSortDown
+    faUpload
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

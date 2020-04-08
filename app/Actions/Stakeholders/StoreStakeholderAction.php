@@ -3,7 +3,6 @@
 
 namespace App\Actions\Stakeholders;
 
-
 use App\Actions\Action;
 use App\Stakeholder;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +10,6 @@ use Illuminate\Http\Request;
 
 class StoreStakeholderAction extends Action
 {
-
     public function storeModel(Model $stakeholder, Request $data): Model
     {
         $stakeholder->name = $data->input('name');

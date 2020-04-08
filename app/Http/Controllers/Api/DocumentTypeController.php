@@ -29,5 +29,4 @@ class DocumentTypeController extends Controller
     {
         return $documentType;
     }
-
 }

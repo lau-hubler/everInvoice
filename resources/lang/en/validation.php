@@ -147,5 +147,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'vendor_id' => 'vendor',
+        'client_id' => 'client',
+        'status_id' => 'status'
+    ],
 ];

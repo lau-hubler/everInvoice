@@ -3,7 +3,6 @@
 
 namespace App\Actions\Invoices;
 
-
 use App\Actions\Action;
 use App\Invoice;
 use Illuminate\Database\Eloquent\Model;
@@ -24,5 +23,4 @@ class StoreInvoiceAction extends Action
 
         return Invoice::with(['vendor.documentType', 'client.documentType', 'status'])->find($invoice->id);
     }
-
 }

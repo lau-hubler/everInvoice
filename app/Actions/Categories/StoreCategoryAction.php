@@ -3,14 +3,12 @@
 
 namespace App\Actions\Categories;
 
-
 use App\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class StoreCategoryAction extends Action
 {
-
     public function storeModel(Model $category, Request $data): Model
     {
         $category->name = $data->input('name');

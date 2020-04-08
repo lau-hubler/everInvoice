@@ -1,6 +1,8 @@
 <template>
     <div class="m-3">
-        <div class="p-3 px-3 bg-secondary text-white border rounded-top d-flex justify-content-between align-items-end">
+        <div
+            class="p-3 px-3 bg-secondary text-white border rounded-top d-flex justify-content-between align-items-end"
+        >
             <h6 class="mb-0 h3">{{ trans("product.title") }}</h6>
             <b-button-group class="mx-1">
                 <p-search-input size="md" item="order"></p-search-input>
@@ -21,6 +23,20 @@
                     <p-order-row :order="order" />
                 </template>
                 <p-order-create-row :invoiceId="invoiceId" />
+                <b-tr variant="secondary" class="font-weight-bold">
+                    <b-td colspan="3" class="text-right align-middle">
+                        Total:
+                    </b-td>
+                    <b-td class="text-center align-middle">
+                        {{ totalToPay | money }}
+                    </b-td>
+                    <b-td class="text-center align-middle">
+                        {{ totalIva | money }}
+                    </b-td>
+                    <b-td class="align-middle pl-1">(IVA)</b-td>
+                    <b-td class="text-center align-middle">{{ subTotal | money}} </b-td>
+                    <b-td class="align-middle pl-0">(Without IVA)</b-td>
+                </b-tr>
             </b-tbody>
         </b-table-simple>
     </div>
@@ -65,15 +81,6 @@ export default {
                 (searchTag) => _.findIndex(this.ANDTags, searchTag) === -1
             );
         },
-    },
-
-    methods: {
-        totalPrice(order) {
-            return order.quantity * order.unit_price;
-        },
-        ivaOrder(order) {
-            return this.totalPrice(order) * order.product_iva;
-        },
         totalIva() {
             return this.orders.reduce(
                 (sum, order) => sum + this.ivaOrder(order),
@@ -87,7 +94,16 @@ export default {
             );
         },
         subTotal() {
-            return this.totalToPay() - this.totalIva();
+            return this.totalToPay - this.totalIva;
+        },
+    },
+
+    methods: {
+        totalPrice(order) {
+            return order.quantity * order.unit_price;
+        },
+        ivaOrder(order) {
+            return this.totalPrice(order) * order.product_iva;
         },
         addOrder(order) {
             this.orders.push(order);
@@ -105,8 +121,7 @@ export default {
             );
         },
         filterORTags(filtered, orders) {
-            let eachFilter = (order, filter) =>
-                this.eachFilter(order, filter);
+            let eachFilter = (order, filter) => this.eachFilter(order, filter);
 
             this.ORTags.forEach(function (filter) {
                 orders
@@ -120,8 +135,7 @@ export default {
         },
         filterANDTags(orders) {
             let filtered = orders;
-            let eachFilter = (order, filter) =>
-                this.eachFilter(order, filter);
+            let eachFilter = (order, filter) => this.eachFilter(order, filter);
 
             this.ANDTags.forEach(function (filter) {
                 filtered = filtered.filter((order) =>
@@ -132,12 +146,13 @@ export default {
         },
         eachFilter(order, filter) {
             return (
-                this.filterProductName(order,filter) ||
-                this.filterProductCode(order,filter)
+                this.filterProductName(order, filter) ||
+                this.filterProductCode(order, filter)
             );
         },
         filterProductName(order, filter) {
-            return order.product.name.toLowerCase()
+            return order.product.name
+                .toLowerCase()
                 .includes(filter.toLowerCase());
         },
         filterProductCode(order, filter) {
