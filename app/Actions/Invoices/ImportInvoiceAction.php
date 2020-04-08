@@ -9,7 +9,7 @@ class ImportInvoiceAction
 {
     private $importFile;
 
-    public function execute()
+    public function execute(): int
     {
         $invoicesImport = new InvoiceImport();
         $invoicesImport->import($this->importFile);
@@ -17,7 +17,7 @@ class ImportInvoiceAction
         return count($invoicesImport->toArray($this->importFile)[0]);
     }
 
-    public function setImportFile($importFile)
+    public function setImportFile($importFile): ImportInvoiceAction
     {
         $this->importFile = $importFile;
 

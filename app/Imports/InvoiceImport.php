@@ -44,13 +44,17 @@ class InvoiceImport implements ToCollection, WithMappedCells, OnEachRow
         $client = Stakeholder::where('document', $cells['client_document'])->first();
         $vendor = Stakeholder::where('document', $cells['vendor_document'])->first();
         $status = Status::where('name', $cells['status'])->first();
-        $cells['client_id'] = $client->id;
-        $cells['vendor_id'] = $vendor->id;
-        $cells['status_id'] = $status->id;
+        $cells['client_id'] = $this->checkForId($client);
+        $cells['vendor_id'] = $this->checkForId($vendor);
+        $cells['status_id'] = $this->checkForId($status);
 
         Validator::make($cells->toArray(), [
             'client_id' => 'required',
             'vendor_id' => 'required|different:client_id',
+            'invoice_date' => 'required',
+            'delivery_date' => 'required',
+            'due_date' => 'required',
+            'status' => 'required'
         ])->validate();
 
         $this->invoice = Invoice::create([
@@ -101,5 +105,13 @@ class InvoiceImport implements ToCollection, WithMappedCells, OnEachRow
         return empty(array_filter($input, static function ($a) {
             return $a !== null;
         }));
+    }
+
+    public function checkForId($item)
+    {
+        if (!$item) {
+            return null;
+        }
+        return $item->id;
     }
 }

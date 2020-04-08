@@ -31,9 +31,9 @@ class CategoryRequest extends FormRequest
                 'size:6',
                 Rule::unique('categories')->ignore($this->category),
             ],
-            'name' => 'required|min:3',
-            'description' => 'required|min:5',
-            'iva' => 'required',
+            'name' => 'required|between:3,80',
+            'description' => 'required|between:5,255',
+            'iva' => 'required|numeric',
         ];
     }
 }

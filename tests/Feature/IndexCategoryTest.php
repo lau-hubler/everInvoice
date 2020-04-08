@@ -19,14 +19,17 @@ class IndexCategoryTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function testUnauthenticatedUsersCannotAccessCategoriesIndex()
+    /**
+     * Validates that unauthenticated user cannot access categories index
+     */
+    public function test_unauthenticated_users_cannot_access_categories_index(): void
     {
         $this->get(route('categories.index'))
             ->assertRedirect(route('login'))
         ;
     }
 
-    public function testAuthenticatedUsersCanViewTheProductsIndex()
+    public function test_authenticated_users_can_view_the_category_index(): void
     {
         $user = factory(User::class)->create();
 
@@ -36,7 +39,7 @@ class IndexCategoryTest extends TestCase
         $response->assertViewIs('models.category');
     }
 
-    public function testTheIndexOfCategoriesHasCategories()
+    public function test_index_of_Categories_has_categories(): void
     {
         $this->seed(CategorySeeder::class);
         $user = factory(User::class)->create();
