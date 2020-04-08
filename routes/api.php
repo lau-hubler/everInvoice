@@ -29,4 +29,3 @@ Route::name('api.')->group(function () {
     Route::apiResource('statuses', 'Api\StatusController');
     Route::apiResource('documentTypes', 'Api\DocumentTypeController');
 });
-

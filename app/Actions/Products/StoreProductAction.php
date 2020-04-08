@@ -3,7 +3,6 @@
 
 namespace App\Actions\Products;
 
-
 use App\Actions\Action;
 use App\Product;
 use Illuminate\Database\Eloquent\Model;

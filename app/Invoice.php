@@ -48,10 +48,9 @@ class Invoice extends Model
     {
         parent::boot();
         static::deleting(function ($model) {
-            $model->orders()->each(function($order) {
+            $model->orders()->each(function ($order) {
                 $order->delete();
             });
         });
     }
-
 }

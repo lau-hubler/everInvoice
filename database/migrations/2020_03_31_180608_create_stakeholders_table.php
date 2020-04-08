@@ -15,13 +15,13 @@ class CreateStakeholdersTable extends Migration
     {
         Schema::create('stakeholders', function (Blueprint $table) {
             $table->id();
-            $table->string('name',80);
-            $table->string('surname',80)->nullable();
-            $table->string('company',80)->nullable();
+            $table->string('name', 80);
+            $table->string('surname', 80)->nullable();
+            $table->string('company', 80)->nullable();
             $table->boolean('is_company');
             $table->unsignedBigInteger('document_type_id');
             $table->string('document', 20);
-            $table->string('email',120)->nullable();
+            $table->string('email', 120)->nullable();
             $table->string('mobile', 30)->nullable();
             $table->timestamps();
             $table->softDeletes();

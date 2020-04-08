@@ -60,4 +60,5 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('products', 'ProductController')->only('index');
     Route::apiResource('stakeholders', 'StakeholderController')->only('index');
     Route::apiResource('invoices', 'InvoiceController')->only('index');
+    Route::post('invoices/import', 'InvoiceController@import')->name('invoices.import');
 });
