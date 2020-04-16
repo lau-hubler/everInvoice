@@ -3,7 +3,6 @@
 
 namespace Tests\Feature;
 
-
 use App\User;
 use CategorySeeder;
 use DocumentTypeSeeder;
