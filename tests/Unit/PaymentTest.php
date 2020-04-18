@@ -25,8 +25,8 @@ class PaymentTest extends TestCase
         $this->assertEquals($user->id, Transaction::first()->user_id);
         $this->assertEquals($invoice->id, Transaction::first()->invoice_id);
         $this->assertEquals($invoice->createReference(), Transaction::first()->reference);
-        $this->assertEquals($invoice->total(), Transaction::first()->amount);
-        $this->assertEquals('https://test.placetopay.com/redirection/api/session/', Transaction::first()->url);
+        $this->assertEquals($invoice->total, Transaction::first()->amount);
+        $this->assertEquals('https://test.placetopay.com/redirection/', Transaction::first()->url);
         $this->assertEquals('in process', Transaction::first()->status->name);
         $this->assertCount(1, Transaction::all());
     }

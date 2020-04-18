@@ -66,7 +66,7 @@ class Invoice extends Model
             'user_id' => $user->id,
             'invoice_id' => $this->id,
             'reference' => $this->createReference(),
-            'amount' => $this->total(),
+            'amount' => $this->total,
             'url' => config('services.placetoPay.urlEndPoint'),
             'status_id' => 'in process'
         ]);
@@ -76,10 +76,10 @@ class Invoice extends Model
     {
         $date = Carbon::parse($this->created_at);
 
-        return 'EIS_'. $this->id. '_' . $date->format('Ymd') . $this->total() * 100;
+        return 'EIS_'. $this->id. '_' . $date->format('Ymd') . $this->total * 100;
     }
 
-    public function total()
+    public function getTotalAttribute()
     {
         $orders = Order::where('invoice_id', $this->id)->get();
         return collect($orders)->reduce(static function ($subtotal, $order) {
