@@ -15,6 +15,16 @@ class Transaction extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function setStatusIdAttribute($status): void
     {
         if (is_string($status)) {

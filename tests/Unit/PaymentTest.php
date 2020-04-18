@@ -55,7 +55,7 @@ class PaymentTest extends TestCase
             'invoice_id' => $invoice->id,
             'reference' => $invoice->createReference(),
             'amount' => $invoice->total(),
-            'url' => config('services.placetoPay.urlEndPoint'),
+            'url' => config('services.placetoPay.url'),
             'status_id' => 'paid'
         ]);
 

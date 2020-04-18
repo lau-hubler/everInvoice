@@ -32,6 +32,6 @@ return [
     ],
 
     'placetoPay' => [
-        'urlEndPoint' => env('P2P_URL'),
+        'url' => env('P2P_URL'),
     ],
 ];

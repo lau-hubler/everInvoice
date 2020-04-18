@@ -67,7 +67,7 @@ class Invoice extends Model
             'invoice_id' => $this->id,
             'reference' => $this->createReference(),
             'amount' => $this->total,
-            'url' => config('services.placetoPay.urlEndPoint'),
+            'url' => config('services.placetoPay.url'),
             'status_id' => 'in process'
         ]);
     }
