@@ -23,6 +23,6 @@ class ProductController extends Controller
     {
         $products = Product::with('category')->get();
 
-        return response()->view('models.product', compact('products'));
+        return response()->view('product.index', compact('products'));
     }
 }

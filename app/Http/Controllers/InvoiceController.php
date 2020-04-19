@@ -20,7 +20,7 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::with(['vendor', 'client', 'status'])->get();
 
-        return response()->view('models.invoice', compact('invoices'));
+        return response()->view('invoice.index', compact('invoices'));
     }
 
     /**
