@@ -72,7 +72,7 @@ class Invoice extends Model
         ]);
     }
 
-    public function createReference()
+    public function createReference(): string
     {
         $date = Carbon::parse($this->created_at);
 
