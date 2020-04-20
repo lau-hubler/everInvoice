@@ -14,4 +14,14 @@ class Role extends Model
     {
         return $this->belongsToMany(Permission::class, 'roles_permissions', 'role_id', 'permission_id');
     }
+
+    public function hasPermission($rule): bool
+    {
+        foreach ($this->permissions as $permission) {
+            if ($permission->code == $rule) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
