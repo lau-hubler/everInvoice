@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', 'Api\UserController@login');
 
-Route::name('api.')->group(function () {
+Route::name('api.')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('invoices', 'Api\InvoiceController');
     Route::apiResource('orders', 'Api\OrderController');
     Route::apiResource('stakeholders', 'Api\StakeholderController');
