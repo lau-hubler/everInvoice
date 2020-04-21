@@ -14,6 +14,12 @@
                     <span><font-awesome-icon icon="upload" size="xs" /></span>
                     <span class="pl-1">{{__('Import')}}</span>
                 </b-button>
+                <form action="{{ route('invoices.export') }}">
+                    <b-button type="submit" class="font-weight-bold">
+                        <span><font-awesome-icon icon="upload" size="xs" /></span>
+                        <span class="pl-1">{{__('Export')}}</span>
+                    </b-button>
+                </form>
                 <p-create-button component="p-create-invoice">{{ __('app.buttons.new') }}</p-create-button>
             </b-button-group>
         </b-button-toolbar>

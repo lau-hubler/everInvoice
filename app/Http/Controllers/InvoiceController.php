@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Actions\Invoices\ImportInvoiceAction;
 use App\Http\Requests\ImportInvoiceRequest;
 use App\Invoice;
+use App\Notifications\ExportInvoiceNotify;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class InvoiceController extends Controller
 {
@@ -33,5 +36,12 @@ class InvoiceController extends Controller
         $importedInvoices = $action->setImportFile($request->file('import_file'))->execute();
 
         return redirect()->route('invoices.index')->withSuccess("{$importedInvoices} invoices were imported!");
+    }
+
+    public function export()
+    {
+        Notification::route('mail','admin@gmail.com')->notify(new ExportInvoiceNotify());
+
+        return redirect()->route('invoices.index');
     }
 }
