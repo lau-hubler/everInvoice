@@ -4,6 +4,9 @@ use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
+    protected $types = ['category', 'product'];
+    protected $actions = ['index', 'store', 'update', 'show', 'delete'];
+
     /**
      * Run the database seeds.
      *
@@ -11,25 +14,39 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->insert([
-            'code' => 'category.index',
-            'description' => 'User can see list of categories',
-        ]);
-        DB::table('permissions')->insert([
-            'code' => 'category.store',
-            'description' => 'User can create a new category',
-        ]);
-        DB::table('permissions')->insert([
-            'code' => 'category.update',
-            'description' => 'User can update a category',
-        ]);
-        DB::table('permissions')->insert([
-            'code' => 'category.show',
-            'description' => 'User can see specific category',
-        ]);
-        DB::table('permissions')->insert([
-            'code' => 'category.delete',
-            'description' => 'User can delete a category',
-        ]);
+        foreach ($this->types as $type) {
+            foreach ($this->actions as $action) {
+                $method = sprintf('get%sDescription', ucfirst($action));
+                DB::table('permissions')->insert([
+                    'code' => "$type.$action",
+                    'description' => $this->$method($type)
+                ]);
+            }
+        }
+    }
+
+    protected function getIndexDescription($type)
+    {
+        return "User can access $type's group";
+    }
+
+    protected function getStoreDescription($type)
+    {
+        return "User can create a new $type";
+    }
+
+    protected function getUpdateDescription($type)
+    {
+        return "User can update a $type";
+    }
+
+    protected function getShowDescription($type)
+    {
+        return "User can access details of a $type";
+    }
+
+    protected function getDeleteDescription($type)
+    {
+        return "User can delete a $type";
     }
 }

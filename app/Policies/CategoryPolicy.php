@@ -10,6 +10,13 @@ class CategoryPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user, $ability)
+    {
+        if ($user->role->name === 'superAdmin') {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any categories.
      *

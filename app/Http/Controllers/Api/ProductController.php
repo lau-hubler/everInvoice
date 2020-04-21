@@ -16,6 +16,14 @@ use Illuminate\Http\Response;
 class ProductController extends Controller
 {
     /**
+     * Add policy to controller.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class, 'product');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Builder[]|Collection|Response
