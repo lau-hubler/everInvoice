@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
-    protected $types = ['category', 'product', 'stakeholder'];
+    protected $types = ['category', 'product', 'stakeholder', 'invoice'];
     protected $actions = ['index', 'store', 'update', 'show', 'delete'];
 
     /**
