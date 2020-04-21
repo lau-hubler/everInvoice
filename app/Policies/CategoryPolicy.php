@@ -12,7 +12,7 @@ class CategoryPolicy
 
     public function before(User $user, $ability)
     {
-        if ($user->role->name === 'superAdmin') {
+        if ($user->isSuperAdmin()) {
             return true;
         }
     }

@@ -15,6 +15,12 @@ use Illuminate\Http\Response;
 
 class StakeholderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Stakeholder::class, 'stakeholder');
+    }
+
     /**
      * Display a listing of the resource.
      *
