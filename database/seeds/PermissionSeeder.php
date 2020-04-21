@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
-    protected $types = ['category', 'product', 'stakeholder', 'invoice'];
+    protected $types = ['category', 'product', 'stakeholder', 'invoice', 'order'];
     protected $actions = ['index', 'store', 'update', 'show', 'delete'];
 
     /**
@@ -13,6 +13,16 @@ class PermissionSeeder extends Seeder
      * @return void
      */
     public function run()
+    {
+        $this->insertCrudPermissions();
+
+        DB::table('permissions')->insert([
+            'code' => 'invoice.import',
+            'description' => 'User can import invoices'
+        ]);
+    }
+
+    private function insertCrudPermissions(): void
     {
         foreach ($this->types as $type) {
             foreach ($this->actions as $action) {
