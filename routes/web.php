@@ -63,5 +63,3 @@ Route::middleware('auth')->group(function () {
     Route::post('invoices/import', 'InvoiceController@import')->name('invoices.import');
     Route::get('invoices/export', 'InvoiceController@export')->name('invoices.export');
 });
-
-

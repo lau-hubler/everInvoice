@@ -45,7 +45,7 @@ class ExportInvoiceNotify extends Notification
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
-                    ->from('admin@gmail.com')
+                    ->from(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'))
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!')
                     ->attach($this->attachment, ['as' => 'invoices.xlsx']);

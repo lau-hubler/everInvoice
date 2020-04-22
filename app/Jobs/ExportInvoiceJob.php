@@ -15,11 +15,13 @@ class ExportInvoiceJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $invoices;
+    private $user;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $user
+     * @param $invoices
      */
     public function __construct($user, $invoices)
     {
@@ -32,8 +34,8 @@ class ExportInvoiceJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        Notification::route('mail', 'admin@gmail.com')->notify(new ExportInvoiceNotify($this->invoices));
+        Notification::route('mail', $this->user->email)->notify(new ExportInvoiceNotify($this->invoices));
     }
 }

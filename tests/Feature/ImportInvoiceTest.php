@@ -3,7 +3,6 @@
 
 namespace Tests\Feature\Invoice;
 
-
 use App\Invoice;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -94,7 +93,4 @@ class ImportInvoiceTest extends TestCase
 
         $response->assertSessionHasErrors();
     }
-
-
-
 }
