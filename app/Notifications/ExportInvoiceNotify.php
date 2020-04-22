@@ -2,23 +2,27 @@
 
 namespace App\Notifications;
 
+use App\Exports\InvoicesExport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExportInvoiceNotify extends Notification
 {
     use Queueable;
+
+    public $attachment;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($invoices)
     {
-        //
+        $this->attachment = Excel::download(new InvoicesExport(), 'invoices.xlsx')->getFile();
     }
 
     /**
@@ -44,7 +48,8 @@ class ExportInvoiceNotify extends Notification
                     ->line('The introduction to the notification.')
                     ->from('admin@gmail.com')
                     ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you for using our application!')
+                    ->attach($this->attachment, ['as' => 'invoices.xlsx']);
     }
 
     /**

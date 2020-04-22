@@ -40,7 +40,9 @@ class InvoiceController extends Controller
 
     public function export()
     {
-        Notification::route('mail','admin@gmail.com')->notify(new ExportInvoiceNotify());
+        $invoices = Invoice::all();
+
+        Notification::route('mail', 'admin@gmail.com')->notify(new ExportInvoiceNotify($invoices));
 
         return redirect()->route('invoices.index');
     }
