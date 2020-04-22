@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Invoice::class, function (Faker $faker) {
     return [
+        'code' => $faker->randomNumber(6),
         'vendor_id' => Stakeholder::all()->keyBy('id')->keys()->random(),
         'client_id' => Stakeholder::all()->keyBy('id')->keys()->random(),
         'due_date' => $faker->dateTimeThisYear('-1 month')->format('Y-m-d'),
