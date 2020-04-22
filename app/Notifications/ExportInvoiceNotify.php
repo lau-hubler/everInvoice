@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use App\Exports\InvoicesExport;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Maatwebsite\Excel\Facades\Excel;
@@ -22,7 +21,7 @@ class ExportInvoiceNotify extends Notification
      */
     public function __construct($invoices)
     {
-        $this->attachment = Excel::download(new InvoicesExport(), 'invoices.xlsx')->getFile();
+        $this->attachment = Excel::download(new InvoicesExport($invoices), 'invoices.xlsx')->getFile();
     }
 
     /**

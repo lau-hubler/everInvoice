@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Invoices\ImportInvoiceAction;
 use App\Http\Requests\ImportInvoiceRequest;
 use App\Invoice;
+use App\Jobs\ExportInvoiceJob;
 use App\Notifications\ExportInvoiceNotify;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -42,8 +43,8 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::all();
 
-        Notification::route('mail', 'admin@gmail.com')->notify(new ExportInvoiceNotify($invoices));
+        ExportInvoiceJob::dispatch(Auth::user(), $invoices);
 
-        return redirect()->route('invoices.index');
+        return redirect()->route('invoices.index')->withSuccess('Your exporting started! You will receive a e-mail in a few minutes');
     }
 }
