@@ -6,12 +6,11 @@ use App\Actions\Invoices\ImportInvoiceAction;
 use App\Http\Requests\ImportInvoiceRequest;
 use App\Invoice;
 use App\Jobs\ExportInvoiceJob;
-use App\Notifications\ExportInvoiceNotify;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 
 class InvoiceController extends Controller
 {
@@ -24,7 +23,7 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::with(['vendor', 'client', 'status'])->get();
 
-        return response()->view('models.invoice', compact('invoices'));
+        return response()->view('invoice.index', compact('invoices'));
     }
 
     /**
@@ -39,12 +38,13 @@ class InvoiceController extends Controller
         return redirect()->route('invoices.index')->withSuccess("{$importedInvoices} invoices were imported!");
     }
 
-    public function export()
+    public function export(Request $request)
     {
         $invoices = Invoice::all();
 
-        ExportInvoiceJob::dispatch(Auth::user(), $invoices);
+        ExportInvoiceJob::dispatch(Auth::user(), $invoices, $request->formatToExport);
 
-        return redirect()->route('invoices.index')->withSuccess('Your exporting started! You will receive a e-mail in a few minutes');
+        return redirect()->route('invoices.index')
+            ->withSuccess('Your exporting started! You will receive a e-mail in a few minutes');
     }
 }

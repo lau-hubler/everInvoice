@@ -16,17 +16,20 @@ class ExportInvoiceJob implements ShouldQueue
 
     private $invoices;
     private $user;
+    private $format;
 
     /**
      * Create a new job instance.
      *
      * @param $user
      * @param $invoices
+     * @param $format
      */
-    public function __construct($user, $invoices)
+    public function __construct($user, $invoices, $format)
     {
         $this->user = $user;
         $this->invoices = $invoices;
+        $this->format = $format;
     }
 
     /**
@@ -36,6 +39,6 @@ class ExportInvoiceJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Notification::route('mail', $this->user->email)->notify(new ExportInvoiceNotify($this->invoices));
+        Notification::route('mail', $this->user->email)->notify(new ExportInvoiceNotify($this->invoices, $this->format));
     }
 }
