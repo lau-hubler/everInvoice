@@ -7,6 +7,7 @@ use App\Actions\Invoices\UpdateInvoiceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
+use App\Repositories\Interfaces\InvoiceRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,13 +16,23 @@ use Illuminate\Http\Response;
 class InvoiceController extends Controller
 {
     /**
+     * @var InvoiceRepositoryInterface
+     */
+    private $invoiceRepository;
+
+    public function __construct(InvoiceRepositoryInterface $invoiceRepository)
+    {
+        $this->invoiceRepository = $invoiceRepository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Builder[]|Collection|Response
      */
     public function index()
     {
-        return Invoice::with(['vendor', 'client', 'status'])->get();
+        return $this->invoiceRepository->all();
     }
 
     /**
@@ -45,7 +56,7 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        return Invoice::with(['vendor.documentType', 'client.documentType', 'status', 'orders.product'])->find($invoice->id);
+        return $this->invoiceRepository->find($invoice->id);
     }
 
     /**

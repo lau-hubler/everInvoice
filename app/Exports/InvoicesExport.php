@@ -29,14 +29,24 @@ class InvoicesExport implements FromCollection, WithStrictNullComparison, Should
     public function headings(): array
     {
         return [
-            '#',
-            'Code',
-            'Client',
-            'Vendor',
-            'Invoice Date',
-            'Delivery Date',
-            'Due Date',
-            'Status'
+            [
+                'Code',
+                'Client',
+                '',
+                'Vendor',
+                '',
+                'Invoice Date',
+                'Delivery Date',
+                'Due Date',
+                'Status'
+            ],
+            [
+                '',
+                'Name',
+                'Document',
+                'Name',
+                'Document',
+            ]
         ];
     }
 
@@ -44,11 +54,24 @@ class InvoicesExport implements FromCollection, WithStrictNullComparison, Should
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A1:W1';
+                $heading1 = 'A1:W1';
+                $heading2 = 'A2:W2';
                 $spreadsheet = 'A:W';
                 $event->sheet->getDelegate()->getStyle($spreadsheet)->getFont()->setName('Arial');
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold(true)->setName('Arial');
+                $event->sheet->getDelegate()->getStyle($heading1)->getFont()->setBold(true)->setName('Arial');
+                $event->sheet->getDelegate()->getStyle($heading1)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle($heading1)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+                $event->sheet->getDelegate()->getStyle($heading2)->getFont()->setBold(true)->setName('Arial');
+                $event->sheet->getDelegate()->getStyle($heading2)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->getStyle($heading2)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
                 $event->sheet->getDelegate()->getStyle($spreadsheet)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $event->getSheet()->getDelegate()->mergeCells('A1:A2');
+                $event->getSheet()->getDelegate()->mergeCells('B1:C1');
+                $event->getSheet()->getDelegate()->mergeCells('D1:E1');
+                $event->getSheet()->getDelegate()->mergeCells('F1:F2');
+                $event->getSheet()->getDelegate()->mergeCells('G1:G2');
+                $event->getSheet()->getDelegate()->mergeCells('H1:H2');
+                $event->getSheet()->getDelegate()->mergeCells('I1:I2');
             },
         ];
     }
