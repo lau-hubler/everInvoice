@@ -10,6 +10,9 @@ return [
         'title' => '# No.',
         'label' => 'Número de la factura:',
     ],
+    'code' => [
+        'title' => 'Código',
+    ],
     'client' => [
         'title' => 'Cliente',
         'label' => 'Cliente:',
