@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Invoice;
+use App\Order;
 use App\Repositories\Interfaces\InvoiceRepositoryInterface;
 
 class InvoiceRepository implements InvoiceRepositoryInterface
@@ -17,9 +18,35 @@ class InvoiceRepository implements InvoiceRepositoryInterface
         return Invoice::with(['vendor.documentType', 'client.documentType', 'status', 'orders.product'])->find($id);
     }
 
-    public function export($invoices)
+    public function findAll($invoices)
     {
-        $exportable = $invoices->load('client', 'vendor', 'status');
+        return Invoice::whereIn('id', $this->getIds($invoices))->get();
+    }
+
+    public function findAllByIds($ids)
+    {
+        return Invoice::whereIn('id', $ids)->get();
+    }
+
+    public function getIds($invoices = null)
+    {
+        if (!$invoices) {
+            $invoices = $this->all();
+        }
+
+        return $invoices->map(function ($invoice) {
+            return $invoice->id;
+        });
+    }
+
+    public function getOrdersOf($invoices)
+    {
+        return Order::with('invoice', 'product')->whereIn('invoice_id', $this->getIds($invoices))->get();
+    }
+
+    public function exportInvoices($invoices)
+    {
+        $exportable = $invoices->load('client', 'vendor', 'status')->sortBy('code');
         return $exportable->map(function ($invoice) {
             return [
                 'code' => $invoice->code,
@@ -31,6 +58,22 @@ class InvoiceRepository implements InvoiceRepositoryInterface
                 'delivery date' => $invoice->delivery_date,
                 'due date' => $invoice->due_date,
                 'status' => $invoice->status->name
+            ];
+        });
+    }
+
+    public function exportOrders($invoices)
+    {
+        $exportable = $this->getOrdersOf($invoices)->sortBy('invoice.code');
+
+        return $exportable->map(function ($order) {
+            return[
+                'invoice code' => $order->invoice->code,
+                'quantity' => $order->quantity,
+                'product code' => $order->product->code,
+                'product name' => $order->product->name,
+                'unit price' => $order->unit_price,
+                'iva' => $order->product_iva,
             ];
         });
     }

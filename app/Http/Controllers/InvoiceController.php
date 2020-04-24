@@ -51,7 +51,7 @@ class InvoiceController extends Controller
 
     public function export(Request $request)
     {
-        $exportableInvoices = $this->invoiceRepository->export(Invoice::all());
+        $exportableInvoices = $this->invoiceRepository;
 
         ExportInvoiceJob::dispatch(Auth::user(), $exportableInvoices, $request->formatToExport);
 

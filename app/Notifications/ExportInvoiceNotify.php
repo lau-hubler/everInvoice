@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Exports\InvoicesExport;
+use App\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Response;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -17,6 +18,7 @@ class ExportInvoiceNotify extends Notification
 
     public $invoices;
     private $format;
+    private $orders;
 
     /**
      * Create a new notification instance.
@@ -27,7 +29,8 @@ class ExportInvoiceNotify extends Notification
     public function __construct($invoices, $format)
     {
         $this->format = $format;
-        $this->invoices = $invoices;
+        $this->invoices = $invoices->exportInvoices(Invoice::all());
+        $this->orders = $invoices->exportOrders(Invoice::all());
 
     }
 
@@ -78,7 +81,7 @@ class ExportInvoiceNotify extends Notification
     private function getExportableFile()
     {
         if ($this->format === 'xlsx') {
-            return $this->getXlsxFile($this->invoices);
+            return $this->getXlsxFile($this->invoices, $this->orders);
         }
         if ($this->format === 'csv') {
             return $this->getCsvFile($this->invoices);
@@ -88,21 +91,17 @@ class ExportInvoiceNotify extends Notification
         }
     }
 
-    /**
-     * @param $invoices
-     * @return Response|BinaryFileResponse|File
-     */
+    private function getXlsxFile($invoices, $orders)
+    {
+        return (new InvoicesExport($invoices, $orders))
+            ->download('invoices.xlsx', \Maatwebsite\Excel\Excel::XLSX)
+            ->getFile();
+    }
+
     private function getCsvFile($invoices)
     {
         return (new InvoicesExport($invoices))
             ->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV)
-            ->getFile();
-    }
-
-    private function getXlsxFile($invoices)
-    {
-        return (new InvoicesExport($invoices))
-            ->download('invoices.xlsx', \Maatwebsite\Excel\Excel::XLSX)
             ->getFile();
     }
 
