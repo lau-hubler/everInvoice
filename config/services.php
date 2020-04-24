@@ -32,6 +32,8 @@ return [
     ],
 
     'placetoPay' => [
+        'login' => env('P2P_LOGIN'),
+        'secretKey' => env('P2P_SECRET_KEY'),
         'url' => env('P2P_URL'),
     ],
 ];

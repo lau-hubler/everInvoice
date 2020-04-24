@@ -21,6 +21,6 @@ class StakeholderController extends Controller
     {
         $stakeholders = Stakeholder::with('documentType')->get();
 
-        return response()->view('models.stakeholder', compact('stakeholders'));
+        return response()->view('stakeholder.index', compact('stakeholders'));
     }
 }

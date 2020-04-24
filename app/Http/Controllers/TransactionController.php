@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\TransactionCollection;
+use App\Facades\PlacetoPayFacade;
 use App\Invoice;
-use Dnetix\Redirection\PlacetoPay;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class TransactionController extends Controller
 {
@@ -121,7 +119,7 @@ class TransactionController extends Controller
         ];
 
         try {
-            $response = $this->placetopay()->request($request);
+            $response = PlacetoPayFacade::get()->request($request);
             dd($response);
             if ($response->isSuccessful()) {
                 // Redirect the client to the processUrl or display it on the JS extension
@@ -134,15 +132,5 @@ class TransactionController extends Controller
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }
-    }
-
-    public function placetopay()
-    {
-        return new PlacetoPay([
-            'login' => '6dd490faf9cb87a9862245da41170ff2',
-            'tranKey' => '024h1IlD',
-            'url' => 'https://test.placetopay.com/redirection/',
-            'type' => PlacetoPay::TP_REST
-        ]);
     }
 }
