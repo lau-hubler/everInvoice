@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::name('api.')->group(function () {
+Route::post('login', 'Api\UserController@login');
+
+Route::name('api.')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('invoices', 'Api\InvoiceController');
     Route::apiResource('orders', 'Api\OrderController');
     Route::apiResource('stakeholders', 'Api\StakeholderController');

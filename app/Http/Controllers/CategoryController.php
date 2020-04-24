@@ -9,6 +9,8 @@ use App\Http\Requests\CategoryRequest;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -21,6 +23,8 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        return response()->view('models.category', compact('categories'));
+        Gate::authorize('viewAny', Category::class);
+
+        return response()->view('category.index', compact('categories'));
     }
 }

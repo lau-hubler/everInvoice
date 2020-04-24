@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
 use App\Product;
-use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -23,6 +20,8 @@ class ProductController extends Controller
     {
         $products = Product::with('category')->get();
 
-        return response()->view('models.product', compact('products'));
+        Gate::authorize('viewAny', Product::class);
+
+        return response()->view('product.index', compact('products'));
     }
 }

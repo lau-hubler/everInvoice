@@ -8,6 +8,7 @@ use App\Invoice;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class InvoiceController extends Controller
 {
@@ -20,7 +21,9 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::with(['vendor', 'client', 'status'])->get();
 
-        return response()->view('models.invoice', compact('invoices'));
+        Gate::authorize('viewAny', Invoice::class);
+
+        return response()->view('invoice.index', compact('invoices'));
     }
 
     /**
@@ -31,6 +34,8 @@ class InvoiceController extends Controller
     public function import(ImportInvoiceRequest $request, ImportInvoiceAction $action)
     {
         $importedInvoices = $action->setImportFile($request->file('import_file'))->execute();
+
+        Gate::authorize('import', Invoice::class);
 
         return redirect()->route('invoices.index')->withSuccess("{$importedInvoices} invoices were imported!");
     }
