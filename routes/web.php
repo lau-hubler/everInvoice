@@ -56,9 +56,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('invoices/{invoice}/pay', 'TransactionController@pay');
-Route::get('/invoiceCollection', function () {
-    return new \App\Http\Resources\TransactionCollection(\App\Transaction::all());
-});
 
 Route::middleware('auth')->group(function () {
     Route::apiResource('categories', 'CategoryController')->only('index');
