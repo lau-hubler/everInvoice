@@ -39,7 +39,7 @@ class TransactionController extends Controller
 
         event(new PaymentResponseEvent($transaction));
 
-        return redirect()->route('invoices.index')->withSuccess('Your invoice was successfully paid!');
+        return redirect()->route('invoices.index')->withSuccess('Thank you!');
     }
 
     public function consultTransaction($invoice)
