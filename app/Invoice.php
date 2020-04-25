@@ -58,16 +58,15 @@ class Invoice extends Model
 
     public function pay($user)
     {
-        $transaction = Transaction::where('invoice_id', $this->id)->where('status_id', 7)->orWhere('status_id', 3)->get();
-
-        throw_if($transaction->isNotEmpty(), new Exception());
+        throw_if($this->isUnavailable(), new Exception());
+        $this->update(['status_id' => 7]);
 
         return Transaction::create([
             'user_id' => $user->id,
             'invoice_id' => $this->id,
             'reference' => $this->createReference(),
             'amount' => $this->total,
-            'url' => config('services.placetoPay.url'),
+            'url' => config('placetoPay.url'),
             'status_id' => 'in process'
         ]);
     }
@@ -77,6 +76,16 @@ class Invoice extends Model
         $date = Carbon::parse($this->created_at);
 
         return 'EIS_'. $this->id. '_' . $date->format('Ymd') . $this->total * 100;
+    }
+
+    private function isUnavailable()
+    {
+        $transaction = Transaction::where('invoice_id', $this->id)
+            ->where(function ($query) {
+                $query->where('status_id', 7)->orWhere('status_id', 3);
+            })->get();
+
+        return $transaction->isNotEmpty();
     }
 
     public function getTotalAttribute()

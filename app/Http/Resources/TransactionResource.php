@@ -16,22 +16,13 @@ class TransactionResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'locale' => 'es_CO',
+            'locale' => config('placetoPay.locale'),
             'payer' => [
                 'name' => $this->user->name ,
                 'surname' => $this->user->surname,
                 'email' => $this->user->email,
                 'documentType' => $this->invoice->vendor->documentType->acronym,
                 'document' => $this->invoice->vendor->document,
-                'mobile' => $this->invoice->vendor->mobile,
-                'address' => [
-                    'street' => $this->invoice->vendor->address,
-                    'city' => "",
-                    'state' => "",
-                    'postalCode' => "",
-                    'country' => "",
-                    'phone' => ""
-                ]
             ],
             'buyer' => [
                 'name' => $this->invoice->client->name,
@@ -39,34 +30,21 @@ class TransactionResource extends JsonResource
                 'email' => $this->invoice->client->email,
                 'documentType' => $this->invoice->client->documentType->acronym,
                 'document' => $this->invoice->client->document,
-                'mobile' => $this->invoice->client->mobile,
-                'address' => [
-                    'street' => $this->invoice->client->address,
-                    'city' => "",
-                    'state' => "",
-                    'postalCode' => "",
-                    'country' => "",
-                    'phone' => ""
-                ]
             ],
             'payment' => [
                 'reference' => $this->reference,
-                'description' => 'Iusto sit et voluptatem.',
+                'description' => $this->description,
                 'amount' => [
-                    'currency' => 'USD',
+                    'currency' => config('placetoPay.currency'),
                     'total' => $this->amount
                 ],
-                'allowPartial' => false
+                'allowPartial' => config('placetoPay.allowPartial')
             ],
-            'expiration' => date('c', strtotime('+2 days')),
-            'ipAddress' => '127.0.0.1',
-            'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36',
-            'returnUrl' => 'http://127.0.0.1:8000/invoices/',
-            'cancelUrl' => 'http://127.0.0.1:8000/invoices/',
-            'skipResult' => false,
-            'noBuyerFill' => false,
-            'captureAddress' => false,
-            'paymentMethod' => null
+            'expiration' => date('c', strtotime(config('placetoPay.expiration'))),
+            'ipAddress' => config('placetoPay.ipAddress'),
+            'userAgent' => config('placetoPay.userAgent'),
+            'returnUrl' => config('placetoPay.returnUrl'),
+            'cancelUrl' => config('placetoPay.cancelUrl'),
         ];
     }
 }

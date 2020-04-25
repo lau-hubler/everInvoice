@@ -10,7 +10,7 @@ class PlacetoPayFacade
 {
     public static function get()
     {
-        $config = config('services.placetoPay');
+        $config = config('placetoPay');
 
         return new PlacetoPay([
             'login' => $config['login'],

@@ -18,9 +18,14 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('invoice_id');
             $table->string('reference', 100);
+            $table->string('description')->nullable();
             $table->float('amount', 20);
             $table->string('url');
             $table->unsignedBigInteger('status_id');
+            $table->string('request_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('invoice_id')->references('id')->on('invoices');
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }

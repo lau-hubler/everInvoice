@@ -30,10 +30,4 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
-    'placetoPay' => [
-        'login' => env('P2P_LOGIN'),
-        'secretKey' => env('P2P_SECRET_KEY'),
-        'url' => env('P2P_URL'),
-    ],
 ];
