@@ -29,7 +29,7 @@ class IndexProductTest extends TestCase
         $response = $this->actingAs($user)->get(route('products.index'));
 
         $response->assertSuccessful();
-        $response->assertViewIs('invoice.product');
+
     }
 
     public function test_index_of_products_has_products(): void

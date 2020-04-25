@@ -18,7 +18,7 @@ class LoginTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function testUnauthenticatedUserCanAccessLoginView()
+    public function test_unauthenticated_user_can_access_login_view(): void
     {
         $response = $this->get(route('login'));
 
@@ -26,7 +26,7 @@ class LoginTest extends TestCase
         $response->assertViewIs('auth.login');
     }
 
-    public function testAuthenticatedUserIsRedirectedToHome()
+    public function test_authenticated_user_is_redirected_to_home(): void
     {
         $user = factory(User::class)->create();
 
@@ -35,7 +35,7 @@ class LoginTest extends TestCase
         $response->assertRedirect('/home');
     }
 
-    public function testUserCanLoginWithCorrectCredentials()
+    public function test_user_can_login_with_correct_credentials(): void
     {
         $user = factory(User::class)->create([
             'password' => bcrypt($password = 'myPassword'),
@@ -48,7 +48,7 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function testUserCannotLoginWithIncorrectPassword()
+    public function test_user_cannot_login_with_incorrect_password(): void
     {
         $user = factory(User::class)->create([
             'password' => bcrypt($password = 'myPassword'),

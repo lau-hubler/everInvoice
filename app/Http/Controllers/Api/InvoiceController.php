@@ -16,6 +16,7 @@ use Illuminate\Http\Response;
 class InvoiceController extends Controller
 {
     /**
+<<<<<<< HEAD
      * @var InvoiceRepositoryInterface
      */
     private $invoiceRepository;
@@ -23,6 +24,13 @@ class InvoiceController extends Controller
     public function __construct(InvoiceRepositoryInterface $invoiceRepository)
     {
         $this->invoiceRepository = $invoiceRepository;
+=======
+     * Add policy to controller.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Invoice::class, 'invoice');
+>>>>>>> feature/payment
     }
 
     /**
