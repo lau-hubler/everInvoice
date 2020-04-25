@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\PaymentResponseEvent;
+use App\Invoice;
 use App\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,9 +17,10 @@ class ProcessPaymentJob implements ShouldQueue
 
     public function handle()
     {
-        $transactionsInProcess = Transaction::where('status_id', 7)->get();
+        $invoicesInProcess = Invoice::where('status_id', 7)->get();
 
-        foreach($transactionsInProcess as $transaction) {
+        foreach($invoicesInProcess as $invoice) {
+            $transaction = $transaction = Transaction::where('invoice_id', $invoice->id)->first();
             event(new PaymentResponseEvent($transaction));
         }
     }
