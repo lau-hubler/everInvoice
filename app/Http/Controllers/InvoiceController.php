@@ -3,18 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Invoices\ImportInvoiceAction;
-use App\Events\PaymentResponseEvent;
 use App\Http\Requests\ImportInvoiceRequest;
 use App\Invoice;
-use App\Jobs\ProcessPaymentJob;
-use App\Transaction;
+use App\Jobs\ExportInvoiceJob;
+use App\Repositories\Interfaces\InvoiceRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class InvoiceController extends Controller
 {
+    /**
+     * @var InvoiceRepositoryInterface
+     */
+    private $invoiceRepository;
+
+    public function __construct(InvoiceRepositoryInterface $invoiceRepository)
+    {
+        $this->invoiceRepository = $invoiceRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +33,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with(['vendor', 'client', 'status'])->get();
+        $invoices = $this->invoiceRepository->all();
 
         Gate::authorize('viewAny', Invoice::class);
 
@@ -41,5 +52,15 @@ class InvoiceController extends Controller
         Gate::authorize('import', Invoice::class);
 
         return redirect()->route('invoices.index')->withSuccess("{$importedInvoices} invoices were imported!");
+    }
+
+    public function export(Request $request)
+    {
+        $exportableInvoices = $this->invoiceRepository;
+
+        ExportInvoiceJob::dispatch(Auth::user(), $exportableInvoices, $request->formatToExport);
+
+        return redirect()->route('invoices.index')
+            ->withSuccess('Your exporting started! You will receive a e-mail in a few minutes');
     }
 }

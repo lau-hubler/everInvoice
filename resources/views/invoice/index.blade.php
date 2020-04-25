@@ -14,11 +14,16 @@
                     <span><font-awesome-icon icon="upload" size="xs" /></span>
                     <span class="pl-1">{{__('Import')}}</span>
                 </b-button>
+                <b-button v-b-toggle.export-collapse class="font-weight-bold">
+                    <span><font-awesome-icon icon="download" size="xs" /></span>
+                    <span class="pl-1">{{__('Export')}}</span>
+                </b-button>
                 <p-create-button component="p-create-invoice">{{ __('app.buttons.new') }}</p-create-button>
             </b-button-group>
         </b-button-toolbar>
     </div>
     <div class="card-body">
+        @include('invoice.__exportCollapse')
         @include('invoice.__importCollapse')
         <p-invoices-table
             action="{{ route('invoices.index') }}"
