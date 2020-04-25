@@ -15,6 +15,14 @@ use Illuminate\Http\Response;
 class InvoiceController extends Controller
 {
     /**
+     * Add policy to controller.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Invoice::class, 'invoice');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Builder[]|Collection|Response

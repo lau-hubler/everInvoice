@@ -11,8 +11,16 @@ const getUrl = (url) => {
     return urls[url];
 };
 
+const getHeader = function () {
+    const token = "nYCNMztzOx3nyNpYUKmXW5z1cAyQIXxQW0MDqHlR0ocKCfvmsd2JAsEU0UMRPZfl5sjt3vT8GyVbNby8"
+    return {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token
+    }
+}
+
 function getClass(type) {
-    return axios.get(getUrl(type)).then((response) => response.data);
+    return axios.get(getUrl(type), {headers: getHeader()}).then((response) => response.data);
 }
 
 function getItem(type, id) {
@@ -21,17 +29,17 @@ function getItem(type, id) {
 }
 
 function createItem(type, item) {
-    return axios.post(getUrl(type), item).then((response) => response.data);
+    return axios.post(getUrl(type), item, {headers: getHeader()}).then((response) => response.data);
 }
 
 function updateItem(type, id, item) {
     const urlItem = `${getUrl(type)}/${id}`;
-    return axios.put(urlItem, item).then((response) => response.data);
+    return axios.put(urlItem, item, {headers: getHeader()}).then((response) => response.data);
 }
 
 function deleteItem(type, item) {
     const urlItem = `${getUrl(type)}/${item.id}`;
-    return axios.delete(urlItem);
+    return axios.delete(urlItem, {headers: getHeader()});
 }
 
 export default {

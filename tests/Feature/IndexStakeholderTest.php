@@ -30,6 +30,7 @@ class IndexStakeholderTest extends TestCase
         $response = $this->actingAs($user)->get(route('stakeholders.index'));
 
         $response->assertSuccessful();
+
         $response->assertViewIs('invoice.stakeholder');
     }
 

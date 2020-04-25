@@ -14,6 +14,14 @@ use Illuminate\Http\Response;
 class CategoryController extends Controller
 {
     /**
+     * Add policy to controller.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'category');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Category[]|Collection|Response

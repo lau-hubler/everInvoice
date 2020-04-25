@@ -4,7 +4,17 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Invoice;
+use App\Order;
+use App\Policies\InvoicePolicy;
+use App\Policies\OrderPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\StakeholderPolicy;
+use App\Product;
+use App\Stakeholder;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Policies\CategoryPolicy;
+use App\Category;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,7 +24,11 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Category::class => CategoryPolicy::class,
+        Product::class => ProductPolicy::class,
+        Stakeholder::class => StakeholderPolicy::class,
+        Invoice::class => InvoicePolicy::class,
+        Order::class => OrderPolicy::class,
     ];
 
     /**
