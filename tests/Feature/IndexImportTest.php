@@ -32,9 +32,6 @@ class IndexImportTest extends TestCase
         $response = $this->actingAs($user)->get(route('invoices.index'));
 
         $response->assertSuccessful();
-
-        $response->assertViewIs('invoice.invoice');
-
     }
 
     public function test_index_of_invoices_has_invoices(): void
