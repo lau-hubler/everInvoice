@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-@section('content')
-@include('layouts.__alert')
+@section('auth-content')
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-end">
         <h3>{{ __('invoice.title') }}</h3>

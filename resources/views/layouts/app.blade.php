@@ -15,6 +15,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -73,17 +75,8 @@
             </div>
         </nav>
 
-        <main class="py-4 container-fluid">
-            <b-row class="col-md-12 mx-5">
-                <b-col cols="2">
-                    @include('layouts.__sideBar')
-                </b-col>
-                <b-col class="container mr-5">
-                        <div class="mr-5">
-                            @yield('content')
-                        </div>
-                </b-col>
-            </b-row>
+        <main>
+            @yield('content')
         </main>
     </div>
 </body>
