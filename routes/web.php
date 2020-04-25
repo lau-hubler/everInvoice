@@ -55,6 +55,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('invoices/{invoice}/pay', 'TransactionController@pay');
+Route::get('invoices/{invoice}/refresh', 'TransactionController@consultTransaction');
+Route::get('invoices/return', 'TransactionController@paymentResponse');
+
 Route::middleware('auth')->group(function () {
     Route::apiResource('categories', 'CategoryController')->only('index');
     Route::apiResource('products', 'ProductController')->only('index');

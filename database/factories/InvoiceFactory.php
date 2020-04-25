@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Invoice::class, function (Faker $faker) {
     return [
-        'vendor_id' => Stakeholder::all()->keyBy('id')->keys()->random(),
         'client_id' => Stakeholder::all()->keyBy('id')->keys()->random(),
-        'due_date' => $faker->dateTimeThisYear('-1 month')->format('Y-m-d'),
-        'delivery_date' => $faker->dateTimeThisYear->format('Y-m-d'),
-        'invoice_date' => $faker->dateTimeThisYear('+3 months')->format('Y-m-d'),
+        'vendor_id' => Stakeholder::all()->keyBy('id')->keys()->random(),
+        'due_date' => $faker->dateTimeBetween('today', '+3 month')->format('Y-m-d'),
+        'delivery_date' => $faker->dateTimeBetween('-1 month', 'today')->format('Y-m-d'),
+        'invoice_date' => $faker->dateTimeBetween('-3 month', '-1 month')->format('Y-m-d'),
         'status_id' => Status::all()->keyBy('id')->keys()->random(),
     ];
 });

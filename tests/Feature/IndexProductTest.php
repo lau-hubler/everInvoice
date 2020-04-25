@@ -3,7 +3,6 @@
 
 namespace Tests\Feature;
 
-
 use App\User;
 use CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,7 +29,6 @@ class IndexProductTest extends TestCase
         $response = $this->actingAs($user)->get(route('products.index'));
 
         $response->assertSuccessful();
-        $response->assertViewIs('stakeholder.product');
     }
 
     public function test_index_of_products_has_products(): void
