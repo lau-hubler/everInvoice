@@ -1,5 +1,5 @@
 <template>
-    <div class="m-3">
+    <div class="m-3" v-if="can('order.index')">
         <div
             class="p-3 px-3 bg-secondary text-white border rounded-top d-flex justify-content-between align-items-end"
         >
@@ -22,7 +22,7 @@
                 <template v-for="order in filteredOrders">
                     <p-order-row :order="order" />
                 </template>
-                <p-order-create-row :invoiceId="invoiceId" />
+                <p-order-create-row v-if="can('order.store')" :invoiceId="invoiceId" />
                 <b-tr variant="secondary" class="font-weight-bold">
                     <b-td colspan="3" class="text-right align-middle">
                         Total:
@@ -57,6 +57,7 @@ export default {
         return {
             orders: "",
             filters: [],
+            permissions: [],
         };
     },
     computed: {
@@ -158,11 +159,20 @@ export default {
         filterProductCode(order, filter) {
             return order.product.code.includes(filter.toUpperCase());
         },
+
+        can(permission) {
+            if (this.permissions.includes('superAdmin')) return true;
+
+            return this.permissions.includes(permission);
+        }
     },
     created() {
         if (this.items) {
             this.orders = [...this.items];
         }
+
+        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
+
         EventBus.$on("create-order", (order) => this.addOrder(order));
         EventBus.$on("delete-order", (order) => this.deleteOrder(order));
         EventBus.$on("search-order", (filters) => (this.filters = filters));

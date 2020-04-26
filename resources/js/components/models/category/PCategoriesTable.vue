@@ -32,7 +32,7 @@
                         <font-awesome-icon icon="eye" />
                     </p-link-button>
                     <p-link-button
-                        v-if="can('category.edit')"
+                        v-if="can('category.update')"
                         :id="row.item.id"
                         component="p-update-category"
                         object="category"

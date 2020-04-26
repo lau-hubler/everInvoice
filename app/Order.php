@@ -19,4 +19,9 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function scopeWithProducts()
+    {
+        return Order::with('product.iva');
+    }
 }

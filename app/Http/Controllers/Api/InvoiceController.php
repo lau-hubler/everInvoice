@@ -15,10 +15,7 @@ use Illuminate\Http\Response;
 
 class InvoiceController extends Controller
 {
-    /**
-<<<<<<< HEAD
-     * @var InvoiceRepositoryInterface
-     */
+
     private $invoiceRepository;
 
     public function __construct(InvoiceRepositoryInterface $invoiceRepository)
@@ -37,9 +34,9 @@ class InvoiceController extends Controller
         return $this->invoiceRepository->all();
     }
 
-    public function all(InvoiceRepositoryInterface $invoiceRepository)
+    public function all()
     {
-        return $invoiceRepository->paginate();
+        return $this->invoiceRepository->paginate();
     }
 
     /**

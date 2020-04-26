@@ -6,7 +6,9 @@
     <h3>{{ __('stakeholder.title') }}</h3>
     <b-button-toolbar aria-label="Toolbar for stakeholders">
       <b-button-group class="mx-1">
-        <p-create-button component="p-create-stakeholder">{{ __('app.buttons.new') }}</p-create-button>
+          @can('create', \App\Stakeholder::class)
+              <p-create-button component="p-create-stakeholder">{{ __('app.buttons.new') }}</p-create-button>
+          @endcan
       </b-button-group>
     </b-button-toolbar>
   </div>

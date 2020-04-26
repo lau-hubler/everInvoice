@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Repositories\Invoice\InvoiceRepository;
 use App\Repositories\Invoice\InvoiceRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Stakeholder\StakeholderRepository;
+use App\Repositories\Stakeholder\StakeholderRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -18,7 +22,9 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(InvoiceRepositoryInterface::class, InvoiceRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(StakeholderRepositoryInterface::class, StakeholderRepository::class);
     }
 
     /**

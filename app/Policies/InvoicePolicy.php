@@ -87,6 +87,17 @@ class InvoicePolicy
     }
 
     /**
+     * Determine whether the user can export invoices.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function export(User $user)
+    {
+        return $user->role->hasPermission('invoice.export');
+    }
+
+    /**
      * Determine whether the user can restore the invoice.
      *
      * @param  \App\User  $user
