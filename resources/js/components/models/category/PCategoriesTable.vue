@@ -151,7 +151,11 @@ export default {
 
     mounted() {
         api.getClass("category").then(
-            (categories) => (this.categories = categories)
+            (categories) => {
+                this.categories = categories.data
+                this.currentPage = categories.currentPage
+                this.perPage = categories.perPage
+            }
         );
 
         EventBus.$on("new-category", (category) => {

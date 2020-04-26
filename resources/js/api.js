@@ -12,7 +12,7 @@ const getUrl = (url) => {
 };
 
 const getHeader = function () {
-    const token = "nYCNMztzOx3nyNpYUKmXW5z1cAyQIXxQW0MDqHlR0ocKCfvmsd2JAsEU0UMRPZfl5sjt3vT8GyVbNby8"
+    const token = window.document.querySelector('meta[name="token"]').content;
     return {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + token
