@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Exports\InvoicesExport;
+use App\Exports\Sheets\OrderDetailsSheet;
 use App\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Response;
@@ -31,7 +32,6 @@ class ExportInvoiceNotify extends Notification
         $this->format = $format;
         $this->invoices = $invoices->exportInvoices(Invoice::all());
         $this->orders = $invoices->exportOrders(Invoice::all());
-
     }
 
     /**
@@ -53,12 +53,16 @@ class ExportInvoiceNotify extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->from(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'))
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!')
-                    ->attach($this->getExportableFile(), ['as' => "invoices.$this->format"]);
+        $email = (new MailMessage)
+            ->line(' You can find the documents you asked for attached to this mail :)')
+            ->from(getenv('MAIL_FROM_ADDRESS'), getenv('MAIL_FROM_NAME'))
+            ->line('Thank you for using our application!');
+
+        foreach ($this->getExportableFile() as $file) {
+            $email->attach($file['file'], ['as' => $file['name']] );
+        }
+
+        return $email;
     }
 
     /**
@@ -84,31 +88,62 @@ class ExportInvoiceNotify extends Notification
             return $this->getXlsxFile($this->invoices, $this->orders);
         }
         if ($this->format === 'csv') {
-            return $this->getCsvFile($this->invoices);
+            return $this->getCsvFile($this->invoices, $this->orders);
         }
         if ($this->format === 'txt') {
-            return $this->getTsvFile($this->invoices);
+            return $this->getTsvFile($this->invoices, $this->orders);
         }
     }
 
     private function getXlsxFile($invoices, $orders)
     {
-        return (new InvoicesExport($invoices, $orders))
+        $invoiceFile = (new InvoicesExport($invoices, $orders))
             ->download('invoices.xlsx', \Maatwebsite\Excel\Excel::XLSX)
             ->getFile();
+
+        return [
+            'invoices' => [
+                'file' => $invoiceFile,
+                'name' => 'invoices.xlsx'
+            ],
+        ];
     }
 
-    private function getCsvFile($invoices)
+    private function getCsvFile($invoices, $orders)
     {
-        return (new InvoicesExport($invoices))
+        $invoiceFile = (new InvoicesExport($invoices, $orders))
             ->download('invoices.csv', \Maatwebsite\Excel\Excel::CSV)
             ->getFile();
+        $orderFile =(new OrderDetailsSheet($orders))
+            ->download('orders.csv', \Maatwebsite\Excel\Excel::CSV)
+            ->getFile();
+        return [
+            'invoices' => [
+                'file' => $invoiceFile,
+                'name' => 'invoices.csv'
+            ],
+            'orders' => [
+                'file' => $orderFile,
+                'name' => 'orders.csv'
+            ] ];
     }
 
-    private function getTsvFile($invoices)
+    private function getTsvFile($invoices, $orders)
     {
-        return (new InvoicesExport($invoices))
-            ->download('invoices.tsv', \Maatwebsite\Excel\Excel::TSV)
+        $invoiceFile = (new InvoicesExport($invoices, $orders))
+            ->download('invoices.txt', \Maatwebsite\Excel\Excel::TSV)
             ->getFile();
+        $orderFile =(new OrderDetailsSheet($orders))
+            ->download('orders.txt', \Maatwebsite\Excel\Excel::TSV)
+            ->getFile();
+        return [
+            'invoices' => [
+                'file' => $invoiceFile,
+                'name' => 'invoices.txt'
+            ],
+            'orders' => [
+                'file' => $orderFile,
+                'name' => 'orders.txt'
+            ] ];
     }
 }

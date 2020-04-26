@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Invoices\ImportInvoiceAction;
+use App\Exports\InvoicesExport;
 use App\Http\Requests\ImportInvoiceRequest;
 use App\Invoice;
 use App\Jobs\ExportInvoiceJob;
+use App\Notifications\ExportInvoiceNotify;
 use App\Repositories\Invoice\InvoiceRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,11 +35,9 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = $this->invoiceRepository->all();
-
         Gate::authorize('viewAny', Invoice::class);
 
-        return response()->view('invoice.index', compact('invoices'));
+        return response()->view('invoice.index');
     }
 
     /**
@@ -57,7 +57,7 @@ class InvoiceController extends Controller
     public function export(Request $request)
     {
         $exportableInvoices = $this->invoiceRepository;
-
+        new ExportInvoiceNotify($exportableInvoices, $request->formatToExport);
         ExportInvoiceJob::dispatch(Auth::user(), $exportableInvoices, $request->formatToExport);
 
         return redirect()->route('invoices.index')

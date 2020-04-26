@@ -14,7 +14,7 @@ class AddCodeToInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->string('code', 80)->after('id');
+            $table->string('code', 80)->nullable()->after('id');
         });
     }
 
