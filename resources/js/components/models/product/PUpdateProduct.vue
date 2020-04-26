@@ -30,7 +30,7 @@ export default {
     },
 
     created() {
-        axios.get(this.route(this.id)).then((response) => {
+        api.getItem('product', this.id).then((response) => {
             this.item = response.data;
             this.original = { ...this.item };
         });
@@ -58,10 +58,6 @@ export default {
 
         submitForm() {
             this.$refs["submit-btn"].click();
-        },
-
-        route(id) {
-            return `${this.action}/${id}`;
         },
     },
 };

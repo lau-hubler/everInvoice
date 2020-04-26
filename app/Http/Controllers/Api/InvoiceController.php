@@ -7,7 +7,7 @@ use App\Actions\Invoices\UpdateInvoiceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Invoice;
-use App\Repositories\Interfaces\InvoiceRepositoryInterface;
+use App\Repositories\Invoice\InvoiceRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +35,11 @@ class InvoiceController extends Controller
     public function index()
     {
         return $this->invoiceRepository->all();
+    }
+
+    public function all(InvoiceRepositoryInterface $invoiceRepository)
+    {
+        return $invoiceRepository->paginate();
     }
 
     /**

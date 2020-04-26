@@ -7,6 +7,7 @@ use App\Actions\Products\UpdateProductAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,21 +17,19 @@ use Illuminate\Http\Response;
 class ProductController extends Controller
 {
     /**
-     * Add policy to controller.
-     */
-    public function __construct()
-    {
-        $this->authorizeResource(Product::class, 'product');
-    }
-
-    /**
      * Display a listing of the resource.
      *
+     * @param ProductRepositoryInterface $productRepository
      * @return Builder[]|Collection|Response
      */
-    public function index()
+    public function index(ProductRepositoryInterface $productRepository)
     {
-        return Product::with('category')->get();
+        return $productRepository->paginate();
+    }
+
+    public function all(ProductRepositoryInterface $productRepository)
+    {
+        return $productRepository->all();
     }
 
     /**
@@ -50,11 +49,12 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param Product $product
+     * @param ProductRepositoryInterface $productRepository
      * @return Builder|Builder[]|Collection|Model|Response
      */
-    public function show(Product $product)
+    public function show(Product $product, ProductRepositoryInterface $productRepository)
     {
-        return Product::with('category')->find($product->id);
+        return $productRepository->find($product->id);
     }
 
     /**

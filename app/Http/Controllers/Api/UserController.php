@@ -6,18 +6,17 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
     public function login(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
 
-        $user = User::whereEmail($request->email)->first();
+        $user = User::whereEmail($request->email)->first();;
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response([
@@ -25,6 +24,18 @@ class UserController extends Controller
             ], 404);
         }
 
-        return $user->createToken("$user->name-token")->plainTextToken;
+        return $user->createToken("api-token")->plainTextToken;
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response(['message' => ['User successfully logged out']]);
+    }
+
+    public function get(Request $request)
+    {
+        return $request->user();
     }
 }

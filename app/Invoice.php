@@ -95,4 +95,14 @@ class Invoice extends Model
             return $subtotal + $order->quantity * $order->unit_price;
         }, 0);
     }
+
+    public function scopeWithRelationships()
+    {
+        return Invoice::with(['vendor', 'client', 'status']);
+    }
+
+    public function scopeCompleteAttributes()
+    {
+        return Invoice::with(['vendor.documentType', 'client.documentType', 'status', 'orders.product']);
+    }
 }

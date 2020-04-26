@@ -6,7 +6,7 @@ use App\Actions\Invoices\ImportInvoiceAction;
 use App\Http\Requests\ImportInvoiceRequest;
 use App\Invoice;
 use App\Jobs\ExportInvoiceJob;
-use App\Repositories\Interfaces\InvoiceRepositoryInterface;
+use App\Repositories\Invoice\InvoiceRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;

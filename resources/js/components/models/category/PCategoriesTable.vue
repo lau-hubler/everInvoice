@@ -23,6 +23,7 @@
             <template v-slot:cell(actions)="row">
                 <div class="btn-group btn-group-sm" role="group">
                     <p-link-button
+                        v-if="can('category.show')"
                         :id="row.item.id"
                         object="category"
                         component="p-category-details"
@@ -31,6 +32,7 @@
                         <font-awesome-icon icon="eye" />
                     </p-link-button>
                     <p-link-button
+                        v-if="can('category.edit')"
                         :id="row.item.id"
                         component="p-update-category"
                         object="category"
@@ -40,6 +42,7 @@
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
                     <p-delete-button
+                        v-if="can('category.delete')"
                         :item="row.item"
                         type="category"
                         has-default
@@ -96,6 +99,7 @@ export default {
             perPage: 10,
             currentPage: 1,
             emptyTable: this.emptyMessage,
+            permissions: [],
             fields: [
                 {
                     key: "code",
@@ -147,16 +151,23 @@ export default {
             const index = _.findIndex(this.categories, { id: category.id });
             this.$set(this.categories, index, category);
         },
+        can(permission) {
+            if (this.permissions.includes('superAdmin')) return true;
+
+            return this.permissions.includes(permission);
+        }
     },
 
     mounted() {
-        api.getClass("category").then(
+        api.getClassPaginated("category").then(
             (categories) => {
                 this.categories = categories.data
                 this.currentPage = categories.currentPage
                 this.perPage = categories.perPage
             }
         );
+
+        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
 
         EventBus.$on("new-category", (category) => {
             this.addCategory(category);

@@ -112,6 +112,7 @@ export default {
             (categories) => (this.categories = categories)
         );
     },
+
     mounted() {
         const isUnique = (value) =>
             new Promise((resolve) => {

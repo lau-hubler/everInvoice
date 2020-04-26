@@ -44,6 +44,17 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function getAllPermissions()
+    {
+        if ($this->isSuperAdmin()){
+            return collect($this->role->name);
+        }
+
+        return $this->role->permissions()->get()->map(function ($permission) {
+            return $permission->code;
+        });
+    }
+
     public function isSuperAdmin()
     {
         return $this->role->name === 'superAdmin';

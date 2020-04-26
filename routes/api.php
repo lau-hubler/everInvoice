@@ -16,11 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('login', 'Api\UserController@login');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('logout', 'Api\UserController@logout');
+    Route::get('/user', 'Api\UserController@get');
+    Route::get('categories/all', 'Api\CategoryController@all');
+    Route::get('products/all', 'Api\ProductController@all');
+    Route::get('stakeholders/all', 'Api\StakeholderController@all');
+    Route::get('invoices/all', 'Api\InvoiceController@all');
+});
 
 Route::name('api.')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('invoices', 'Api\InvoiceController');

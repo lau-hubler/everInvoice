@@ -6,10 +6,10 @@ namespace App\Providers;
 
 use App\Events\PaymentResponseEvent;
 use App\Listeners\ProcessingPaymentListener;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Listeners\UserLoggedOut;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         PaymentResponseEvent::class => [
             ProcessingPaymentListener::class
+        ],
+        Logout::class => [
+            UserLoggedOut::class,
         ],
     ];
 

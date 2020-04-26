@@ -20,12 +20,17 @@ const getHeader = function () {
 }
 
 function getClass(type) {
+    const urlAll = `${getUrl(type)}/all`
+    return axios.get(urlAll, {headers: getHeader()}).then((response) => response.data);
+}
+
+function getClassPaginated(type) {
     return axios.get(getUrl(type), {headers: getHeader()}).then((response) => response.data);
 }
 
 function getItem(type, id) {
     const urlItem = `${getUrl(type)}/${id}`;
-    return axios.get(getUrl(urlItem)).then((response) => response.data);
+    return axios.get(urlItem);
 }
 
 function createItem(type, item) {
@@ -44,8 +49,10 @@ function deleteItem(type, item) {
 
 export default {
     getClass,
+    getClassPaginated,
     getItem,
     createItem,
     updateItem,
     deleteItem,
+    getHeader
 };
