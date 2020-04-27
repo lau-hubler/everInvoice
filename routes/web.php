@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('invoices/import', 'InvoiceController@import')->name('invoices.import');
     Route::post('invoices/export', 'InvoiceController@export')->name('invoices.export');
     Route::resource('roles', 'RoleController');
+    Route::post('roles/user/{user}', 'RoleController@updateUser')->name('roles.updateUser');
     Route::get('invoices/{invoice}/pay', 'TransactionController@pay');
     Route::get('invoices/{invoice}/refresh', 'TransactionController@consultTransaction');
     Route::get('invoices/return', 'TransactionController@paymentResponse');

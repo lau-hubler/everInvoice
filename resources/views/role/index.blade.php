@@ -8,7 +8,7 @@
 
         @can('create', \App\Role::class)
             @include('role.partials.__rolesTab', ['permissions' => $permissions] )
-            @include('role.partials.__usersTab', ['roles' => $roles])
+            @include('role.partials.__usersTab', ['roles' => $roles, 'users' => $users])
         @endcan
     </b-tabs>
 

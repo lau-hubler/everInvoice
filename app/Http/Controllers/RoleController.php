@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,10 +26,10 @@ class RoleController extends Controller
         Gate::authorize('view', Role::class);
 
         $permissions = Auth::user()->role->allPermissions();
+        $users = User::with('role')->get();
         $user = User::with('role')->find(Auth::user()->id);
         $roles = Role::with('permissions')->get();
-
-        return response()->view('role.index', compact('user', 'permissions', 'roles'));
+        return response()->view('role.index', compact('user', 'users', 'permissions', 'roles'));
     }
 
     /**
@@ -47,28 +48,6 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Role $role
-     * @return Response
-     */
-    public function show(Role $role)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Role $role
-     * @return Response
-     */
-    public function edit(Role $role)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -77,14 +56,22 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+
+    }
+
+    public function updateUser(Request $request, User $user)
+    {
+        $request->validate(['role' => 'required']);
+        $user->update(['role_id' => $request->input('role')]);
+
+        return redirect(route('roles.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Role $role
-     * @return Application|RedirectResponse|Response|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function destroy(Role $role)
     {

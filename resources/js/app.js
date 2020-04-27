@@ -80,6 +80,9 @@ Vue.component("p-product-details", PProductDetails);
 Vue.component("p-products-table", PProductsTable);
 Vue.component("p-update-product", PUpdateProduct);
 
+import PUserRoleRow from "./components/models/role/PUserRoleRow";
+Vue.component("p-user-role-row", PUserRoleRow);
+
 import PCreateStakeholder from "./components/models/stakeholder/PCreateStakeholder";
 import PStakeholderDetails from "./components/models/stakeholder/PStakeholderDetails";
 import PStakeholdersTable from "./components/models/stakeholder/PStakeholdersTable";
