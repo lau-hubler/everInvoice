@@ -23,6 +23,7 @@
             <template v-slot:cell(actions)="row">
                 <div class="btn-group btn-group-sm" role="group">
                     <p-link-button
+                        v-if="can('stakeholder.show')"
                         :id="row.item.id"
                         object="stakeholder"
                         component="p-stakeholder-details"
@@ -31,6 +32,7 @@
                         <font-awesome-icon icon="eye" />
                     </p-link-button>
                     <p-link-button
+                        v-if="can('stakeholder.update')"
                         :id="row.item.id"
                         component="p-update-stakeholder"
                         object="stakeholder"
@@ -40,6 +42,7 @@
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
                     <p-delete-button
+                        v-if="can('stakeholder.delete')"
                         :item="row.item"
                         :action="action"
                         type="stakeholder"
@@ -93,6 +96,7 @@ export default {
     data() {
         return {
             stakeholders: [],
+            permissions: [],
             perPage: 10,
             currentPage: 1,
             emptyTable: this.emptyMessage,
@@ -153,11 +157,20 @@ export default {
             }
             return `${stakeholder.name} ${stakeholder.surname}`;
         },
+        can(permission) {
+            if (this.permissions.includes("superAdmin")) return true;
+
+            return this.permissions.includes(permission);
+        },
     },
 
     mounted() {
-        api.getClass("stakeholder").then(
-            (stakeholders) => (this.stakeholders = stakeholders)
+        api.getClassPaginated("stakeholder").then((stakeholders) => {
+            this.stakeholders = stakeholders.data;
+        });
+
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
         );
 
         EventBus.$on("new-stakeholder", (stakeholder) => {

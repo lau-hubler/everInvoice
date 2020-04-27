@@ -1,6 +1,10 @@
 <template>
     <b-tr :is="component" v-model="modifiedOrder">
-        <a class="btn-link" :class="editMode ? 'text-success' : 'text-primary'">
+        <a
+            v-if="can('order.update')"
+            class="btn-link"
+            :class="editMode ? 'text-success' : 'text-primary'"
+        >
             <font-awesome-icon icon="save" @click="save" v-if="editMode" />
             <font-awesome-icon v-else icon="edit" @click="edit" />
         </a>
@@ -9,6 +13,7 @@
         </a>
         <p-delete-button
             v-else
+            v-if="can('order.delete')"
             :item="order"
             action="/orders"
             type="order"
@@ -40,6 +45,7 @@ export default {
             modifiedOrder: "",
             editMode: false,
             component: "p-order-details",
+            permissions: [],
         };
     },
 
@@ -63,12 +69,21 @@ export default {
             this.toggleEditMode();
             this.component = "p-order-details";
         },
+        can(permission) {
+            if (this.permissions.includes("superAdmin")) return true;
+
+            return this.permissions.includes(permission);
+        },
     },
 
     created() {
         if (this.order) {
             this.modifiedOrder = { ...this.order };
         }
+
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
     },
 };
 </script>

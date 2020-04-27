@@ -53,7 +53,9 @@
             <b-row>
                 <span> <strong>IVA: </strong> {{ totalIva() | money }} </span>
             </b-row>
-            <b-row></b-row>
+            <b-row v-if="notPaid()">
+                <p-pay-button :id="item.id"></p-pay-button>
+            </b-row>
         </b-col>
     </b-row>
 </template>
@@ -82,6 +84,14 @@ export default {
             return this.item.orders.reduce(
                 (sum, order) => sum + this.totalPrice(order),
                 0
+            );
+        },
+        notPaid() {
+            const status = this.item.status.name;
+            return (
+                status === "sent" ||
+                status === "overdue" ||
+                status === "write-off"
             );
         },
     },

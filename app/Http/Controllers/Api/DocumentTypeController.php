@@ -14,7 +14,7 @@ class DocumentTypeController extends Controller
      *
      * @return DocumentType[]|Collection|Response
      */
-    public function index()
+    public function all()
     {
         return DocumentType::all();
     }

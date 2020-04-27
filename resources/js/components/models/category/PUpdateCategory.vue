@@ -30,7 +30,7 @@ export default {
     },
 
     created() {
-        axios.get(this.route(this.id)).then((response) => {
+        api.getItem("category", this.id).then((response) => {
             this.item = response.data;
             this.item.iva *= 100;
             this.original = { ...this.item };

@@ -24,6 +24,7 @@
 <script>
 import EventBus from "../eventBus";
 import swal from "sweetalert";
+import api from "../api";
 
 export default {
     props: {
@@ -61,7 +62,7 @@ export default {
         getProps(component, id) {
             this.component = component;
             this.props.id = id;
-            axios.get(this.setRoute(id)).then((response) => {
+            api.getItem(this.object, this.props.id).then((response) => {
                 this.props.item = response.data;
             });
             this.show();
@@ -119,9 +120,6 @@ export default {
         setShowMode() {
             this.props.editMode = false;
             this.props.createMode = false;
-        },
-        setRoute(id) {
-            return `${this.action}/${id}`;
         },
     },
 

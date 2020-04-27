@@ -7,6 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="permissions" content="{{ Auth::user() ? Auth::user()->getAllPermissions() :'' }}">
+    <meta name="token" content="{{ $token ?? '' }}">
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
@@ -15,6 +18,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -55,17 +60,7 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('auth.logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <x-user-navbar-dropdown></x-user-navbar-dropdown>
                             </li>
                         @endguest
                     </ul>
@@ -73,17 +68,8 @@
             </div>
         </nav>
 
-        <main class="py-4 container-fluid">
-            <b-row class="col-md-12 mx-5">
-                <b-col cols="2">
-                    @include('layouts.__sideBar')
-                </b-col>
-                <b-col class="container mr-5">
-                        <div class="mr-5">
-                            @yield('content')
-                        </div>
-                </b-col>
-            </b-row>
+        <main>
+            @yield('content')
         </main>
     </div>
 </body>

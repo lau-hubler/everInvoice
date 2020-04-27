@@ -29,6 +29,7 @@
             <template v-slot:cell(actions)="row">
                 <div class="btn-group btn-group-sm" role="group">
                     <p-link-button
+                        v-if="can('invoice.show')"
                         :id="row.item.id"
                         object="invoice"
                         component="p-invoice-details"
@@ -37,6 +38,7 @@
                         <font-awesome-icon icon="eye" />
                     </p-link-button>
                     <p-link-button
+                        v-if="can('invoice.update')"
                         :id="row.item.id"
                         component="p-update-invoice"
                         object="invoice"
@@ -46,6 +48,7 @@
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
                     <p-delete-button
+                        v-if="can('invoice.delete')"
                         :item="row.item"
                         :action="action"
                         type="invoice"
@@ -81,6 +84,7 @@ export default {
     data() {
         return {
             filters: [],
+            permissions: [],
             invoices: [],
             perPage: 10,
             currentPage: 1,
@@ -228,7 +232,7 @@ export default {
         },
         filterDueDate(invoice, filter) {
             if (this.isBetweenDates(filter)) {
-                return this.filterBetweenDates(invoice.due_date,filter);
+                return this.filterBetweenDates(invoice.due_date, filter);
             }
             return invoice.due_date === this.formatDateToSearch(filter);
         },
@@ -250,10 +254,21 @@ export default {
         isBetweenDates(date) {
             return date.includes("-");
         },
+        can(permission) {
+            if (this.permissions.includes("superAdmin")) return true;
+
+            return this.permissions.includes(permission);
+        },
     },
 
     created() {
-        api.getClass("invoice").then((invoices) => (this.invoices = invoices));
+        api.getClass("invoice").then((invoices) => {
+            this.invoices = invoices.data;
+        });
+
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("new-invoice", (invoice) => {
             this.addInvoice(invoice);

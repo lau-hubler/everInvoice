@@ -27,7 +27,6 @@ class TransactionController extends Controller
                 $transaction->update(['status_id' => 'cancelled']);
                 $response->status()->message();
             }
-
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }
@@ -39,7 +38,8 @@ class TransactionController extends Controller
 
         event(new PaymentResponseEvent($transaction));
 
-        return redirect()->route('invoices.index')->withSuccess('Your invoice was successfully paid!');
+        return redirect()->route('invoices.index')
+            ->withSuccess('It can take a moment to process your payment depending of your pay method and operator.');
     }
 
     public function consultTransaction($invoice)
@@ -48,6 +48,7 @@ class TransactionController extends Controller
 
         event(new PaymentResponseEvent($transaction));
 
+        return redirect()->route('invoices.index');
     }
 
     public function reversePayment($invoice)
@@ -56,7 +57,7 @@ class TransactionController extends Controller
 
         try {
             $response = PlacetoPayFacade::get()->reverse($transaction->request_id);
-            if ($response->status()->isApproved()){
+            if ($response->status()->isApproved()) {
                 $transaction->update(['status_id' => 'cancelled']);
             }
         } catch (Exception $e) {

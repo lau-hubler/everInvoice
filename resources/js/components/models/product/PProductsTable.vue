@@ -26,6 +26,7 @@
             <template v-slot:cell(actions)="row">
                 <div class="btn-group btn-group-sm" role="group">
                     <p-link-button
+                        v-if="can('product.show')"
                         :id="row.item.id"
                         object="product"
                         component="p-product-details"
@@ -34,6 +35,7 @@
                         <font-awesome-icon icon="eye" />
                     </p-link-button>
                     <p-link-button
+                        v-if="can('product.store')"
                         :id="row.item.id"
                         component="p-update-product"
                         object="product"
@@ -43,6 +45,7 @@
                         <font-awesome-icon icon="edit" />
                     </p-link-button>
                     <p-delete-button
+                        v-if="can('product.delete')"
                         :item="row.item"
                         :action="action"
                         type="product"
@@ -103,6 +106,7 @@ export default {
     data() {
         return {
             products: [],
+            permissions: [],
             perPage: 10,
             currentPage: 1,
             emptyTable: this.emptyMessage,
@@ -162,10 +166,23 @@ export default {
             const index = _.findIndex(this.products, { id: product.id });
             this.$set(this.products, index, product);
         },
+        can(permission) {
+            if (this.permissions.includes("superAdmin")) return true;
+
+            return this.permissions.includes(permission);
+        },
     },
 
     mounted() {
-        api.getClass("product").then((products) => (this.products = products));
+        api.getClassPaginated("product").then((products) => {
+            this.products = products.data;
+            this.currentPage = products.currentPage;
+            this.perPage = products.perPage;
+        });
+
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("new-product", (product) => {
             this.addProduct(product);

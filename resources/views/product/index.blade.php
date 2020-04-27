@@ -1,12 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-@section('content')
+@section('auth-content')
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-end">
         <h3>{{ __('product.title') }}</h3>
         <b-button-toolbar aria-label="Toolbar for products">
             <b-button-group class="mx-1">
-                <p-create-button component="p-create-product">{{ __('app.buttons.new') }}</p-create-button>
+                @can('create', \App\Product::class)
+                    <p-create-button component="p-create-product">{{ __('app.buttons.new') }}</p-create-button>
+                @endcan
             </b-button-group>
         </b-button-toolbar>
     </div>

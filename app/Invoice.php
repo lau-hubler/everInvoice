@@ -46,16 +46,6 @@ class Invoice extends Model
         );
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::deleting(function ($model) {
-            $model->orders()->each(function ($order) {
-                $order->delete();
-            });
-        });
-    }
-
     public function pay($user)
     {
         throw_if($this->isUnavailable(), new Exception());
@@ -94,5 +84,29 @@ class Invoice extends Model
         return collect($orders)->reduce(static function ($subtotal, $order) {
             return $subtotal + $order->quantity * $order->unit_price;
         }, 0);
+    }
+
+    public function updateStatus()
+    {
+        $dueDate = Carbon::parse($this->due_date);
+        if ($dueDate > Carbon::now()) {
+            $this->update(['status_id' => 2]);
+        }
+        if ($dueDate < Carbon::now()) {
+            $this->update(['status_id' => 4]);
+        }
+        if ($dueDate < Carbon::now()->add(30, 'day')) {
+            $this->update(['status_id' => 5]);
+        }
+    }
+
+    public function scopeWithRelationships()
+    {
+        return Invoice::with(['vendor', 'client', 'status']);
+    }
+
+    public function scopeCompleteAttributes()
+    {
+        return Invoice::with(['vendor.documentType', 'client.documentType', 'status', 'orders.product']);
     }
 }

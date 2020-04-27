@@ -18,10 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
-
         Gate::authorize('viewAny', Product::class);
 
-        return response()->view('product.index', compact('products'));
+        return response()->view('product.index');
     }
 }

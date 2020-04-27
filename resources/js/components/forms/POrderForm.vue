@@ -69,7 +69,7 @@
 <script>
 import api from "../../api";
 import EventBus from "../../eventBus";
-import {ValidationObserver} from "vee-validate";
+import { ValidationObserver } from "vee-validate";
 
 export default {
     name: "POrderForm",

@@ -4,6 +4,8 @@
 namespace Tests\Feature\Invoice;
 
 use App\Invoice;
+use App\Jobs\ExportInvoiceJob;
+use App\Repositories\Invoice\InvoiceRepositoryInterface;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;

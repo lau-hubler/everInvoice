@@ -22,4 +22,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Invoice::class)->using(Order::class);
     }
+
+    public function scopeWithCategory($query)
+    {
+        return $query->with('category');
+    }
 }

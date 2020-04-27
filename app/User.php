@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password',
+        'name', 'surname', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -42,6 +42,17 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function getAllPermissions()
+    {
+        if ($this->isSuperAdmin()) {
+            return collect($this->role->name);
+        }
+
+        return $this->role->permissions()->get()->map(function ($permission) {
+            return $permission->code;
+        });
     }
 
     public function isSuperAdmin()

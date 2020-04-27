@@ -54,7 +54,7 @@ export default {
             return this.value.quantity * this.value.unit_price;
         },
         ivaOrder() {
-            return (this.totalPrice * this.value.product_iva);
+            return this.totalPrice * this.value.product_iva;
         },
         totalWithoutIva() {
             return this.totalPrice - this.ivaOrder;

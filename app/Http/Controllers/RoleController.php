@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Actions\Roles\StoreRoleAction;
 use App\Http\Requests\RoleRequest;
 use App\Role;
+use App\User;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -18,19 +23,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        Gate::authorize('view', Role::class);
 
-        return response()->view('role.index', compact($roles));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        $permissions = Auth::user()->role->allPermissions();
+        $users = User::with('role')->get();
+        $user = User::with('role')->find(Auth::user()->id);
+        $roles = Role::with('permissions')->get();
+        return response()->view('role.index', compact('user', 'users', 'permissions', 'roles'));
     }
 
     /**
@@ -49,28 +48,6 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Role $role
-     * @return Response
-     */
-    public function show(Role $role)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Role $role
-     * @return Response
-     */
-    public function edit(Role $role)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -79,17 +56,26 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+    }
+
+    public function updateUser(Request $request, User $user)
+    {
+        $request->validate(['role' => 'required']);
+        $user->update(['role_id' => $request->input('role')]);
+
+        return redirect(route('roles.index'))->withSuccess('User role successfully updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Role $role
-     * @return Response
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        return redirect(route('roles.index'));
     }
 }

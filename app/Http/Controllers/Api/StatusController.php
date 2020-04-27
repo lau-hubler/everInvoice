@@ -15,7 +15,7 @@ class StatusController extends Controller
      *
      * @return Status[]|Collection|Response
      */
-    public function index()
+    public function all()
     {
         return Status::all();
     }

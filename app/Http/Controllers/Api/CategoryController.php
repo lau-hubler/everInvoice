@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Categories\DeleteCategoryAction;
 use App\Actions\Categories\StoreCategoryAction;
 use App\Actions\Categories\UpdateCategoryAction;
 use App\Category;
@@ -10,6 +11,7 @@ use App\Http\Requests\CategoryRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -28,6 +30,17 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        return Category::paginate(env('ITEMS_PER_PAGE'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Category[]|Collection|Response
+     */
+    public function all()
+    {
+        Gate::authorize('viewAny', Category::class);
         return Category::all();
     }
 
@@ -74,11 +87,8 @@ class CategoryController extends Controller
      * @param Category $category
      * @return array|Response|string
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, DeleteCategoryAction $action)
     {
-        if ($category != Category::find(1)) {
-            Category::find($category->id)->delete();
-            return __('This category was successfully deleted');
-        }
+        return $action->execute($category);
     }
 }
