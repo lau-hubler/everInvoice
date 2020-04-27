@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
-    protected $types = ['category', 'product', 'stakeholder', 'invoice', 'order'];
+    protected $types = ['category', 'product', 'stakeholder', 'invoice', 'order', 'role'];
     protected $actions = ['index', 'store', 'update', 'show', 'delete'];
 
     /**
@@ -19,6 +19,11 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             'code' => 'invoice.import',
             'description' => 'User can import invoices'
+        ]);
+
+        DB::table('permissions')->insert([
+            'code' => 'invoice.export',
+            'description' => 'User can export invoices'
         ]);
     }
 

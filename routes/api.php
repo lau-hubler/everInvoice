@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('statuses/all', 'Api\StatusController@all');
     Route::get('orders/all', 'Api\OrderController@all');
     Route::get('invoices/all', 'Api\InvoiceController@all');
+    Route::get('/invoices/{invoice}/transactions', 'Api\TransactionController@index');
 });
 
 Route::name('api.')->middleware('auth:sanctum')->group(function () {

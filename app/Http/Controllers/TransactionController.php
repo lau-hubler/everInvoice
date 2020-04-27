@@ -39,7 +39,8 @@ class TransactionController extends Controller
 
         event(new PaymentResponseEvent($transaction));
 
-        return redirect()->route('invoices.index')->withSuccess('Thank you!');
+        return redirect()->route('invoices.index')
+            ->withSuccess('It can take a moment to process your payment depending of your pay method and operator.');
     }
 
     public function consultTransaction($invoice)
@@ -47,6 +48,8 @@ class TransactionController extends Controller
         $transaction = Transaction::where('invoice_id', $invoice)->first();
 
         event(new PaymentResponseEvent($transaction));
+
+        return redirect()->route('invoices.index');
 
     }
 

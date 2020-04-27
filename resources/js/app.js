@@ -6,9 +6,11 @@ window.Vue = require("vue");
 import PCreateButton from "./components/buttons/PCreateButton";
 import PDeleteButton from "./components/buttons/PDeleteButton";
 import PLinkButton from "./components/buttons/PLinkButton";
+import PPayButton from "./components/buttons/PPayButton";
 Vue.component("p-create-button", PCreateButton);
 Vue.component("p-delete-button", PDeleteButton);
 Vue.component("p-link-button", PLinkButton);
+Vue.component("p-pay-button", PPayButton);
 
 import PCategoryForm from "./components/forms/PCategoryForm.vue";
 import PCompanyForm from "./components/forms/PCompanyForm";
@@ -16,12 +18,14 @@ import PInvoiceForm from "./components/forms/PInvoiceForm";
 import POrderForm from "./components/forms/POrderForm";
 import PPersonForm from "./components/forms/PPersonForm";
 import PProductForm from "./components/forms/PProductForm";
+import PRoleForm from "./components/forms/PRoleForm";
 Vue.component("p-category-form", PCategoryForm);
 Vue.component("p-company-form", PCompanyForm);
 Vue.component("p-invoice-form", PInvoiceForm);
 Vue.component("p-order-form", POrderForm);
 Vue.component("p-person-form", PPersonForm);
 Vue.component("p-product-form", PProductForm);
+Vue.component("p-role-form", PRoleForm);
 
 import PDateInput from "./components/inputs/PDateInput";
 import PFileInput from "./components/inputs/PFileInput";
@@ -48,12 +52,14 @@ import PInvoiceDetails from "./components/models/invoice/PInvoiceDetails";
 import PInvoiceHeader from "./components/models/invoice/PInvoiceHeader";
 import PInvoicesTable from "./components/models/invoice/PInvoicesTable";
 import PStakeholderForInvoice from "./components/models/invoice/PStakeholderForInvoice";
+import PTransactions from "./components/models/invoice/PTransactions";
 import PUpdateInvoice from "./components/models/invoice/PUpdateInvoice";
 Vue.component("p-create-invoice", PCreateInvoice);
 Vue.component("p-invoice-details", PInvoiceDetails);
 Vue.component("p-invoice-header", PInvoiceHeader);
 Vue.component("p-invoices-table", PInvoicesTable);
 Vue.component("p-stakeholder-for-invoice", PStakeholderForInvoice);
+Vue.component("p-transactions", PTransactions);
 Vue.component("p-update-invoice", PUpdateInvoice);
 
 import POrderCreateRow from "./components/models/order/POrderCreateRow";
@@ -118,10 +124,11 @@ import {
     faSave,
     faUpload,
     faDownload,
+    faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faEye, faEdit, faTrash, faTimes, faSave, faUpload, faDownload);
+library.add(faEye, faEdit, faTrash, faTimes, faSave, faUpload, faDownload, faCheck);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

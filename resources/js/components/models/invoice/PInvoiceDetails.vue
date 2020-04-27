@@ -28,7 +28,12 @@
                 </b-card>
             </b-card-group>
         </b-row>
-        <p-orders-table :items="item.orders" :invoiceId="item.id" />
+        <div class="m-3">
+            <b-tabs content-class="mt-3">
+                <b-tab title="Orders" active><p-orders-table :items="item.orders" :invoiceId="item.id" /></b-tab>
+                <b-tab title="Transactions"><p-transactions :id="item.id"></p-transactions></b-tab>
+            </b-tabs>
+        </div>
     </b-container>
 </template>
 

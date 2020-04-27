@@ -9,6 +9,7 @@ use App\Invoice;
 use App\Jobs\ExportInvoiceJob;
 use App\Notifications\ExportInvoiceNotify;
 use App\Repositories\Invoice\InvoiceRepositoryInterface;
+use App\Transaction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;

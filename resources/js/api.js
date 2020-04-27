@@ -7,6 +7,7 @@ const getUrl = (url) => {
         documentType: "/api/documentTypes",
         status: "/api/statuses",
         order: "/api/orders",
+        role: "/api/roles",
     };
     return urls[url];
 };

@@ -27,4 +27,9 @@ class Stakeholder extends Model
     {
         return $this->hasMany(Invoice::class, 'id', 'vendor_id');
     }
+
+    public function scopeWithDocumentType()
+    {
+        return Stakeholder::with('documentType');
+    }
 }

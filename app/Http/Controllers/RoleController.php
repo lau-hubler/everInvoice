@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Actions\Roles\StoreRoleAction;
 use App\Http\Requests\RoleRequest;
 use App\Role;
+use App\User;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -18,19 +22,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        Gate::authorize('view', Role::class);
 
-        return response()->view('role.index', compact($roles));
-    }
+        $permissions = Auth::user()->role->allPermissions();
+        $user = User::with('role')->find(Auth::user()->id);
+        $roles = Role::with('permissions')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        return response()->view('role.index', compact('user', 'permissions', 'roles'));
     }
 
     /**
@@ -86,10 +84,12 @@ class RoleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Role $role
-     * @return Response
+     * @return Application|RedirectResponse|Response|\Illuminate\Routing\Redirector
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        return redirect(route('roles.index'));
     }
 }

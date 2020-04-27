@@ -22,8 +22,8 @@
         </b-button-toolbar>
     </div>
     <div class="card-body">
-        @include('invoice.__exportCollapse')
-        @include('invoice.__importCollapse')
+        @include('invoice.partials.__exportCollapse')
+        @include('invoice.partials.__importCollapse')
         <p-invoices-table
             action="{{ route('invoices.index') }}"
         ></p-invoices-table>

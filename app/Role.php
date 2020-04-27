@@ -5,6 +5,7 @@ namespace App;
 use App\Concerns\ColumnFillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 
 class Role extends Model
 {
@@ -23,5 +24,14 @@ class Role extends Model
             }
         }
         return false;
+    }
+
+    public function scopeAllPermissions()
+    {
+        $user = Auth::user();
+
+        if ($user->isSuperAdmin()) return Permission::all();
+
+        return $user->role->permissions ;
     }
 }

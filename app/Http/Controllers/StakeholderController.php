@@ -16,10 +16,8 @@ class StakeholderController extends Controller
      */
     public function index()
     {
-        $stakeholders = Stakeholder::with('documentType')->get();
-
         Gate::authorize('viewAny', Stakeholder::class);
 
-        return response()->view('stakeholder.index', compact('stakeholders'));
+        return response()->view('stakeholder.index');
     }
 }
