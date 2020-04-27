@@ -10,5 +10,4 @@ interface ProductRepositoryInterface
     public function paginate();
 
     public function find(int $id);
-
 }

@@ -19,7 +19,7 @@ class ProcessPaymentJob implements ShouldQueue
     {
         $invoicesInProcess = Invoice::where('status_id', 7)->get();
 
-        foreach($invoicesInProcess as $invoice) {
+        foreach ($invoicesInProcess as $invoice) {
             $transaction = $transaction = Transaction::where('invoice_id', $invoice->id)->first();
             if ($transaction) {
                 event(new PaymentResponseEvent($transaction));

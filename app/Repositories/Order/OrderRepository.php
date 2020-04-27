@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Order;
 
-
 use App\Order;
 
 class OrderRepository implements OrderRepositoryInterface

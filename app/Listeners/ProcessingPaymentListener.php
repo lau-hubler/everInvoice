@@ -7,7 +7,6 @@ use App\Facades\PlacetoPayFacade;
 use App\Invoice;
 use Exception;
 
-
 class ProcessingPaymentListener
 {
     public function handle(PaymentResponseEvent $event)
@@ -16,11 +15,11 @@ class ProcessingPaymentListener
         try {
             $response = PlacetoPayFacade::get()->query($event->transaction->request_id);
 
-            if ($response->status()->isApproved()){
+            if ($response->status()->isApproved()) {
                 $event->transaction->update(['status_id' => 'paid']);
                 $invoice->update(['status_id' => 3]);
             }
-            if ($response->status()->isRejected()){
+            if ($response->status()->isRejected()) {
                 $invoice->updateStatus();
                 $event->transaction->update(['status_id' => $invoice->status->name]);
             }

@@ -15,7 +15,6 @@ use Illuminate\Http\Response;
 
 class InvoiceController extends Controller
 {
-
     private $invoiceRepository;
 
     public function __construct(InvoiceRepositoryInterface $invoiceRepository)

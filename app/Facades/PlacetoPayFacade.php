@@ -3,7 +3,6 @@
 
 namespace App\Facades;
 
-
 use Dnetix\Redirection\PlacetoPay;
 
 class PlacetoPayFacade

@@ -3,7 +3,6 @@
 
 namespace App\Actions\Categories;
 
-
 use App\Category;
 
 class DeleteCategoryAction

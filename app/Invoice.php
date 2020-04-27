@@ -89,10 +89,10 @@ class Invoice extends Model
     public function updateStatus()
     {
         $dueDate = Carbon::parse($this->due_date);
-        if($dueDate > Carbon::now()) {
+        if ($dueDate > Carbon::now()) {
             $this->update(['status_id' => 2]);
         }
-        if($dueDate < Carbon::now()) {
+        if ($dueDate < Carbon::now()) {
             $this->update(['status_id' => 4]);
         }
         if ($dueDate < Carbon::now()->add(30, 'day')) {

@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function getAllPermissions()
     {
-        if ($this->isSuperAdmin()){
+        if ($this->isSuperAdmin()) {
             return collect($this->role->name);
         }
 

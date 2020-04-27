@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Cache;
 
 class LanguageController extends Controller
 {
-    public function set($locale) {
+    public function set($locale)
+    {
         $locale = $this->getLocaleFallbackIfNotDefined($locale);
 
         $this->forgetCacheIfInLocalEnv($locale);
@@ -54,8 +55,8 @@ class LanguageController extends Controller
     private function getI18nEncode($langCached): string
     {
         return sprintf('window.i18n = %s;', json_encode(
-                $langCached,
-                config('app.debug', false) ? JSON_PRETTY_PRINT : 0
-            ));
+            $langCached,
+            config('app.debug', false) ? JSON_PRETTY_PRINT : 0
+        ));
     }
 }

@@ -56,7 +56,6 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-
     }
 
     public function updateUser(Request $request, User $user)

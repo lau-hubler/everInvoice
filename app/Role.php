@@ -30,7 +30,9 @@ class Role extends Model
     {
         $user = Auth::user();
 
-        if ($user->isSuperAdmin()) return Permission::all();
+        if ($user->isSuperAdmin()) {
+            return Permission::all();
+        }
 
         return $user->role->permissions ;
     }

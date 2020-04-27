@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 
 // Localization and translation for vue
-Route::get('js/lang-{locale}.js', 'LanguageController@set' )->name('assets.lang');
+Route::get('js/lang-{locale}.js', 'LanguageController@set')->name('assets.lang');
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +39,3 @@ Route::middleware('auth')->group(function () {
     Route::get('invoices/{invoice}/refresh', 'TransactionController@consultTransaction');
     Route::get('invoices/return', 'TransactionController@paymentResponse');
 });
-
-
-

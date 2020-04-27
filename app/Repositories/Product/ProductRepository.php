@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Product;
 
-
 use App\Product;
 
 class ProductRepository implements ProductRepositoryInterface

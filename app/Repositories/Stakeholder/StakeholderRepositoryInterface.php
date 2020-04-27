@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Stakeholder;
 
-
 interface StakeholderRepositoryInterface
 {
     public function all();
@@ -11,5 +10,4 @@ interface StakeholderRepositoryInterface
     public function paginate();
 
     public function find($id);
-
 }

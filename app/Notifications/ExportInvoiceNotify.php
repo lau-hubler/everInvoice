@@ -59,7 +59,7 @@ class ExportInvoiceNotify extends Notification
             ->line('Thank you for using our application!');
 
         foreach ($this->getExportableFile() as $file) {
-            $email->attach($file['file'], ['as' => $file['name']] );
+            $email->attach($file['file'], ['as' => $file['name']]);
         }
 
         return $email;

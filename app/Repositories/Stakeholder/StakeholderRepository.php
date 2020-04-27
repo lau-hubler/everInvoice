@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Stakeholder;
 
-
 use App\Stakeholder;
 
 class StakeholderRepository implements StakeholderRepositoryInterface
