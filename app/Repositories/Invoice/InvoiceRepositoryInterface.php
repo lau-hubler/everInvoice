@@ -13,12 +13,6 @@ interface InvoiceRepositoryInterface
 
     public function find($id);
 
-    public function findAll($invoices);
-
-    public function findAllByIds($ids);
-
-    public function getIds($invoices = null);
-
     public function getOrdersOf($invoices);
 
     public function exportInvoices($invoices);

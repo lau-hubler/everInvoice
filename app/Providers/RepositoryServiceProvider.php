@@ -6,9 +6,9 @@ use App\Repositories\Invoice\InvoiceRepository;
 use App\Repositories\Invoice\InvoiceRepositoryInterface;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
-use App\Repositories\Product\ProductRepository;
+use App\Repositories\Product\ProductCacheRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
-use App\Repositories\Stakeholder\StakeholderRepository;
+use App\Repositories\Stakeholder\StakeholderCacheRepository;
 use App\Repositories\Stakeholder\StakeholderRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,8 +23,8 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(InvoiceRepositoryInterface::class, InvoiceRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
-        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
-        $this->app->bind(StakeholderRepositoryInterface::class, StakeholderRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductCacheRepository::class);
+        $this->app->bind(StakeholderRepositoryInterface::class, StakeholderCacheRepository::class);
     }
 
     /**

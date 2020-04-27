@@ -63,7 +63,7 @@ class RoleController extends Controller
         $request->validate(['role' => 'required']);
         $user->update(['role_id' => $request->input('role')]);
 
-        return redirect(route('roles.index'));
+        return redirect(route('roles.index'))->withSuccess('User role successfully updated!');
     }
 
     /**
