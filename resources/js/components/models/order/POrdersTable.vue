@@ -22,7 +22,10 @@
                 <template v-for="order in filteredOrders">
                     <p-order-row :order="order" />
                 </template>
-                <p-order-create-row v-if="can('order.store')" :invoiceId="invoiceId" />
+                <p-order-create-row
+                    v-if="can('order.store')"
+                    :invoiceId="invoiceId"
+                />
                 <b-tr variant="secondary" class="font-weight-bold">
                     <b-td colspan="3" class="text-right align-middle">
                         Total:
@@ -34,7 +37,9 @@
                         {{ totalIva | money }}
                     </b-td>
                     <b-td class="align-middle pl-1">(IVA)</b-td>
-                    <b-td class="text-center align-middle">{{ subTotal | money}} </b-td>
+                    <b-td class="text-center align-middle"
+                        >{{ subTotal | money }}
+                    </b-td>
                     <b-td class="align-middle pl-0">(Without IVA)</b-td>
                 </b-tr>
             </b-tbody>
@@ -161,17 +166,19 @@ export default {
         },
 
         can(permission) {
-            if (this.permissions.includes('superAdmin')) return true;
+            if (this.permissions.includes("superAdmin")) return true;
 
             return this.permissions.includes(permission);
-        }
+        },
     },
     created() {
         if (this.items) {
             this.orders = [...this.items];
         }
 
-        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("create-order", (order) => this.addOrder(order));
         EventBus.$on("delete-order", (order) => this.deleteOrder(order));

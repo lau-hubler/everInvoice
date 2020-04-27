@@ -30,7 +30,7 @@ export default {
     },
 
     created() {
-        api.getItem('product', this.id).then((response) => {
+        api.getItem("product", this.id).then((response) => {
             this.item = response.data;
             this.original = { ...this.item };
         });

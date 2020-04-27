@@ -167,20 +167,22 @@ export default {
             this.$set(this.products, index, product);
         },
         can(permission) {
-            if (this.permissions.includes('superAdmin')) return true;
+            if (this.permissions.includes("superAdmin")) return true;
 
             return this.permissions.includes(permission);
-        }
+        },
     },
 
     mounted() {
         api.getClassPaginated("product").then((products) => {
-            this.products = products.data
-            this.currentPage = products.currentPage
-            this.perPage = products.perPage
+            this.products = products.data;
+            this.currentPage = products.currentPage;
+            this.perPage = products.perPage;
         });
 
-        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("new-product", (product) => {
             this.addProduct(product);

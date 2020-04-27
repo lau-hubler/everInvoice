@@ -15,18 +15,22 @@ const getUrl = (url) => {
 const getHeader = function () {
     const token = window.document.querySelector('meta[name="token"]').content;
     return {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token
-    }
-}
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+    };
+};
 
 function getClass(type) {
-    const urlAll = `${getUrl(type)}/all`
-    return axios.get(urlAll, {headers: getHeader()}).then((response) => response.data);
+    const urlAll = `${getUrl(type)}/all`;
+    return axios
+        .get(urlAll, { headers: getHeader() })
+        .then((response) => response.data);
 }
 
 function getClassPaginated(type) {
-    return axios.get(getUrl(type), {headers: getHeader()}).then((response) => response.data);
+    return axios
+        .get(getUrl(type), { headers: getHeader() })
+        .then((response) => response.data);
 }
 
 function getItem(type, id) {
@@ -35,17 +39,21 @@ function getItem(type, id) {
 }
 
 function createItem(type, item) {
-    return axios.post(getUrl(type), item, {headers: getHeader()}).then((response) => response.data);
+    return axios
+        .post(getUrl(type), item, { headers: getHeader() })
+        .then((response) => response.data);
 }
 
 function updateItem(type, id, item) {
     const urlItem = `${getUrl(type)}/${id}`;
-    return axios.put(urlItem, item, {headers: getHeader()}).then((response) => response.data);
+    return axios
+        .put(urlItem, item, { headers: getHeader() })
+        .then((response) => response.data);
 }
 
 function deleteItem(type, item) {
     const urlItem = `${getUrl(type)}/${item.id}`;
-    return axios.delete(urlItem, {headers: getHeader()});
+    return axios.delete(urlItem, { headers: getHeader() });
 }
 
 export default {
@@ -55,5 +63,5 @@ export default {
     createItem,
     updateItem,
     deleteItem,
-    getHeader
+    getHeader,
 };

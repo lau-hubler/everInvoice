@@ -131,7 +131,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faEye, faEdit, faTrash, faTimes, faSave, faUpload, faDownload, faCheck);
+library.add(
+    faEye,
+    faEdit,
+    faTrash,
+    faTimes,
+    faSave,
+    faUpload,
+    faDownload,
+    faCheck
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

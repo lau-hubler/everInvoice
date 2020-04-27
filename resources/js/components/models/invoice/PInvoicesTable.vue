@@ -232,7 +232,7 @@ export default {
         },
         filterDueDate(invoice, filter) {
             if (this.isBetweenDates(filter)) {
-                return this.filterBetweenDates(invoice.due_date,filter);
+                return this.filterBetweenDates(invoice.due_date, filter);
             }
             return invoice.due_date === this.formatDateToSearch(filter);
         },
@@ -255,18 +255,20 @@ export default {
             return date.includes("-");
         },
         can(permission) {
-            if (this.permissions.includes('superAdmin')) return true;
+            if (this.permissions.includes("superAdmin")) return true;
 
             return this.permissions.includes(permission);
-        }
+        },
     },
 
     created() {
         api.getClass("invoice").then((invoices) => {
-            this.invoices = invoices.data
+            this.invoices = invoices.data;
         });
 
-        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("new-invoice", (invoice) => {
             this.addInvoice(invoice);

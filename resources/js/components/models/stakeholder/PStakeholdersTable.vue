@@ -158,20 +158,20 @@ export default {
             return `${stakeholder.name} ${stakeholder.surname}`;
         },
         can(permission) {
-            if (this.permissions.includes('superAdmin')) return true;
+            if (this.permissions.includes("superAdmin")) return true;
 
             return this.permissions.includes(permission);
-        }
+        },
     },
 
     mounted() {
-        api.getClassPaginated("stakeholder").then(
-            (stakeholders) => {
-                this.stakeholders = stakeholders.data
-            }
-        );
+        api.getClassPaginated("stakeholder").then((stakeholders) => {
+            this.stakeholders = stakeholders.data;
+        });
 
-        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("new-stakeholder", (stakeholder) => {
             this.addStakeholder(stakeholder);

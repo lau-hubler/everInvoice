@@ -87,8 +87,12 @@ export default {
             );
         },
         notPaid() {
-            const status = this.item.status.name
-            return status === "sent" || status === "overdue" || status === "write-off"
+            const status = this.item.status.name;
+            return (
+                status === "sent" ||
+                status === "overdue" ||
+                status === "write-off"
+            );
         },
     },
 };

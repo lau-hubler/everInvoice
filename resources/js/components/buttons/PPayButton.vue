@@ -5,17 +5,15 @@
 </template>
 
 <script>
-    export default {
-        name: "PPayButton",
+export default {
+    name: "PPayButton",
 
-        props: {id: null},
+    props: { id: null },
 
-        computed: {
-            route() {
-                return `/invoices/${this.id}/pay`
-            },
+    computed: {
+        route() {
+            return `/invoices/${this.id}/pay`;
         },
-
-
-    }
+    },
+};
 </script>

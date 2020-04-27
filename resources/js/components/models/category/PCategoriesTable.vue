@@ -152,22 +152,22 @@ export default {
             this.$set(this.categories, index, category);
         },
         can(permission) {
-            if (this.permissions.includes('superAdmin')) return true;
+            if (this.permissions.includes("superAdmin")) return true;
 
             return this.permissions.includes(permission);
-        }
+        },
     },
 
     mounted() {
-        api.getClassPaginated("category").then(
-            (categories) => {
-                this.categories = categories.data
-                this.currentPage = categories.currentPage
-                this.perPage = categories.perPage
-            }
-        );
+        api.getClassPaginated("category").then((categories) => {
+            this.categories = categories.data;
+            this.currentPage = categories.currentPage;
+            this.perPage = categories.perPage;
+        });
 
-        this.permissions = JSON.parse(window.document.querySelector('meta[name="permissions"]').content);
+        this.permissions = JSON.parse(
+            window.document.querySelector('meta[name="permissions"]').content
+        );
 
         EventBus.$on("new-category", (category) => {
             this.addCategory(category);

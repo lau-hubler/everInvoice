@@ -21,7 +21,7 @@ export default {
 
     props: {
         size: { default: "lg" },
-        item: null
+        item: null,
     },
     data() {
         return {

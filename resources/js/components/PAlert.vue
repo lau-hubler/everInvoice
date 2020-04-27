@@ -4,46 +4,44 @@
         dismissible
         :variant="variant"
         fade
-        @dismissed="dismissCountDown=0"
+        @dismissed="dismissCountDown = 0"
         @dismiss-count-down="countDownChanged"
     >
-        <slot/>
+        <slot />
     </b-alert>
 </template>
 
 <script>
-    export default {
-        name: "PAlert",
-        props: {
-            variant: {
-                type: String,
-                default: 'primary'
-            },
-            dismiss: {
-                type: Number,
-                default: null,
-            }
+export default {
+    name: "PAlert",
+    props: {
+        variant: {
+            type: String,
+            default: "primary",
         },
-        data() {
-            return {
-                dismissSecs: 10,
-                dismissCountDown: 10,
-                showDismissibleAlert: false
-            }
+        dismiss: {
+            type: Number,
+            default: null,
         },
-        created() {
-            if (this.dismiss) {
-                this.dismissSecs = this.dismiss;
-            }
-        },
-        methods: {
-            countDownChanged(dismissCountDown) {
-                this.dismissCountDown = dismissCountDown
-            }
+    },
+    data() {
+        return {
+            dismissSecs: 10,
+            dismissCountDown: 10,
+            showDismissibleAlert: false,
+        };
+    },
+    created() {
+        if (this.dismiss) {
+            this.dismissSecs = this.dismiss;
         }
-    }
+    },
+    methods: {
+        countDownChanged(dismissCountDown) {
+            this.dismissCountDown = dismissCountDown;
+        },
+    },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

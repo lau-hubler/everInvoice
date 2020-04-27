@@ -1,6 +1,10 @@
 <template>
     <ValidationObserver ref="observer" v-slot="{ validate }">
-        <b-form ref="form" v-bind="$attrs" @submit.prevent="validate().then(onSubmit)">
+        <b-form
+            ref="form"
+            v-bind="$attrs"
+            @submit.prevent="validate().then(onSubmit)"
+        >
             <b-row>
                 <input :value="CSRFToken" type="hidden" name="_token" />
                 <b-col cols="3">
@@ -30,7 +34,9 @@
                 <h5 class="text-gray-700 ml-5 mt-2 pl-5">Permissions:</h5>
             </b-row>
             <b-row class="mt-2">
-                <b-col cols="2" class="font-weight-bold text-right">{{ trans('invoice.title')}}:</b-col>
+                <b-col cols="2" class="font-weight-bold text-right"
+                    >{{ trans("invoice.title") }}:</b-col
+                >
                 <b-col>
                     <b-form-checkbox-group
                         id="invoicePermissions"
@@ -40,7 +46,9 @@
                 </b-col>
             </b-row>
             <b-row class="mt-2">
-                <b-col cols="2" class="font-weight-bold text-right">{{ trans('stakeholder.title')}}:</b-col>
+                <b-col cols="2" class="font-weight-bold text-right"
+                    >{{ trans("stakeholder.title") }}:</b-col
+                >
                 <b-col>
                     <b-form-checkbox-group
                         id="stakeholderPermissions"
@@ -50,7 +58,9 @@
                 </b-col>
             </b-row>
             <b-row class="mt-2">
-                <b-col cols="2" class="font-weight-bold text-right">{{ trans('product.title')}}:</b-col>
+                <b-col cols="2" class="font-weight-bold text-right"
+                    >{{ trans("product.title") }}:</b-col
+                >
                 <b-col>
                     <b-form-checkbox-group
                         id="productPermissions"
@@ -60,7 +70,9 @@
                 </b-col>
             </b-row>
             <b-row class="mt-2">
-                <b-col cols="2" class="font-weight-bold text-right">{{ trans('category.title')}}:</b-col>
+                <b-col cols="2" class="font-weight-bold text-right"
+                    >{{ trans("category.title") }}:</b-col
+                >
                 <b-col>
                     <b-form-checkbox-group
                         id="categoryPermissions"
@@ -70,7 +82,9 @@
                 </b-col>
             </b-row>
             <b-row class="mt-2">
-                <b-col cols="2" class="font-weight-bold text-right">Order:</b-col>
+                <b-col cols="2" class="font-weight-bold text-right"
+                    >Order:</b-col
+                >
                 <b-col>
                     <b-form-checkbox-group
                         id="orderPermissions"
@@ -80,7 +94,9 @@
                 </b-col>
             </b-row>
             <b-row class="mt-2">
-                <b-col cols="2" class="font-weight-bold text-right">Role:</b-col>
+                <b-col cols="2" class="font-weight-bold text-right"
+                    >Role:</b-col
+                >
                 <b-col>
                     <b-form-checkbox-group
                         id="rolePermissions"
@@ -89,7 +105,11 @@
                     ></b-form-checkbox-group>
                 </b-col>
             </b-row>
-            <input type="hidden" name="selected" :value="JSON.stringify(selected)">
+            <input
+                type="hidden"
+                name="selected"
+                :value="JSON.stringify(selected)"
+            />
             <b-row class="justify-content-end mx-5">
                 <b-button type="submit" variant="primary">Submit</b-button>
             </b-row>
@@ -114,48 +134,48 @@ export default {
             .content,
         selected: [],
         invoicePermissions: [
-            { text: 'list', value: 'invoice.index' },
-            { text: 'create', value: 'invoice.store' },
-            { text: 'edit', value: 'invoice.update' },
-            { text: 'details', value: 'invoice.show' },
-            { text: 'delete', value: 'invoice.delete' },
-            { text: 'import', value: 'invoice.import' },
-            { text: 'export', value: 'invoice.export' },
+            { text: "list", value: "invoice.index" },
+            { text: "create", value: "invoice.store" },
+            { text: "edit", value: "invoice.update" },
+            { text: "details", value: "invoice.show" },
+            { text: "delete", value: "invoice.delete" },
+            { text: "import", value: "invoice.import" },
+            { text: "export", value: "invoice.export" },
         ],
         stakeholderPermissions: [
-            { text: 'list', value: 'stakeholder.index' },
-            { text: 'create', value: 'stakeholder.store' },
-            { text: 'edit', value: 'stakeholder.update' },
-            { text: 'details', value: 'stakeholder.show' },
-            { text: 'delete', value: 'stakeholder.delete' },
+            { text: "list", value: "stakeholder.index" },
+            { text: "create", value: "stakeholder.store" },
+            { text: "edit", value: "stakeholder.update" },
+            { text: "details", value: "stakeholder.show" },
+            { text: "delete", value: "stakeholder.delete" },
         ],
         productPermissions: [
-            { text: 'list', value: 'product.index' },
-            { text: 'create', value: 'product.store' },
-            { text: 'edit', value: 'product.update' },
-            { text: 'details', value: 'product.show' },
-            { text: 'delete', value: 'product.delete' },
+            { text: "list", value: "product.index" },
+            { text: "create", value: "product.store" },
+            { text: "edit", value: "product.update" },
+            { text: "details", value: "product.show" },
+            { text: "delete", value: "product.delete" },
         ],
         categoryPermissions: [
-            { text: 'list', value: 'category.index' },
-            { text: 'create', value: 'category.store' },
-            { text: 'edit', value: 'category.update' },
-            { text: 'details', value: 'category.show' },
-            { text: 'delete', value: 'category.delete' },
+            { text: "list", value: "category.index" },
+            { text: "create", value: "category.store" },
+            { text: "edit", value: "category.update" },
+            { text: "details", value: "category.show" },
+            { text: "delete", value: "category.delete" },
         ],
         orderPermissions: [
-            { text: 'list', value: 'order.index' },
-            { text: 'create', value: 'order.store' },
-            { text: 'edit', value: 'order.update' },
-            { text: 'details', value: 'order.show' },
-            { text: 'delete', value: 'order.delete' },
+            { text: "list", value: "order.index" },
+            { text: "create", value: "order.store" },
+            { text: "edit", value: "order.update" },
+            { text: "details", value: "order.show" },
+            { text: "delete", value: "order.delete" },
         ],
         rolePermissions: [
-            { text: 'list', value: 'role.index' },
-            { text: 'create', value: 'role.store' },
-            { text: 'edit', value: 'role.update' },
-            { text: 'details', value: 'role.show' },
-            { text: 'delete', value: 'role.delete' },
+            { text: "list", value: "role.index" },
+            { text: "create", value: "role.store" },
+            { text: "edit", value: "role.update" },
+            { text: "details", value: "role.show" },
+            { text: "delete", value: "role.delete" },
         ],
     }),
 
@@ -172,7 +192,7 @@ export default {
     methods: {
         onSubmit() {
             this.$refs.form.submit();
-        }
+        },
     },
 
     created() {
