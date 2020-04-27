@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Product;
 
-
 use App\Product;
 use Illuminate\Cache\CacheManager;
 
@@ -15,7 +14,8 @@ class ProductCacheRepository implements ProductRepositoryInterface
 
     const TTL = 1440; # 1 day
 
-    public function __construct(CacheManager $cache, ProductRepository $repo) {
+    public function __construct(CacheManager $cache, ProductRepository $repo)
+    {
         $this->repo = $repo;
         $this->cache = $cache;
     }

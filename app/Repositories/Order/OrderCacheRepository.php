@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Order;
 
-
 use Illuminate\Cache\CacheManager;
 
 class OrderCacheRepository implements OrderRepositoryInterface
@@ -14,7 +13,8 @@ class OrderCacheRepository implements OrderRepositoryInterface
 
     const TTL = 1440; # 1 day
 
-    public function __construct(CacheManager $cache, OrderRepository $repo) {
+    public function __construct(CacheManager $cache, OrderRepository $repo)
+    {
         $this->repo = $repo;
         $this->cache = $cache;
     }

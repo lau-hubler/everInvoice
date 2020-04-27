@@ -3,7 +3,6 @@
 
 namespace App\Repositories\Stakeholder;
 
-
 use Illuminate\Cache\CacheManager;
 
 class StakeholderCacheRepository implements StakeholderRepositoryInterface
